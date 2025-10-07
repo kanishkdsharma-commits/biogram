@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, Zap, TrendingUp, TrendingDown } from "lucide-react";
+import { Clock, TrendingUp, TrendingDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import VitalTrendChart from "@/components/VitalTrendChart";
 import MedicationDetailsModal from "@/components/MedicationDetailsModal";
+import ActionChecklist from "@/components/ActionChecklist";
 import insightsData from "@/data/insights.json";
 
 export default function HealthSnapshot() {
@@ -27,42 +28,14 @@ export default function HealthSnapshot() {
           <p className="text-muted-foreground">AI-powered insights from your health data</p>
         </div>
 
-        {/* Top Action Items */}
+        {/* AI-Detected Action Checklist */}
         <motion.div
-          className="mb-8 bg-accent/10 border border-accent/20 rounded-xl p-6"
+          className="mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-start space-x-3 mb-4">
-            <div className="flex-shrink-0 w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-              <Zap className="w-5 h-5 text-accent-foreground" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold text-foreground mb-3">Top Actions</h3>
-              <div className="space-y-3">
-                {snapshot.actionItems.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start space-x-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.3 }}
-                    data-testid={`action-item-${index}`}
-                  >
-                    <div className="flex-shrink-0 w-5 h-5 bg-accent rounded-full flex items-center justify-center mt-0.5">
-                      <span className="text-xs font-bold text-accent-foreground">{index + 1}</span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-foreground">
-                        {item.text}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <ActionChecklist actions={snapshot.actionItems as any} />
         </motion.div>
 
         {/* Main Cards Grid */}

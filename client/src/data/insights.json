@@ -9,46 +9,100 @@
   "snapshot": {
     "actionItems": [
       {
-        "text": "Schedule follow-up with cardiologist for hypertension management"
+        "id": "action-1",
+        "text": "Discuss elevated blood pressure (138/88 mmHg) - target is <130/80",
+        "priority": "urgent",
+        "triggerType": "vital",
+        "trigger": "Blood pressure averaging 138/88 mmHg, above target of 130/80",
+        "source": "Hypertension diagnosis + recent vital trends"
       },
       {
-        "text": "Discuss why your blood pressure is still elevated (138/88) despite medication"
+        "id": "action-2",
+        "text": "Review elevated resting heart rate (up 9% this week to 68 bpm)",
+        "priority": "urgent",
+        "triggerType": "wearable",
+        "trigger": "Resting heart rate increased 9% correlating with 15% decline in sleep quality",
+        "source": "Wearable pattern detection"
       },
       {
-        "text": "Ask about the muscle pain you've been experiencing with Atorvastatin"
+        "id": "action-3",
+        "text": "Ask about persistent dry cough - possible Lisinopril side effect",
+        "priority": "urgent",
+        "triggerType": "medication",
+        "trigger": "Common side effect of Lisinopril (persistent dry cough)",
+        "source": "Medication side effect profile"
       },
       {
-        "text": "Review your recent lipid panel results - LDL improved to 112 mg/dL"
+        "id": "action-4",
+        "text": "Discuss Lisinopril dosage adjustment based on BP readings",
+        "priority": "routine",
+        "triggerType": "vital",
+        "trigger": "BP still elevated despite current 20mg dosage",
+        "source": "Blood pressure trends + medication review"
       },
       {
-        "text": "Discuss if Lisinopril dosage needs adjustment based on your readings"
+        "id": "action-5",
+        "text": "Report muscle pain or weakness while taking Atorvastatin",
+        "priority": "urgent",
+        "triggerType": "demographic",
+        "trigger": "Age 58, male - higher risk of muscle-related side effects with statins",
+        "source": "Demographic risk assessment"
       },
       {
-        "text": "Ask about the interaction between your Aspirin and blood pressure medication"
+        "id": "action-6",
+        "text": "Review kidney function (eGFR >60) - important for Metformin safety",
+        "priority": "routine",
+        "triggerType": "demographic",
+        "trigger": "Age 58 - kidney function monitoring recommended for patients over 50 on Metformin",
+        "source": "Age-based medication monitoring"
       },
       {
-        "text": "Review your A1C results (6.8%) and if diabetes management plan should change"
+        "id": "action-7",
+        "text": "Discuss Aspirin interaction with Lisinopril (may reduce BP-lowering effect)",
+        "priority": "routine",
+        "triggerType": "medication",
+        "trigger": "Medium severity drug interaction detected between Aspirin and Lisinopril",
+        "source": "Drug interaction analysis"
       },
       {
-        "text": "Discuss the dry cough you're experiencing - could it be from Lisinopril?"
+        "id": "action-8",
+        "text": "Review A1C result of 6.8% - close to target of <7%",
+        "priority": "follow-up",
+        "triggerType": "vital",
+        "trigger": "A1C at 6.8%, within target range but could be optimized",
+        "source": "Lab results from December 28"
       },
       {
-        "text": "Ask about your elevated resting heart rate (up 9%) and reduced sleep quality"
+        "id": "action-9",
+        "text": "Celebrate LDL improvement - down 23% to 112 mg/dL with Atorvastatin",
+        "priority": "follow-up",
+        "triggerType": "vital",
+        "trigger": "LDL cholesterol decreased from 145 to 112 mg/dL (23% improvement)",
+        "source": "Positive lipid panel trend"
       },
       {
-        "text": "Review kidney function tests since you're over 50 and taking Metformin"
+        "id": "action-10",
+        "text": "Address poor sleep quality (down 15%) affecting heart rate and stress",
+        "priority": "routine",
+        "triggerType": "wearable",
+        "trigger": "Sleep quality decreased 15% with correlated rise in resting heart rate next day",
+        "source": "AI correlation: Sleep decline → HR increase"
       },
       {
-        "text": "Discuss symptoms to watch for with your current medication combination"
+        "id": "action-11",
+        "text": "Ask about nausea from Metformin - common early side effect",
+        "priority": "routine",
+        "triggerType": "medication",
+        "trigger": "Nausea is common side effect of Metformin (likelihood: common, severity: low)",
+        "source": "Medication side effect profile"
       },
       {
-        "text": "Ask if the nausea from Metformin will improve or if alternatives exist"
-      },
-      {
-        "text": "Review your eGFR results from the last metabolic panel"
-      },
-      {
-        "text": "Discuss when to call the doctor if side effects worsen"
+        "id": "action-12",
+        "text": "Verify blood glucose trends (avg 118 mg/dL, down 5%)",
+        "priority": "follow-up",
+        "triggerType": "wearable",
+        "trigger": "Average blood glucose down 5% - Metformin working well",
+        "source": "Positive wearable insight"
       }
     ],
     "diagnoses": [
