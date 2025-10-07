@@ -1,0 +1,286 @@
+{
+  "snapshot": {
+    "actionItems": [
+      {
+        "text": "Schedule follow-up with cardiologist for hypertension management",
+        "jargonTerms": [
+          {
+            "term": "cardiologist",
+            "definition": "A doctor who specializes in diagnosing and treating diseases of the heart and blood vessels."
+          },
+          {
+            "term": "hypertension",
+            "definition": "High blood pressure - when the force of blood against artery walls is consistently too high (typically 140/90 mmHg or higher)."
+          }
+        ]
+      },
+      {
+        "text": "Refill prescription for Metformin (expires in 5 days)",
+        "jargonTerms": [
+          {
+            "term": "Metformin",
+            "definition": "A medication used to treat type 2 diabetes by lowering blood sugar levels. It helps your body use insulin more effectively."
+          }
+        ]
+      },
+      {
+        "text": "Review recent lipid panel results with your doctor",
+        "jargonTerms": [
+          {
+            "term": "lipid panel",
+            "definition": "A blood test that measures cholesterol levels including total cholesterol, LDL (bad cholesterol), HDL (good cholesterol), and triglycerides."
+          }
+        ]
+      }
+    ],
+    "diagnoses": [
+      {
+        "name": "Type 2 Diabetes Mellitus",
+        "description": "A chronic condition where your body doesn't use insulin properly, leading to high blood sugar levels. Managed through diet, exercise, and medication.",
+        "diagnosedDate": "March 2019",
+        "status": "well-controlled",
+        "lastMetric": "Last A1C: 6.8% (Target: <7%)"
+      },
+      {
+        "name": "Hypertension",
+        "description": "High blood pressure - when the force of blood against artery walls is consistently too high (typically 140/90 mmHg or higher).",
+        "diagnosedDate": "January 2020",
+        "status": "needs attention",
+        "lastMetric": "Avg BP: 138/88 mmHg (Target: <130/80)"
+      },
+      {
+        "name": "Hyperlipidemia",
+        "description": "High levels of fats (lipids) in the blood, including cholesterol and triglycerides. Can increase risk of heart disease.",
+        "diagnosedDate": "March 2019",
+        "status": "improving",
+        "lastMetric": "LDL: 112 mg/dL (down from 145)"
+      }
+    ],
+    "medications": [
+      {
+        "name": "Metformin",
+        "dosage": "1000mg",
+        "instructions": "Twice daily with meals",
+        "needsRefill": false,
+        "jargonTerm": {
+          "definition": "A medication used to treat type 2 diabetes by lowering blood sugar levels. It helps your body use insulin more effectively."
+        }
+      },
+      {
+        "name": "Lisinopril",
+        "dosage": "20mg",
+        "instructions": "Once daily in morning",
+        "needsRefill": false
+      },
+      {
+        "name": "Atorvastatin",
+        "dosage": "40mg",
+        "instructions": "Once daily at bedtime",
+        "needsRefill": false
+      },
+      {
+        "name": "Aspirin",
+        "dosage": "81mg",
+        "instructions": "Once daily with breakfast",
+        "needsRefill": false
+      },
+      {
+        "name": "Metformin",
+        "dosage": "1000mg",
+        "instructions": "Expires in 5 days - Refill needed",
+        "needsRefill": true,
+        "jargonTerm": {
+          "definition": "A medication used to treat type 2 diabetes by lowering blood sugar levels. It helps your body use insulin more effectively."
+        }
+      }
+    ],
+    "vitalTrends": [
+      {
+        "name": "Blood Pressure",
+        "currentValue": "138/88",
+        "unit": "mmHg avg",
+        "trend": "up",
+        "changePercent": "+3%",
+        "color": "hsl(var(--accent))",
+        "sparklineData": [30, 28, 32, 35, 38, 42, 45, 48]
+      },
+      {
+        "name": "Blood Glucose",
+        "currentValue": "118",
+        "unit": "mg/dL avg",
+        "trend": "down",
+        "changePercent": "-5%",
+        "color": "hsl(var(--secondary))",
+        "sparklineData": [35, 33, 30, 28, 26, 24, 22, 20]
+      },
+      {
+        "name": "LDL Cholesterol",
+        "currentValue": "112",
+        "unit": "mg/dL",
+        "trend": "down",
+        "changePercent": "-23%",
+        "color": "hsl(var(--primary))",
+        "sparklineData": [45, 42, 38, 32, 28, 25, 20, 18]
+      }
+    ]
+  },
+  "timeline": {
+    "events": [
+      {
+        "type": "visit",
+        "title": "Cardiology Follow-Up",
+        "date": "January 15, 2024",
+        "badge": "Recent",
+        "description": "Routine follow-up for hypertension management. Blood pressure readings show improvement with current medication regimen.",
+        "provider": "Dr. Emily Chen",
+        "location": "Valley Medical Center"
+      },
+      {
+        "type": "lab",
+        "title": "Comprehensive Metabolic Panel",
+        "date": "December 28, 2023",
+        "badge": "Lab",
+        "description": "Regular monitoring of blood glucose, kidney function, and overall metabolic health status.",
+        "jargonTerms": [
+          {
+            "term": "Metabolic Panel",
+            "definition": "A group of blood tests that measure various substances in your blood, including glucose, electrolytes, and kidney function markers."
+          }
+        ],
+        "metrics": [
+          { "name": "Glucose", "value": "105 mg/dL", "status": "Normal" },
+          { "name": "Creatinine", "value": "0.9 mg/dL", "status": "Normal" },
+          { "name": "A1C", "value": "6.8%", "status": "Target met" },
+          { "name": "eGFR", "value": ">60", "status": "Normal" }
+        ]
+      },
+      {
+        "type": "emergency",
+        "title": "Emergency Room Visit",
+        "date": "October 12, 2023",
+        "badge": "Critical Event",
+        "description": "Presented with chest pain and shortness of breath. Cardiac workup negative for acute coronary syndrome. Diagnosed with anxiety-related symptoms.",
+        "provider": "Dr. Sarah Martinez",
+        "location": "City General Hospital",
+        "details": [
+          {
+            "time": "8:45 PM",
+            "event": "Arrival via ambulance"
+          },
+          {
+            "time": "9:00 PM",
+            "event": "EKG performed - Normal sinus rhythm"
+          },
+          {
+            "time": "9:30 PM",
+            "event": "Troponin levels drawn - Negative",
+            "jargonTerm": {
+              "term": "Troponin",
+              "definition": "A protein released when heart muscle is damaged. Used to diagnose heart attacks."
+            }
+          },
+          {
+            "time": "11:15 PM",
+            "event": "Discharged with follow-up instructions"
+          }
+        ],
+        "outcome": "No cardiac event detected. Recommended stress management and follow-up with primary care."
+      },
+      {
+        "type": "medication",
+        "title": "Medication Adjustment",
+        "date": "September 5, 2023",
+        "badge": "Medication",
+        "description": "Atorvastatin dosage increased from 20mg to 40mg to better manage cholesterol levels."
+      },
+      {
+        "type": "visit",
+        "title": "Annual Physical Examination",
+        "date": "June 20, 2023",
+        "badge": "Checkup",
+        "description": "Comprehensive annual physical. All vitals within normal range. Diabetes and hypertension management discussed.",
+        "provider": "Dr. Michael Thompson",
+        "location": "Family Health Clinic",
+        "metrics": [
+          { "name": "Weight", "value": "178 lbs", "status": "Stable" },
+          { "name": "BP", "value": "135/85", "status": "Elevated" },
+          { "name": "BMI", "value": "26.8", "status": "Overweight" }
+        ]
+      },
+      {
+        "type": "visit",
+        "title": "Cardiology Referral",
+        "date": "March 15, 2023",
+        "badge": "Referral",
+        "description": "Referred to cardiology for elevated blood pressure and family history of cardiovascular disease."
+      },
+      {
+        "type": "visit",
+        "title": "Initial Diabetes Diagnosis",
+        "date": "January 10, 2020",
+        "badge": "Diagnosis",
+        "description": "Type 2 Diabetes diagnosed following elevated fasting glucose and A1C test. Treatment plan initiated."
+      },
+      {
+        "type": "visit",
+        "title": "First Recorded Visit",
+        "date": "March 5, 2019",
+        "badge": "Baseline",
+        "description": "Initial comprehensive health assessment. All baseline measurements recorded for future comparison."
+      }
+    ]
+  },
+  "wearables": {
+    "aiInsight": {
+      "description": "Your sleep quality decreased by 15% this week. This correlates with increased stress markers and elevated resting heart rate (+9%) the following days.",
+      "correlation": "↓ Sleep → ↑ Resting HR next day (+9%)"
+    },
+    "metrics": {
+      "heartRate": {
+        "current": 68,
+        "changePercent": "+9% vs last week",
+        "range": "58-76 bpm",
+        "sparklineData": [62, 63, 60, 65, 70, 73, 76, 68]
+      },
+      "steps": {
+        "current": 8547,
+        "goal": 10000,
+        "weeklyAverage": 7892,
+        "sparklineData": [8500, 7800, 9200, 6500, 8900, 9500, 8547]
+      },
+      "sleep": {
+        "current": 6.2,
+        "changePercent": "-15% vs last week",
+        "deepSleep": "1.8 hrs (29%)",
+        "sparklineData": [7.2, 7.5, 6.8, 5.9, 6.1, 5.8, 6.2]
+      }
+    },
+    "detailedAnalysis": [
+      {
+        "title": "Heart Rate Variability (HRV)",
+        "subtitle": "Higher is generally better for recovery",
+        "value": "52 ms",
+        "percentage": 65,
+        "range": { "min": "Poor", "max": "Excellent" },
+        "color": "bg-gradient-to-r from-accent to-secondary"
+      },
+      {
+        "title": "Active Minutes",
+        "subtitle": "Weekly goal: 150 minutes",
+        "value": "127",
+        "percentage": 84.6,
+        "range": { "min": "0 min", "max": "150 min" },
+        "color": "bg-secondary"
+      }
+    ],
+    "weeklyCalories": [
+      { "day": "Mon", "percentage": 75 },
+      { "day": "Tue", "percentage": 80 },
+      { "day": "Wed", "percentage": 66 },
+      { "day": "Thu", "percentage": 83 },
+      { "day": "Fri", "percentage": 50 },
+      { "day": "Sat", "percentage": 60 },
+      { "day": "Sun", "percentage": 100 }
+    ]
+  }
+}
