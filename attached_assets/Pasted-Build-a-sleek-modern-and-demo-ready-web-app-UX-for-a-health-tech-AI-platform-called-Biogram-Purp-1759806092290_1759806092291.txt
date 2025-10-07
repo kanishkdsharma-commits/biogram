@@ -1,0 +1,33 @@
+Build a sleek, modern, and demo-ready web app UX for a health-tech AI platform called Biogram.
+
+Purpose:
+Biogram transforms fragmented medical data into clear, personalized insights. It uses AI to read through electronic health records (EHRs), integrate wearable data, and create a health story — a timeline, summary, and set of actionable insights that help users understand and manage their health.
+
+Core Features to Visualize:
+	1.	Dashboard / Home: Displays an AI-generated “Health Snapshot” with major diagnoses, medications, vital trends, and top action items.
+	2.	Health Timeline: Interactive chronological view of key events — hospitalizations, labs, visits, and wearable metrics.
+	3.	Wearable Insights Panel: Shows real-time data (heart rate, steps, sleep) with AI-derived insights (“Your sleep dipped 15% this week — correlated with stress markers”).
+	4.	Jargon Translator: Converts medical language into layman’s terms via hover or click.
+	5.	Data Security Section: Placeholder for HIPAA-compliant encryption and privacy info.
+
+Design Goals:
+	•	Friendly and futuristic — think “Notion meets Apple Health.”
+	•	Use a clean blue/teal palette suggesting trust and intelligence.
+	•	Typography: modern sans serif (Inter, Roboto, or SF Pro).
+	•	Include subtle animations for smooth transitions during demo.
+
+Context for Pitch:
+	•	Opens with: “Who’s used MyChart or FollowMyHealth? Keep your hand up if you actually understood what you were looking at.”
+	•	Emphasize the pain point: our health system is fragmented and disorganized, built around institutions instead of people.
+	•	Highlight the solution: Biogram organizes healthcare data around the user. It does what MyChart doesn’t — it makes data human.
+
+Strategic Notes:
+	•	HIPAA compliance will be addressed in later versions.
+	•	Early growth strategy: partner with small clinical practices that benefit from patient summaries and can motivate users to onboard.
+
+Deliverables:
+	•	Responsive, clickable UX prototype (React or HTML).
+	•	Mock data showing example health summary and wearable feed.
+	•	Interactive “Insight cards,” “Timeline,” and “Translate Jargon” features.
+
+The final design should feel polished, intuitive, and inspiring — ready for a 3-minute live pitch that shows how AI can turn data overload into health literacy.
