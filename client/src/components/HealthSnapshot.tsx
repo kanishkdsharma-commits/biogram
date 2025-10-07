@@ -1,14 +1,16 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Zap, TrendingUp, TrendingDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import JargonTooltip from "@/components/JargonTooltip";
 import VitalTrendChart from "@/components/VitalTrendChart";
+import MedicationDetailsModal from "@/components/MedicationDetailsModal";
 import insightsData from "@/data/insights.json";
 
 export default function HealthSnapshot() {
   const { snapshot } = insightsData;
+  const [selectedMedication, setSelectedMedication] = useState<any | null>(null);
 
   return (
     <section className="p-8">
@@ -53,17 +55,7 @@ export default function HealthSnapshot() {
                     </div>
                     <div className="flex-1">
                       <p className="text-sm text-foreground">
-                        {item.text.split(' ').map((word, wordIndex) => {
-                          const tooltip = item.jargonTerms?.find(term => term.term.toLowerCase() === word.toLowerCase());
-                          if (tooltip) {
-                            return (
-                              <JargonTooltip key={wordIndex} term={tooltip.term} definition={tooltip.definition}>
-                                {word}
-                              </JargonTooltip>
-                            );
-                          }
-                          return word + ' ';
-                        })}
+                        {item.text}
                       </p>
                     </div>
                   </motion.div>
@@ -102,9 +94,7 @@ export default function HealthSnapshot() {
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
                           <h4 className="font-medium text-foreground">
-                            <JargonTooltip term={diagnosis.name} definition={diagnosis.description}>
-                              {diagnosis.name}
-                            </JargonTooltip>
+                            {diagnosis.name}
                           </h4>
                           <p className="text-sm text-muted-foreground mt-1">
                             Diagnosed: {diagnosis.diagnosedDate}
@@ -148,32 +138,35 @@ export default function HealthSnapshot() {
                   {snapshot.medications.map((medication, index) => (
                     <motion.div
                       key={index}
-                      className={`flex items-center justify-between p-3 rounded-lg ${
+                      className={`flex items-center justify-between p-3 rounded-lg cursor-pointer hover:shadow-md transition-shadow ${
                         medication.needsRefill ? 'bg-accent/10 border border-accent/20' : 'bg-muted'
                       }`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
                       data-testid={`medication-${index}`}
+                      onClick={() => setSelectedMedication(medication)}
                     >
                       <div className="flex-1">
                         <h4 className="font-medium text-sm text-foreground">
-                          {medication.jargonTerm ? (
-                            <JargonTooltip term={medication.name} definition={medication.jargonTerm.definition}>
-                              {medication.name}
-                            </JargonTooltip>
-                          ) : (
-                            medication.name
-                          )} {medication.dosage}
+                          {medication.name} {medication.dosage}
                         </h4>
                         <p className={`text-xs mt-1 ${
                           medication.needsRefill ? 'text-accent' : 'text-muted-foreground'
                         }`}>
                           {medication.needsRefill ? `⚠️ ${medication.instructions}` : medication.instructions}
                         </p>
+                        <p className="text-xs mt-1 text-primary">Click for detailed interaction info →</p>
                       </div>
                       {medication.needsRefill ? (
-                        <Button size="sm" className="text-xs" data-testid={`refill-${index}`}>
+                        <Button 
+                          size="sm" 
+                          className="text-xs" 
+                          data-testid={`refill-${index}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
                           Refill
                         </Button>
                       ) : (
@@ -233,6 +226,15 @@ export default function HealthSnapshot() {
           </Card>
         </motion.div>
       </div>
+
+      {/* Medication Details Modal */}
+      {selectedMedication && (
+        <MedicationDetailsModal
+          isOpen={!!selectedMedication}
+          onClose={() => setSelectedMedication(null)}
+          medication={selectedMedication}
+        />
+      )}
     </section>
   );
 }

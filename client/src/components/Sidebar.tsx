@@ -1,20 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { Home, Clock, Activity, Shield, HelpCircle } from "lucide-react";
+import { Home, Clock, Activity, Shield } from "lucide-react";
 
 interface SidebarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
   onToggleSecurity: () => void;
-  onToggleJargon: () => void;
-  isJargonActive: boolean;
 }
 
 export default function Sidebar({
   activeSection,
   onSectionChange,
   onToggleSecurity,
-  onToggleJargon,
-  isJargonActive,
 }: SidebarProps) {
   const navigationItems = [
     { id: "snapshot", label: "Health Snapshot", icon: Home, shortcut: "1" },
@@ -61,23 +57,6 @@ export default function Sidebar({
             </Button>
           );
         })}
-
-        <div className="pt-4 mt-4 border-t border-border">
-          <Button
-            variant="ghost"
-            className={`w-full justify-between h-12 px-4 ${
-              isJargonActive ? "section-active" : ""
-            }`}
-            onClick={onToggleJargon}
-            data-testid="jargon-toggle"
-          >
-            <div className="flex items-center space-x-3">
-              <HelpCircle className="w-5 h-5" />
-              <span className="font-medium">Jargon Translator</span>
-            </div>
-            <span className="kbd">T</span>
-          </Button>
-        </div>
       </nav>
 
       {/* User Profile */}

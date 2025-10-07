@@ -10,21 +10,15 @@ import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("snapshot");
   const [isSecurityDrawerOpen, setIsSecurityDrawerOpen] = useState(false);
-  const [isJargonModeActive, setIsJargonModeActive] = useState(false);
 
   useKeyboardShortcuts({
     onSection1: () => setActiveSection("snapshot"),
     onSection2: () => setActiveSection("timeline"),
     onSection3: () => setActiveSection("wearables"),
-    onToggleJargon: () => setIsJargonModeActive(prev => !prev),
   });
 
   const toggleSecurityDrawer = () => {
     setIsSecurityDrawerOpen(prev => !prev);
-  };
-
-  const toggleJargonMode = () => {
-    setIsJargonModeActive(prev => !prev);
   };
 
   const renderActiveSection = () => {
@@ -41,13 +35,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className={`flex h-screen overflow-hidden ${isJargonModeActive ? 'jargon-active' : ''}`}>
+    <div className="flex h-screen overflow-hidden">
       <Sidebar
         activeSection={activeSection}
         onSectionChange={setActiveSection}
         onToggleSecurity={toggleSecurityDrawer}
-        onToggleJargon={toggleJargonMode}
-        isJargonActive={isJargonModeActive}
       />
       
       <main className="flex-1 overflow-y-auto bg-background">
@@ -95,10 +87,6 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <span>Wearables</span>
                 <span className="kbd ml-2">3</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Jargon Mode</span>
-                <span className="kbd ml-2">T</span>
               </div>
             </div>
           </div>

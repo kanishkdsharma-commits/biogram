@@ -1,36 +1,54 @@
 {
+  "patient": {
+    "age": 58,
+    "gender": "Male",
+    "weight": 178,
+    "weightUnit": "lbs",
+    "allergies": ["Penicillin", "Sulfa drugs"]
+  },
   "snapshot": {
     "actionItems": [
       {
-        "text": "Schedule follow-up with cardiologist for hypertension management",
-        "jargonTerms": [
-          {
-            "term": "cardiologist",
-            "definition": "A doctor who specializes in diagnosing and treating diseases of the heart and blood vessels."
-          },
-          {
-            "term": "hypertension",
-            "definition": "High blood pressure - when the force of blood against artery walls is consistently too high (typically 140/90 mmHg or higher)."
-          }
-        ]
+        "text": "Schedule follow-up with cardiologist for hypertension management"
       },
       {
-        "text": "Refill prescription for Metformin (expires in 5 days)",
-        "jargonTerms": [
-          {
-            "term": "Metformin",
-            "definition": "A medication used to treat type 2 diabetes by lowering blood sugar levels. It helps your body use insulin more effectively."
-          }
-        ]
+        "text": "Discuss why your blood pressure is still elevated (138/88) despite medication"
       },
       {
-        "text": "Review recent lipid panel results with your doctor",
-        "jargonTerms": [
-          {
-            "term": "lipid panel",
-            "definition": "A blood test that measures cholesterol levels including total cholesterol, LDL (bad cholesterol), HDL (good cholesterol), and triglycerides."
-          }
-        ]
+        "text": "Ask about the muscle pain you've been experiencing with Atorvastatin"
+      },
+      {
+        "text": "Review your recent lipid panel results - LDL improved to 112 mg/dL"
+      },
+      {
+        "text": "Discuss if Lisinopril dosage needs adjustment based on your readings"
+      },
+      {
+        "text": "Ask about the interaction between your Aspirin and blood pressure medication"
+      },
+      {
+        "text": "Review your A1C results (6.8%) and if diabetes management plan should change"
+      },
+      {
+        "text": "Discuss the dry cough you're experiencing - could it be from Lisinopril?"
+      },
+      {
+        "text": "Ask about your elevated resting heart rate (up 9%) and reduced sleep quality"
+      },
+      {
+        "text": "Review kidney function tests since you're over 50 and taking Metformin"
+      },
+      {
+        "text": "Discuss symptoms to watch for with your current medication combination"
+      },
+      {
+        "text": "Ask if the nausea from Metformin will improve or if alternatives exist"
+      },
+      {
+        "text": "Review your eGFR results from the last metabolic panel"
+      },
+      {
+        "text": "Discuss when to call the doctor if side effects worsen"
       }
     ],
     "diagnoses": [
@@ -62,36 +80,230 @@
         "dosage": "1000mg",
         "instructions": "Twice daily with meals",
         "needsRefill": false,
-        "jargonTerm": {
-          "definition": "A medication used to treat type 2 diabetes by lowering blood sugar levels. It helps your body use insulin more effectively."
-        }
+        "purpose": "Controls blood sugar levels in Type 2 Diabetes",
+        "interactions": [
+          {
+            "type": "drug-drug",
+            "severity": "medium",
+            "interactsWith": "Lisinopril",
+            "warning": "May increase risk of low blood sugar when combined with blood pressure medications",
+            "whatToWatch": "Dizziness, shakiness, confusion, excessive sweating"
+          }
+        ],
+        "sideEffects": [
+          {
+            "effect": "Nausea or stomach upset",
+            "likelihood": "common",
+            "severity": "low"
+          },
+          {
+            "effect": "Diarrhea",
+            "likelihood": "common",
+            "severity": "low"
+          },
+          {
+            "effect": "Lactic acidosis (rare but serious)",
+            "likelihood": "rare",
+            "severity": "high"
+          }
+        ],
+        "demographicRisks": [
+          {
+            "factor": "Age 58",
+            "risk": "low",
+            "note": "Kidney function should be monitored regularly in patients over 50"
+          }
+        ],
+        "wearableInsights": [
+          {
+            "metric": "Blood Glucose",
+            "status": "improving",
+            "note": "Your average blood glucose is down 5% - medication is working well"
+          }
+        ],
+        "conditionWarnings": [
+          {
+            "condition": "Type 2 Diabetes Mellitus",
+            "note": "Primary medication for your diabetes - continue as prescribed"
+          }
+        ]
       },
       {
         "name": "Lisinopril",
         "dosage": "20mg",
         "instructions": "Once daily in morning",
-        "needsRefill": false
+        "needsRefill": false,
+        "purpose": "Manages high blood pressure and protects heart",
+        "interactions": [
+          {
+            "type": "drug-drug",
+            "severity": "medium",
+            "interactsWith": "Aspirin",
+            "warning": "Aspirin may reduce the blood pressure-lowering effect of Lisinopril",
+            "whatToWatch": "Monitor your blood pressure readings regularly"
+          },
+          {
+            "type": "drug-drug",
+            "severity": "low",
+            "interactsWith": "Metformin",
+            "warning": "May enhance blood sugar lowering effects",
+            "whatToWatch": "Signs of low blood sugar"
+          }
+        ],
+        "sideEffects": [
+          {
+            "effect": "Persistent dry cough",
+            "likelihood": "common",
+            "severity": "low"
+          },
+          {
+            "effect": "Dizziness or lightheadedness",
+            "likelihood": "common",
+            "severity": "medium"
+          },
+          {
+            "effect": "Elevated potassium levels",
+            "likelihood": "uncommon",
+            "severity": "medium"
+          }
+        ],
+        "demographicRisks": [
+          {
+            "factor": "Male, Age 58",
+            "risk": "low",
+            "note": "Generally well-tolerated in this demographic"
+          }
+        ],
+        "wearableInsights": [
+          {
+            "metric": "Blood Pressure",
+            "status": "needs attention",
+            "note": "Your average BP is 138/88, still slightly elevated - may need dosage adjustment"
+          },
+          {
+            "metric": "Resting Heart Rate",
+            "status": "elevated",
+            "note": "Your resting heart rate is up 9% this week, which may indicate stress affecting BP control"
+          }
+        ],
+        "conditionWarnings": [
+          {
+            "condition": "Hypertension",
+            "note": "Current dosage may need adjustment based on recent BP readings"
+          }
+        ]
       },
       {
         "name": "Atorvastatin",
         "dosage": "40mg",
         "instructions": "Once daily at bedtime",
-        "needsRefill": false
+        "needsRefill": false,
+        "purpose": "Lowers cholesterol to reduce heart disease risk",
+        "interactions": [
+          {
+            "type": "drug-drug",
+            "severity": "medium",
+            "interactsWith": "Multiple medications",
+            "warning": "Can interact with certain antibiotics and antifungals - inform all doctors you're taking this",
+            "whatToWatch": "Unexplained muscle pain or weakness"
+          }
+        ],
+        "sideEffects": [
+          {
+            "effect": "Muscle pain or weakness",
+            "likelihood": "common",
+            "severity": "medium"
+          },
+          {
+            "effect": "Elevated liver enzymes",
+            "likelihood": "uncommon",
+            "severity": "medium"
+          },
+          {
+            "effect": "Memory problems or confusion",
+            "likelihood": "rare",
+            "severity": "low"
+          }
+        ],
+        "demographicRisks": [
+          {
+            "factor": "Age 58, Male",
+            "risk": "medium",
+            "note": "Higher risk of muscle-related side effects in older adults - report any muscle pain immediately"
+          }
+        ],
+        "wearableInsights": [
+          {
+            "metric": "LDL Cholesterol",
+            "status": "improving",
+            "note": "LDL down 23% to 112 mg/dL - excellent progress with current dose"
+          },
+          {
+            "metric": "Active Minutes",
+            "status": "good",
+            "note": "Regular activity (127 min/week) helps maximize cholesterol medication effectiveness"
+          }
+        ],
+        "conditionWarnings": [
+          {
+            "condition": "Hyperlipidemia",
+            "note": "Dosage increased from 20mg to 40mg in September - monitoring shows good response"
+          }
+        ]
       },
       {
         "name": "Aspirin",
         "dosage": "81mg",
         "instructions": "Once daily with breakfast",
-        "needsRefill": false
-      },
-      {
-        "name": "Metformin",
-        "dosage": "1000mg",
-        "instructions": "Expires in 5 days - Refill needed",
-        "needsRefill": true,
-        "jargonTerm": {
-          "definition": "A medication used to treat type 2 diabetes by lowering blood sugar levels. It helps your body use insulin more effectively."
-        }
+        "needsRefill": false,
+        "purpose": "Prevents blood clots and reduces heart attack risk",
+        "interactions": [
+          {
+            "type": "drug-drug",
+            "severity": "medium",
+            "interactsWith": "Lisinopril",
+            "warning": "May reduce effectiveness of blood pressure medication",
+            "whatToWatch": "Check blood pressure regularly"
+          },
+          {
+            "type": "drug-drug",
+            "severity": "high",
+            "interactsWith": "Blood thinners (if prescribed)",
+            "warning": "Significantly increases bleeding risk when combined with other blood thinners",
+            "whatToWatch": "Unusual bruising, blood in stool or urine, prolonged bleeding from cuts"
+          }
+        ],
+        "sideEffects": [
+          {
+            "effect": "Stomach irritation or heartburn",
+            "likelihood": "common",
+            "severity": "low"
+          },
+          {
+            "effect": "Easy bruising",
+            "likelihood": "common",
+            "severity": "low"
+          },
+          {
+            "effect": "Gastrointestinal bleeding",
+            "likelihood": "rare",
+            "severity": "high"
+          }
+        ],
+        "demographicRisks": [
+          {
+            "factor": "Age 58",
+            "risk": "medium",
+            "note": "Increased bleeding risk with age - take with food to reduce stomach irritation"
+          }
+        ],
+        "wearableInsights": [],
+        "conditionWarnings": [
+          {
+            "condition": "Cardiovascular risk factors",
+            "note": "Prescribed for heart disease prevention given diabetes, hypertension, and cholesterol history"
+          }
+        ]
       }
     ],
     "vitalTrends": [

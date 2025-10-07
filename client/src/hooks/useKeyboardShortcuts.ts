@@ -4,14 +4,12 @@ interface KeyboardShortcutsProps {
   onSection1: () => void;
   onSection2: () => void;
   onSection3: () => void;
-  onToggleJargon: () => void;
 }
 
 export default function useKeyboardShortcuts({
   onSection1,
   onSection2,
   onSection3,
-  onToggleJargon,
 }: KeyboardShortcutsProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -37,11 +35,6 @@ export default function useKeyboardShortcuts({
           e.preventDefault();
           onSection3();
           break;
-        case "t":
-        case "T":
-          e.preventDefault();
-          onToggleJargon();
-          break;
         default:
           break;
       }
@@ -49,5 +42,5 @@ export default function useKeyboardShortcuts({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [onSection1, onSection2, onSection3, onToggleJargon]);
+  }, [onSection1, onSection2, onSection3]);
 }
