@@ -5,6 +5,7 @@ import HealthSnapshot from "@/components/HealthSnapshot";
 import HealthTimeline from "@/components/HealthTimeline";
 import WearableInsights from "@/components/WearableInsights";
 import SecurityDrawer from "@/components/SecurityDrawer";
+import QuickNoteButton from "@/components/QuickNoteButton";
 import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
 
 export default function Dashboard() {
@@ -60,6 +61,9 @@ export default function Dashboard() {
         isOpen={isSecurityDrawerOpen}
         onClose={() => setIsSecurityDrawerOpen(false)}
       />
+
+      {/* Quick Note Floating Button */}
+      <QuickNoteButton />
 
       {/* Keyboard Shortcuts Hint */}
       <motion.div 
