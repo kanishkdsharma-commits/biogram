@@ -8,6 +8,7 @@ import SecurityDrawer from "@/components/SecurityDrawer";
 import QuickNoteButton from "@/components/QuickNoteButton";
 import NotificationCenter from "@/components/NotificationCenter";
 import PrepareForAppointmentModal from "@/components/PrepareForAppointmentModal";
+import ShareWithProviderModal from "@/components/ShareWithProviderModal";
 import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
 
 export default function Dashboard() {
@@ -55,6 +56,7 @@ export default function Dashboard() {
               {activeSection === "wearables" && "Wearable Insights"}
             </h2>
             <div className="flex items-center gap-2">
+              <ShareWithProviderModal />
               <PrepareForAppointmentModal />
             </div>
           </div>
