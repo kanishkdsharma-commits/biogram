@@ -6,6 +6,7 @@ import HealthTimeline from "@/components/HealthTimeline";
 import WearableInsights from "@/components/WearableInsights";
 import SecurityDrawer from "@/components/SecurityDrawer";
 import QuickNoteButton from "@/components/QuickNoteButton";
+import NotificationCenter from "@/components/NotificationCenter";
 import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
 
 export default function Dashboard() {
@@ -61,6 +62,9 @@ export default function Dashboard() {
         isOpen={isSecurityDrawerOpen}
         onClose={() => setIsSecurityDrawerOpen(false)}
       />
+
+      {/* Notification Center */}
+      <NotificationCenter />
 
       {/* Quick Note Floating Button */}
       <QuickNoteButton />
