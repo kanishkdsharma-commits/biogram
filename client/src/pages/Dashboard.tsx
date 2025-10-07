@@ -7,6 +7,7 @@ import WearableInsights from "@/components/WearableInsights";
 import SecurityDrawer from "@/components/SecurityDrawer";
 import QuickNoteButton from "@/components/QuickNoteButton";
 import NotificationCenter from "@/components/NotificationCenter";
+import PrepareForAppointmentModal from "@/components/PrepareForAppointmentModal";
 import useKeyboardShortcuts from "@/hooks/useKeyboardShortcuts";
 
 export default function Dashboard() {
@@ -45,6 +46,20 @@ export default function Dashboard() {
       />
       
       <main className="flex-1 overflow-y-auto bg-background">
+        {/* Action Bar */}
+        <div className="sticky top-0 z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+          <div className="flex items-center justify-between px-6 py-3">
+            <h2 className="text-xl font-semibold">
+              {activeSection === "snapshot" && "Health Snapshot"}
+              {activeSection === "timeline" && "Health Timeline"}
+              {activeSection === "wearables" && "Wearable Insights"}
+            </h2>
+            <div className="flex items-center gap-2">
+              <PrepareForAppointmentModal />
+            </div>
+          </div>
+        </div>
+
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSection}
