@@ -1,0 +1,229 @@
+🫀 Cardiovascular & Vitals
+
+Heart rate (current / average / resting / walking average)
+
+Heart-rate zones (warm-up, fat-burn, cardio, peak)
+
+Heart-rate recovery (post-exercise)
+
+Heart-rate variability (HRV, ms)
+
+Cardio Fitness (estimated VO₂ max)
+
+ECG recordings (from Apple Watch Series 4+)
+
+Blood oxygen saturation (SpO₂ %)
+
+Wrist temperature deviation (overnight)
+
+Respiratory rate (breaths per min)
+
+Blood pressure (if entered manually or synced device)
+
+Body temperature (if logged from external sensor)
+
+Pulse ox trends (rest vs sleep vs altitude)
+
+🧠 Recovery / Stress / Energy Balance (Bevel + Apple Watch)
+
+Daily recovery score (Bevel)
+
+Strain or training load (Bevel & Apple Training Load)
+
+7-day vs 28-day training load classification
+
+Stress index (Bevel AI scoring from HRV patterns)
+
+Energy Bank (estimated mental and physical reserve)
+
+Daytime restorative breaks / relaxation tracking
+
+Mindfulness minutes (Apple Mindfulness app)
+
+Mental well-being check-ins (mood journaling in Health app)
+
+😴 Sleep & Recovery
+
+Total sleep time
+
+Time in bed vs asleep
+
+Sleep stages (deep, REM, core/light)
+
+Sleep onset latency & wake after sleep onset
+
+Sleep consistency (bedtime / wakeup regularity)
+
+Sleep score (Bevel)
+
+Sleep disruptions / heart-rate spikes
+
+Overnight respiratory rate & oxygen saturation
+
+Smart alarm (Bevel – wake during light phase)
+
+Sleep goal attainment & coaching tips
+
+🏋️‍♂️ Fitness & Performance Metrics
+
+General activity
+
+Active calories / Move ring
+
+Exercise minutes / Exercise ring
+
+Stand hours / Stand ring
+
+Step count
+
+Walking + running distance
+
+Flights climbed (elevation gain)
+
+Daily and weekly activity trends
+
+Workout analytics
+
+Duration / time of day
+
+Total & active calories burned
+
+Average / max heart rate
+
+Heart-rate zones during workout
+
+Route / map / splits (GPS)
+
+Pace (current, average, rolling mile)
+
+Running cadence (steps per min)
+
+Stride length
+
+Ground-contact time & vertical oscillation (Watches Series 8+)
+
+Speed / power cycling metrics (with Bluetooth sensors)
+
+Elevation gain / loss
+
+Swim strokes, laps, pace, SWOLF index
+
+Rowing strokes, distance, split time
+
+Functional strength training (Bevel volume tracking)
+
+Post-workout perceived effort (rating of perceived exertion)
+
+Training effect zones (aerobic vs anaerobic emphasis)
+
+🥦 Nutrition & Hydration
+
+Caloric intake (Bevel log / Apple Health nutrition entries)
+
+Macronutrients (protein, carbs, fat grams & %)
+
+Micronutrients (vitamins A-K, minerals if tracked)
+
+Water / hydration intake
+
+Caffeine intake
+
+Alcohol units (if logged)
+
+Food quality score (Bevel Nutrition Score)
+
+Meal timing and distribution through day
+
+Weight-management recommendations (calorie balance)
+
+Recipes / food journaling / favorites (Bevel)
+
+⚖️ Body Composition & Anthropometrics
+
+Body weight (auto or manual entry)
+
+BMI (calculated)
+
+Body-fat percentage (Bevel / connected scale)
+
+Lean mass / muscle mass
+
+Skeletal muscle vs fat trend (Bevel visual split)
+
+Waist circumference / hip ratio
+
+Body measurements (chest, biceps, etc., if entered)
+
+🫧 Respiratory / Mindful Well-Being
+
+Breathing sessions duration & frequency
+
+Respiratory rate at rest and sleep
+
+Mindful minutes (tracked via Apple Mindfulness app)
+
+Meditation sessions (Bevel integration / Health sync)
+
+Stress-reduction trends (via HRV changes)
+
+💡 Behavioral & Lifestyle Insights
+
+Daily readiness recommendations (Bevel AI coaching)
+
+Habit journal / mood reflection (Bevel Journal + Apple Health mood)
+
+Energy Bank deposits/withdrawals (tracking mental fatigue)
+
+Screen-time / digital-balance integration (iOS Health)
+
+Work-out consistency / streak tracking
+
+Activity competition & sharing (Fitness app)
+
+Awards / badges / monthly challenges
+
+Notifications for stand reminders & coaching prompts
+
+🧮 Analytics & Trends
+
+7-day, 28-day, and 90-day trend comparisons
+
+Trend arrows and coaching tips (“Your walking pace is up”)
+
+Historical graphs for HR, HRV, sleep, nutrition, body weight etc.
+
+Training load charts (Well Below / Below / Above / Well Above)
+
+Recovery vs Strain correlation graphs (Bevel)
+
+Long-term cardio fitness and VO₂ trendlines
+
+Custom dashboards in Health app or Bevel “Insights” tab
+
+🩺 Health Records & Medical Data (via Apple Health)
+
+Lab results (from connected EHR providers)
+
+Medications log and reminders
+
+Vaccinations records
+
+Allergies / conditions (if entered)
+
+Clinical vitals from EHR (heart rate, BP, glucose, SpO₂)
+
+Cycle tracking data (for female users)
+
+Immunization and lab PDF imports
+
+🧩 Environmental & Contextual Metrics
+
+Ambient sound levels (dB exposure from Watch)
+
+Noise notifications (> 80 dB thresholds)
+
+Environmental temperature (if connected sensor)
+
+Location-based weather impact tags (e.g., heat training)
+
+Altitude and barometric pressure for outdoor workouts
