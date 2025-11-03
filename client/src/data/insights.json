@@ -501,12 +501,157 @@
       "description": "Your sleep quality decreased by 15% this week. This correlates with increased stress markers and elevated resting heart rate (+9%) the following days.",
       "correlation": "↓ Sleep → ↑ Resting HR next day (+9%)"
     },
-    "metrics": {
+    "cardiovascular": {
       "heartRate": {
         "current": 68,
-        "changePercent": "+9% vs last week",
+        "resting": 62,
+        "walking": 85,
+        "changePercent": "+9%",
         "range": "58-76 bpm",
-        "sparklineData": [62, 63, 60, 65, 70, 73, 76, 68]
+        "sparklineData": [62, 63, 60, 65, 70, 73, 76, 68],
+        "zones": {
+          "warmup": { "min": 95, "max": 114, "time": 12, "percentage": 8 },
+          "fatBurn": { "min": 114, "max": 133, "time": 45, "percentage": 30 },
+          "cardio": { "min": 133, "max": 152, "time": 68, "percentage": 45 },
+          "peak": { "min": 152, "max": 190, "time": 25, "percentage": 17 }
+        }
+      },
+      "hrv": {
+        "current": 52,
+        "unit": "ms",
+        "status": "fair",
+        "changePercent": "-8%",
+        "sparklineData": [58, 56, 54, 53, 50, 49, 51, 52],
+        "baseline": 58,
+        "interpretation": "Slightly below normal - may indicate stress or fatigue"
+      },
+      "vo2Max": {
+        "current": 38.5,
+        "unit": "mL/kg/min",
+        "fitnessLevel": "Above Average",
+        "ageGroup": "55-59",
+        "changePercent": "+2.1%",
+        "sparklineData": [36.8, 37.2, 37.5, 37.8, 38.0, 38.2, 38.3, 38.5]
+      },
+      "bloodOxygen": {
+        "current": 97,
+        "unit": "%",
+        "status": "normal",
+        "range": "95-99%",
+        "sleepAverage": 96,
+        "sparklineData": [97, 98, 97, 96, 97, 98, 97, 97]
+      },
+      "respiratoryRate": {
+        "current": 16,
+        "unit": "breaths/min",
+        "sleepAverage": 14,
+        "range": "14-18",
+        "sparklineData": [15, 16, 14, 15, 17, 18, 16, 16]
+      },
+      "bloodPressure": {
+        "systolic": 138,
+        "diastolic": 88,
+        "status": "elevated",
+        "target": "< 130/80",
+        "sparklineData": [
+          { "sys": 135, "dia": 86 },
+          { "sys": 136, "dia": 87 },
+          { "sys": 137, "dia": 85 },
+          { "sys": 139, "dia": 89 },
+          { "sys": 138, "dia": 88 },
+          { "sys": 140, "dia": 90 },
+          { "sys": 138, "dia": 88 }
+        ]
+      }
+    },
+    "recovery": {
+      "recoveryScore": {
+        "current": 68,
+        "status": "fair",
+        "change": "-5",
+        "factors": [
+          { "name": "Sleep Quality", "impact": "negative", "value": 6.2 },
+          { "name": "HRV", "impact": "negative", "value": 52 },
+          { "name": "Resting HR", "impact": "negative", "value": 68 },
+          { "name": "Activity Balance", "impact": "positive", "value": 84 }
+        ]
+      },
+      "trainingLoad": {
+        "current": 245,
+        "sevenDayAvg": 238,
+        "twentyEightDayAvg": 210,
+        "classification": "Above",
+        "status": "moderate",
+        "trend": "increasing",
+        "sparklineData": [185, 195, 210, 220, 235, 240, 245]
+      },
+      "stressIndex": {
+        "current": 42,
+        "status": "moderate",
+        "changePercent": "+12%",
+        "factors": ["Low HRV", "Poor sleep", "Elevated resting HR"],
+        "sparklineData": [35, 36, 38, 40, 39, 41, 42]
+      },
+      "energyBank": {
+        "current": 65,
+        "deposits": 28,
+        "withdrawals": 42,
+        "netChange": -14,
+        "status": "moderate"
+      }
+    },
+    "sleep": {
+      "totalSleep": 6.2,
+      "timeInBed": 7.5,
+      "efficiency": 82.7,
+      "changePercent": "-15%",
+      "sparklineData": [7.2, 7.5, 6.8, 5.9, 6.1, 5.8, 6.2],
+      "stages": {
+        "deep": { "hours": 1.8, "percentage": 29, "optimal": "20-25%" },
+        "rem": { "hours": 1.5, "percentage": 24, "optimal": "20-25%" },
+        "light": { "hours": 2.9, "percentage": 47, "optimal": "45-55%" }
+      },
+      "consistency": {
+        "score": 72,
+        "bedtimeVariation": "±45 min",
+        "wakeupVariation": "±32 min"
+      },
+      "disruptions": {
+        "count": 3,
+        "avgDuration": "8 min",
+        "hrSpikes": 2
+      },
+      "overnightVitals": {
+        "avgHR": 58,
+        "avgSpO2": 96,
+        "avgRespiratoryRate": 14,
+        "lowestHR": 52,
+        "hrVariability": 58
+      }
+    },
+    "activity": {
+      "rings": {
+        "move": {
+          "current": 487,
+          "goal": 600,
+          "percentage": 81.2,
+          "unit": "cal",
+          "streak": 12
+        },
+        "exercise": {
+          "current": 28,
+          "goal": 30,
+          "percentage": 93.3,
+          "unit": "min",
+          "streak": 5
+        },
+        "stand": {
+          "current": 10,
+          "goal": 12,
+          "percentage": 83.3,
+          "unit": "hrs",
+          "streak": 8
+        }
       },
       "steps": {
         "current": 8547,
@@ -514,31 +659,111 @@
         "weeklyAverage": 7892,
         "sparklineData": [8500, 7800, 9200, 6500, 8900, 9500, 8547]
       },
-      "sleep": {
-        "current": 6.2,
-        "changePercent": "-15% vs last week",
-        "deepSleep": "1.8 hrs (29%)",
-        "sparklineData": [7.2, 7.5, 6.8, 5.9, 6.1, 5.8, 6.2]
+      "distance": {
+        "current": 4.2,
+        "unit": "miles",
+        "weeklyTotal": 28.5
+      },
+      "flightsClimbed": {
+        "current": 8,
+        "weeklyAverage": 6,
+        "goal": 10
+      },
+      "activeCalories": {
+        "current": 487,
+        "goal": 600,
+        "weeklyAverage": 512
+      },
+      "totalCalories": {
+        "current": 2340,
+        "weeklyAverage": 2285
       }
     },
-    "detailedAnalysis": [
-      {
-        "title": "Heart Rate Variability (HRV)",
-        "subtitle": "Higher is generally better for recovery",
-        "value": "52 ms",
-        "percentage": 65,
-        "range": { "min": "Poor", "max": "Excellent" },
-        "color": "bg-gradient-to-r from-accent to-secondary"
+    "bodyComposition": {
+      "weight": {
+        "current": 178,
+        "unit": "lbs",
+        "change": -2.3,
+        "changePercent": "-1.3%",
+        "goal": 170,
+        "sparklineData": [182, 181, 180, 179.5, 179, 178.5, 178]
       },
-      {
-        "title": "Active Minutes",
-        "subtitle": "Weekly goal: 150 minutes",
-        "value": "127",
-        "percentage": 84.6,
-        "range": { "min": "0 min", "max": "150 min" },
-        "color": "bg-secondary"
+      "bmi": {
+        "current": 26.8,
+        "status": "overweight",
+        "target": "< 25"
+      },
+      "bodyFat": {
+        "current": 24.5,
+        "unit": "%",
+        "change": -0.8,
+        "status": "average"
+      },
+      "leanMass": {
+        "current": 134.4,
+        "unit": "lbs",
+        "percentage": 75.5
+      },
+      "muscleMass": {
+        "current": 127.8,
+        "unit": "lbs",
+        "percentage": 71.8
       }
-    ],
+    },
+    "nutrition": {
+      "calories": {
+        "consumed": 1850,
+        "burned": 2340,
+        "net": -490,
+        "goal": 1900
+      },
+      "water": {
+        "current": 68,
+        "goal": 80,
+        "unit": "oz",
+        "percentage": 85
+      },
+      "macros": {
+        "protein": { "grams": 145, "percentage": 31, "goal": 150 },
+        "carbs": { "grams": 180, "percentage": 39, "goal": 200 },
+        "fat": { "grams": 62, "percentage": 30, "goal": 65 }
+      },
+      "caffeine": {
+        "current": 240,
+        "unit": "mg",
+        "drinks": 2
+      }
+    },
+    "trends": {
+      "timeframe": "7day",
+      "comparisons": {
+        "heartRate": {
+          "sevenDay": 68,
+          "twentyEightDay": 65,
+          "ninetyDay": 63
+        },
+        "hrv": {
+          "sevenDay": 52,
+          "twentyEightDay": 56,
+          "ninetyDay": 58
+        },
+        "sleep": {
+          "sevenDay": 6.2,
+          "twentyEightDay": 6.8,
+          "ninetyDay": 7.0
+        },
+        "steps": {
+          "sevenDay": 7892,
+          "twentyEightDay": 8245,
+          "ninetyDay": 8100
+        },
+        "weight": {
+          "sevenDay": 178,
+          "twentyEightDay": 180,
+          "ninetyDay": 182
+        }
+      }
+    },
     "weeklyCalories": [
       { "day": "Mon", "percentage": 75 },
       { "day": "Tue", "percentage": 80 },
