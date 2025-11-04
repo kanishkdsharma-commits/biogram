@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import PrintTimelineModal from "@/components/PrintTimelineModal";
+import TimelineEventDetailsModal from "@/components/TimelineEventDetailsModal";
 import insightsData from "@/data/insights.json";
 
 interface TimelineEvent {
@@ -40,6 +41,7 @@ export default function HealthTimeline() {
   const { timeline } = insightsData;
   const [expandedDate, setExpandedDate] = useState<string | null>(null);
   const [showPrintModal, setShowPrintModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<TimelineEvent | null>(null);
 
   // Load filter state from localStorage on mount
   const [searchQuery, setSearchQuery] = useState(() => {
@@ -490,13 +492,20 @@ export default function HealthTimeline() {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: eventIndex * 0.1 }}
-                                    className="pl-4 border-l-4 border-primary/20"
+                                    className="pl-4 border-l-4 border-primary/20 cursor-pointer hover:bg-muted/30 rounded-lg transition-colors p-3 -ml-1"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedEvent(event);
+                                    }}
                                     data-testid={`event-${groupIndex}-${eventIndex}`}
                                   >
                                     <div className="flex items-start gap-3 mb-3">
                                       <Icon className={`w-5 h-5 mt-0.5 ${colorClass}`} />
                                       <div className="flex-1">
-                                        <h4 className="font-semibold text-foreground mb-1">{event.title}</h4>
+                                        <div className="flex items-center justify-between">
+                                          <h4 className="font-semibold text-foreground mb-1">{event.title}</h4>
+                                          <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                                        </div>
                                         <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
 
                                         {/* Provider and Location */}
@@ -568,6 +577,15 @@ export default function HealthTimeline() {
           </div>
         )}
       </div>
+
+      {/* Timeline Event Details Modal */}
+      {selectedEvent && (
+        <TimelineEventDetailsModal
+          isOpen={!!selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          event={selectedEvent}
+        />
+      )}
 
       {/* Print Timeline Modal */}
       <PrintTimelineModal
