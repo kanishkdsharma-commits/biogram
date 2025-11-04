@@ -16,10 +16,10 @@ export default function HealthSnapshot() {
   // Calculate urgent action items count
   const urgentCount = snapshot.actionItems.filter((item: any) => item.priority === "urgent").length;
 
-  // Map vital trends to metric cards (BP, HR, Blood Sugar)
+  // Map vital trends to metric cards (BP, HR, Blood Glucose)
   const bloodPressureVital = snapshot.vitalTrends.find((v: any) => v.name === "Blood Pressure");
   const heartRateVital = snapshot.vitalTrends.find((v: any) => v.name === "Heart Rate");
-  const bloodSugarVital = snapshot.vitalTrends.find((v: any) => v.name === "Blood Sugar");
+  const bloodSugarVital = snapshot.vitalTrends.find((v: any) => v.name === "Blood Glucose");
 
   // Helper function to render severity dots
   const renderSeverityDots = (status: string) => {
@@ -295,11 +295,14 @@ export default function HealthSnapshot() {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-foreground">Medications</h3>
                 <div className="flex items-center gap-2">
-                  {snapshot.medications.some((m: any) => m.needsRefill) && (
-                    <Badge variant="outline" className="text-yellow-600 border-yellow-600">
-                      1 needs refill
-                    </Badge>
-                  )}
+                  {(() => {
+                    const refillCount = snapshot.medications.filter((m: any) => m.needsRefill).length;
+                    return refillCount > 0 ? (
+                      <Badge variant="outline" className="text-yellow-600 border-yellow-600">
+                        {refillCount} {refillCount === 1 ? 'needs' : 'need'} refill
+                      </Badge>
+                    ) : null;
+                  })()}
                   <Badge variant="secondary" data-testid="medications-count">
                     {snapshot.medications.length}
                   </Badge>
