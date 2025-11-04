@@ -30,6 +30,22 @@ interface TimelineEvent {
   metrics?: Array<{ name: string; value: string; status: string }>;
   details?: Array<{ time: string; event: string }>;
   outcome?: string;
+  aiSummary?: {
+    whatHappened: string;
+    whyItMatters: string;
+    medicalTermsExplained: Array<{
+      term: string;
+      simple: string;
+    }>;
+    keyNumbers: Array<{
+      metric: string;
+      value: string;
+      context: string;
+      trend: string;
+    }>;
+    actionsTaken: string[];
+    followUpNeeded: string;
+  };
 }
 
 interface GroupedEvent {
