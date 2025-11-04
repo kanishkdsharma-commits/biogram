@@ -111,21 +111,126 @@
         "description": "A chronic condition where your body doesn't use insulin properly, leading to high blood sugar levels. Managed through diet, exercise, and medication.",
         "diagnosedDate": "March 2019",
         "status": "well-controlled",
-        "lastMetric": "Last A1C: 6.8% (Target: <7%)"
+        "lastMetric": "Last A1C: 6.8% (Target: <7%)",
+        "latestAssessment": {
+          "date": "December 28, 2024",
+          "provider": "Dr. Sarah Chen, Endocrinologist",
+          "notes": "Patient continues to do well on current Metformin regimen. Recent A1C of 6.8% demonstrates excellent glycemic control. Blood glucose averages have improved 5% over the past month per wearable data. Patient reports good medication adherence and has been mindful of carbohydrate intake. No hypoglycemic episodes reported. Will continue current treatment plan."
+        },
+        "treatmentPlan": [
+          "Continue Metformin 1000mg twice daily with meals",
+          "Maintain A1C target of <7%",
+          "Monitor blood glucose with continuous glucose monitor",
+          "Follow Mediterranean diet with controlled carbohydrate portions",
+          "Regular exercise 150 minutes per week",
+          "Quarterly A1C checks and annual comprehensive metabolic panel"
+        ],
+        "criticalEvents": [
+          {
+            "date": "December 28, 2024",
+            "type": "Lab Result",
+            "description": "A1C 6.8% - well-controlled, down from 7.1% in September"
+          },
+          {
+            "date": "September 15, 2024",
+            "type": "Lab Result",
+            "description": "A1C 7.1% - slightly above target, Metformin dose optimized"
+          },
+          {
+            "date": "March 12, 2019",
+            "type": "Initial Diagnosis",
+            "description": "Type 2 Diabetes diagnosed with A1C of 8.2%, started on Metformin"
+          }
+        ],
+        "relatedMedications": ["Metformin"]
       },
       {
         "name": "Hypertension",
         "description": "High blood pressure - when the force of blood against artery walls is consistently too high (typically 140/90 mmHg or higher).",
         "diagnosedDate": "January 2020",
         "status": "needs attention",
-        "lastMetric": "Avg BP: 138/88 mmHg (Target: <130/80)"
+        "lastMetric": "Avg BP: 138/88 mmHg (Target: <130/80)",
+        "latestAssessment": {
+          "date": "January 5, 2025",
+          "provider": "Dr. Michael Rodriguez, Cardiologist",
+          "notes": "Blood pressure readings remain elevated despite Lisinopril 20mg. Patient's average BP over the past 2 weeks is 138/88 mmHg, which is above our target of <130/80. Patient reports persistent dry cough which is a known side effect of ACE inhibitors. Wearable data shows correlation between poor sleep quality and elevated morning BP readings. Plan to increase Lisinopril to 30mg and reassess in 3 weeks. If dry cough persists, may need to switch to ARB class medication."
+        },
+        "treatmentPlan": [
+          "Increase Lisinopril from 20mg to 30mg once daily",
+          "Target BP <130/80 mmHg",
+          "Daily home BP monitoring (morning and evening)",
+          "Reduce sodium intake to <2000mg per day",
+          "Address sleep quality issues to help with BP control",
+          "Follow-up appointment in 3 weeks to reassess medication efficacy",
+          "Consider medication class change if dry cough persists"
+        ],
+        "criticalEvents": [
+          {
+            "date": "January 5, 2025",
+            "type": "Office Visit",
+            "description": "BP 142/90 - elevated despite medication, dosage increase planned"
+          },
+          {
+            "date": "December 20, 2024",
+            "type": "Wearable Alert",
+            "description": "7-day average BP 138/88 mmHg - consistently above target"
+          },
+          {
+            "date": "October 8, 2024",
+            "type": "Office Visit",
+            "description": "BP 135/85 - improved but still above goal, continued current dose"
+          },
+          {
+            "date": "January 10, 2020",
+            "type": "Initial Diagnosis",
+            "description": "Hypertension diagnosed with BP 145/92, started on Lisinopril 10mg"
+          }
+        ],
+        "relatedMedications": ["Lisinopril", "Aspirin"]
       },
       {
         "name": "Hyperlipidemia",
         "description": "High levels of fats (lipids) in the blood, including cholesterol and triglycerides. Can increase risk of heart disease.",
         "diagnosedDate": "March 2019",
         "status": "improving",
-        "lastMetric": "LDL: 112 mg/dL (down from 145)"
+        "lastMetric": "LDL: 112 mg/dL (down from 145)",
+        "latestAssessment": {
+          "date": "December 28, 2024",
+          "provider": "Dr. Michael Rodriguez, Cardiologist",
+          "notes": "Excellent response to Atorvastatin therapy. LDL cholesterol has decreased from 145 mg/dL to 112 mg/dL (23% reduction), moving closer to our goal of <100 mg/dL for cardiovascular risk reduction. HDL remains stable at 48 mg/dL, and triglycerides are well-controlled at 135 mg/dL. Patient denies muscle pain or weakness. Continue current statin dose and recheck lipid panel in 6 months. Encouraged patient to increase physical activity which may further improve HDL levels."
+        },
+        "treatmentPlan": [
+          "Continue Atorvastatin 40mg once daily at bedtime",
+          "Target LDL <100 mg/dL for ASCVD risk reduction",
+          "Monitor for muscle pain or weakness (statin side effect)",
+          "Increase aerobic exercise to 30+ minutes, 5 days per week",
+          "Mediterranean diet with emphasis on healthy fats",
+          "Lipid panel every 6 months",
+          "Annual liver function tests while on statin therapy"
+        ],
+        "criticalEvents": [
+          {
+            "date": "December 28, 2024",
+            "type": "Lab Result",
+            "description": "LDL 112 mg/dL - improved 23% from baseline, approaching goal"
+          },
+          {
+            "date": "June 15, 2024",
+            "type": "Lab Result",
+            "description": "LDL 128 mg/dL - gradual improvement on Atorvastatin 40mg"
+          },
+          {
+            "date": "December 10, 2023",
+            "type": "Medication Change",
+            "description": "Atorvastatin increased from 20mg to 40mg for better LDL control"
+          },
+          {
+            "date": "March 12, 2019",
+            "type": "Initial Diagnosis",
+            "description": "Hyperlipidemia diagnosed with LDL 165 mg/dL, started on Atorvastatin 20mg"
+          }
+        ],
+        "relatedMedications": ["Atorvastatin"]
       }
     ],
     "medications": [
