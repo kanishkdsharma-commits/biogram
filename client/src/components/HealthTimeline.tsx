@@ -485,6 +485,8 @@ export default function HealthTimeline() {
                               {group.events.map((event, eventIndex) => {
                                 const Icon = getEventIcon(event.type);
                                 const colorClass = getEventColor(event.type);
+                                const hasAiSummary = 'aiSummary' in event && event.aiSummary;
+                                const isClickable = hasAiSummary;
 
                                 return (
                                   <motion.div
@@ -492,10 +494,14 @@ export default function HealthTimeline() {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: eventIndex * 0.1 }}
-                                    className="pl-4 border-l-4 border-primary/20 cursor-pointer hover:bg-muted/30 rounded-lg transition-colors p-3 -ml-1"
+                                    className={`pl-4 border-l-4 border-primary/20 rounded-lg p-3 -ml-1 ${
+                                      isClickable ? 'cursor-pointer hover:bg-muted/30 transition-colors' : ''
+                                    }`}
                                     onClick={(e) => {
-                                      e.stopPropagation();
-                                      setSelectedEvent(event);
+                                      if (isClickable) {
+                                        e.stopPropagation();
+                                        setSelectedEvent(event);
+                                      }
                                     }}
                                     data-testid={`event-${groupIndex}-${eventIndex}`}
                                   >
@@ -504,7 +510,9 @@ export default function HealthTimeline() {
                                       <div className="flex-1">
                                         <div className="flex items-center justify-between">
                                           <h4 className="font-semibold text-foreground mb-1">{event.title}</h4>
-                                          <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                                          {isClickable && (
+                                            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                                          )}
                                         </div>
                                         <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
 
