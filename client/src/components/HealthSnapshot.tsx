@@ -5,12 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import VitalTrendChart from "@/components/VitalTrendChart";
 import MedicationDetailsModal from "@/components/MedicationDetailsModal";
+import ConditionDetailsModal from "@/components/ConditionDetailsModal";
 import ActionChecklist from "@/components/ActionChecklist";
 import insightsData from "@/data/insights.json";
 
 export default function HealthSnapshot() {
   const { snapshot } = insightsData;
   const [selectedMedication, setSelectedMedication] = useState<any | null>(null);
+  const [selectedCondition, setSelectedCondition] = useState<any | null>(null);
   const [showActionChecklist, setShowActionChecklist] = useState(false);
 
   // Calculate urgent action items count
@@ -249,7 +251,8 @@ export default function HealthSnapshot() {
                 {snapshot.diagnoses.map((diagnosis: any, index: number) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                    className="flex items-center justify-between p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors cursor-pointer"
+                    onClick={() => setSelectedCondition(diagnosis)}
                     data-testid={`diagnosis-${index}`}
                   >
                     <div className="flex items-center gap-4 flex-1">
@@ -261,22 +264,25 @@ export default function HealthSnapshot() {
                         </p>
                       </div>
                     </div>
-                    <Badge
-                      variant={
-                        diagnosis.status === "well-controlled"
-                          ? "secondary"
+                    <div className="flex items-center gap-2">
+                      <Badge
+                        variant={
+                          diagnosis.status === "well-controlled"
+                            ? "secondary"
+                            : diagnosis.status === "needs attention"
+                            ? "destructive"
+                            : "default"
+                        }
+                        className="text-xs"
+                      >
+                        {diagnosis.status === "well-controlled"
+                          ? "Well controlled"
                           : diagnosis.status === "needs attention"
-                          ? "destructive"
-                          : "default"
-                      }
-                      className="text-xs"
-                    >
-                      {diagnosis.status === "well-controlled"
-                        ? "Well controlled"
-                        : diagnosis.status === "needs attention"
-                        ? "Needs attention"
-                        : "Improving"}
-                    </Badge>
+                          ? "Needs attention"
+                          : "Improving"}
+                      </Badge>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -359,6 +365,15 @@ export default function HealthSnapshot() {
           isOpen={!!selectedMedication}
           onClose={() => setSelectedMedication(null)}
           medication={selectedMedication}
+        />
+      )}
+
+      {/* Condition Details Modal */}
+      {selectedCondition && (
+        <ConditionDetailsModal
+          isOpen={!!selectedCondition}
+          onClose={() => setSelectedCondition(null)}
+          condition={selectedCondition}
         />
       )}
     </section>
