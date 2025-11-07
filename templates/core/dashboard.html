@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Biogram{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar pt-4">
+            <nav class="nav flex-column">
+                <a href="#snapshot" class="sidebar-link active" data-testid="link-snapshot">📊 Health Snapshot</a>
+                <a href="#timeline" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
+                <a href="#wearable" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
+                <a href="#medications" class="sidebar-link" data-testid="link-medications">💊 Medications</a>
+                <a href="#labs" class="sidebar-link" data-testid="link-labs">🔬 Lab Results</a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-10 pt-4">
+            <!-- Sticky Action Bar -->
+            <div class="sticky-top bg-white pb-3 mb-4 border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="h3">Health Snapshot</h1>
+                    <div>
+                        <button class="btn btn-outline-primary me-2" data-testid="button-share">
+                            📤 Share with Provider
+                        </button>
+                        <button class="btn btn-primary" data-testid="button-prepare">
+                            📋 Prepare for Appointment
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Health Snapshot Section -->
+            <section id="snapshot" class="mb-5">
+                <div class="row">
+                    <!-- AI Insights Card -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card health-card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">🤖 AI-Detected Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if ai_insights %}
+                                    <div class="list-group list-group-flush">
+                                        {% for insight in ai_insights %}
+                                            <div class="list-group-item px-0" data-testid="insight-item-{{ forloop.counter }}">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div>
+                                                        <h6>{{ insight.title }}</h6>
+                                                        <p class="text-muted small mb-1">{{ insight.description }}</p>
+                                                    </div>
+                                                    <span class="badge badge-{{ insight.priority }}" data-testid="badge-priority-{{ forloop.counter }}">
+                                                        {{ insight.get_priority_display }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-muted" data-testid="text-no-insights">No action items at this time. Great job staying on top of your health!</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Active Medications Card -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card health-card">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">💊 Active Medications</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if medications %}
+                                    <div class="list-group list-group-flush">
+                                        {% for med in medications %}
+                                            <div class="list-group-item px-0" data-testid="medication-item-{{ forloop.counter }}">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        <h6>{{ med.name }}</h6>
+                                                        <p class="text-muted small mb-0">
+                                                            {{ med.dosage }} - {{ med.get_frequency_display }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-muted" data-testid="text-no-medications">No active medications</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Vitals -->
+                {% if recent_vitals %}
+                <div class="card health-card mb-4">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">❤️ Recent Vitals</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% if recent_vitals.blood_pressure_systolic %}
+                            <div class="col-md-3" data-testid="vital-bp">
+                                <h6 class="text-muted">Blood Pressure</h6>
+                                <p class="h4">{{ recent_vitals.blood_pressure_systolic }}/{{ recent_vitals.blood_pressure_diastolic }}</p>
+                            </div>
+                            {% endif %}
+                            {% if recent_vitals.heart_rate %}
+                            <div class="col-md-3" data-testid="vital-hr">
+                                <h6 class="text-muted">Heart Rate</h6>
+                                <p class="h4">{{ recent_vitals.heart_rate }} bpm</p>
+                            </div>
+                            {% endif %}
+                            {% if recent_vitals.weight %}
+                            <div class="col-md-3" data-testid="vital-weight">
+                                <h6 class="text-muted">Weight</h6>
+                                <p class="h4">{{ recent_vitals.weight }} kg</p>
+                            </div>
+                            {% endif %}
+                            {% if recent_vitals.temperature %}
+                            <div class="col-md-3" data-testid="vital-temp">
+                                <h6 class="text-muted">Temperature</h6>
+                                <p class="h4">{{ recent_vitals.temperature }}°C</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </section>
+            
+            <!-- Health Timeline Section -->
+            <section id="timeline" class="mb-5">
+                <h2 class="h4 mb-4">📅 Recent Health Events</h2>
+                <div class="card">
+                    <div class="card-body">
+                        {% if health_records %}
+                            <div class="list-group list-group-flush">
+                                {% for record in health_records %}
+                                    <div class="list-group-item px-0" data-testid="record-item-{{ forloop.counter }}">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <h6>{{ record.title }}</h6>
+                                                <p class="text-muted small mb-1">{{ record.description|truncatewords:20 }}</p>
+                                                <small class="text-muted">
+                                                    {{ record.date|date:"M d, Y" }} - {{ record.get_event_type_display }}
+                                                </small>
+                                            </div>
+                                            {% if record.is_important %}
+                                                <span class="badge bg-warning" data-testid="badge-important-{{ forloop.counter }}">Important</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted" data-testid="text-no-records">No health records yet. Start tracking your health journey!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+</script>
+{% endblock %}

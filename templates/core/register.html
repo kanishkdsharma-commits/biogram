@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Register - Biogram{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4" style="color: var(--primary-color);">Create Account</h2>
+                    <p class="text-center text-muted mb-4">Join Biogram to manage your health data</p>
+                    
+                    <form method="post" data-testid="form-register">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" 
+                                   required autofocus data-testid="input-username">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   required data-testid="input-email">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" 
+                                   required data-testid="input-password">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
+                                   required data-testid="input-confirm-password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3" data-testid="button-submit-register">
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <p class="text-center mt-3">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" style="color: var(--secondary-color);" data-testid="link-login">
+                            Sign in
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
