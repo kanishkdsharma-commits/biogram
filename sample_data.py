@@ -242,75 +242,75 @@ AI_INSIGHTS = {
 # Active medical problems with SOAP summaries
 ACTIVE_PROBLEMS = [
     {
-        "problem": "Atrial Fibrillation (Paroxysmal)",
+        "problem": "Irregular Heartbeat (Atrial Fibrillation)",
         "icd10": "I48.0",
-        "onset": "2023-03-15",
+        "onset": "March 2023",
         "status": "Stable",
-        "soap_summary": {
-            "subjective": "Patient reports no palpitations or episodes since last visit. Feels well on current medications. Compliant with Warfarin and INR monitoring.",
-            "objective": "Heart rate 76 bpm, regular rhythm. INR 2.3 (therapeutic). No signs of heart failure. EKG shows normal sinus rhythm.",
-            "assessment": "Paroxysmal AFib well-controlled on rate control and anticoagulation. CHA2DS2-VASc score of 3 indicates moderate-high stroke risk, appropriately anticoagulated.",
-            "plan": "Continue Metoprolol for rate control, Warfarin for stroke prevention. Monthly INR checks. Consider ablation if episodes increase."
+        "simple_summary": {
+            "what_you_said": "No heart racing or palpitations lately. Feeling good on current medications. Taking blood thinner as prescribed.",
+            "what_tests_showed": "Heart rate is steady at 76 beats per minute. Blood thinness level is perfect (2.3). Heart rhythm test looks normal.",
+            "what_it_means": "Your irregular heartbeat is well-managed with medication. The blood thinner is working to prevent stroke risk.",
+            "what_were_doing": "Keep taking Metoprolol (controls heart rate) and Warfarin (prevents blood clots). Get monthly blood tests to check clotting levels."
         }
     },
     {
-        "problem": "Hypertension",
+        "problem": "High Blood Pressure",
         "icd10": "I10",
-        "onset": "2018-06-20",
-        "status": "Suboptimal Control",
-        "soap_summary": {
-            "subjective": "Home BP readings averaging 128-135 systolic. Reports good medication compliance. Occasional morning headaches.",
-            "objective": "Office BP 132/82 (elevated). Target is <130/80 for patient with diabetes and AFib. Taking Lisinopril 20mg and Metoprolol 50mg BID.",
-            "assessment": "Hypertension not at goal despite dual therapy. May need dose adjustment or third agent. White coat effect possible.",
-            "plan": "Increase Lisinopril to 30mg daily. Home BP log for 2 weeks. Consider adding HCTZ 12.5mg if still above target. Dietary counseling on DASH diet."
+        "onset": "June 2018",
+        "status": "Needs Adjustment",
+        "simple_summary": {
+            "what_you_said": "Blood pressure at home usually 128-135 over 80. Taking medications regularly. Sometimes get headaches in the morning.",
+            "what_tests_showed": "Blood pressure in office was 132/82 (a bit high). Should be under 130/80 given your other conditions.",
+            "what_it_means": "Your blood pressure is slightly above goal. We may need to increase your medication or add another one.",
+            "what_were_doing": "Increasing Lisinopril dose. Track blood pressure at home for 2 weeks. May add water pill if needed. Try reducing salt in diet."
         }
     },
     {
-        "problem": "Type 2 Diabetes Mellitus",
+        "problem": "Type 2 Diabetes",
         "icd10": "E11.9",
-        "onset": "2017-11-10",
-        "status": "Improved",
-        "soap_summary": {
-            "subjective": "Patient reports better glucose control with diet changes. Fasting sugars 110-130. Checking BG twice daily. Lost 6 lbs this quarter.",
-            "objective": "HbA1c improved from 8.1% to 7.2%. Fasting glucose 118 mg/dL. No signs of neuropathy on foot exam. eGFR stable >60.",
-            "assessment": "Type 2 DM showing good response to Metformin and lifestyle changes. Jardiance newly added for cardio-renal protection and additional glucose lowering.",
-            "plan": "Continue Metformin 1000mg BID. Start Jardiance 10mg daily. Target HbA1c <7%. Annual eye exam due. Diabetes education referral placed."
+        "onset": "November 2017",
+        "status": "Improving",
+        "simple_summary": {
+            "what_you_said": "Blood sugar control is better since changing diet. Morning readings 110-130. Checking twice daily. Lost 6 pounds!",
+            "what_tests_showed": "Your 3-month blood sugar average dropped from 8.1% to 7.2% - great improvement! Feet look healthy, no nerve damage.",
+            "what_it_means": "The diet changes and Metformin are working well. New medication will help protect your heart and kidneys too.",
+            "what_were_doing": "Continue Metformin. Starting Jardiance (helps heart and sugar). Goal is to get below 7%. Eye exam scheduled. Keep up the great work!"
         }
     },
     {
-        "problem": "Osteoarthritis - Right Knee",
+        "problem": "Knee Arthritis (Right)",
         "icd10": "M17.11",
-        "onset": "2022-04-01",
-        "status": "Progressive",
-        "soap_summary": {
-            "subjective": "Right knee pain 6/10, worse with stairs and prolonged standing. Morning stiffness 15-20 minutes. Limiting golf and walking.",
-            "objective": "Moderate joint space narrowing on X-ray. Crepitus and mild effusion. ROM 0-120 degrees. Stable ligaments. Kellgren-Lawrence Grade 3.",
-            "assessment": "Moderate osteoarthritis right knee. Conservative management trial appropriate before considering surgical options.",
-            "plan": "Hyaluronic acid injection series. PT for quad strengthening. Weight loss goal 10-15 lbs. Acetaminophen for pain. Consider TKR if no improvement in 6 months."
+        "onset": "April 2022",
+        "status": "Getting Worse",
+        "simple_summary": {
+            "what_you_said": "Right knee hurts at 6 out of 10, especially on stairs. Stiff for 15-20 minutes in morning. Can't play golf as much.",
+            "what_tests_showed": "X-ray shows moderate wear-and-tear in knee joint. Good range of motion (0-120 degrees). Knee is stable.",
+            "what_it_means": "Moderate arthritis in your knee. Let's try some treatments before considering surgery.",
+            "what_were_doing": "Gel injections in knee (3 sessions). Physical therapy to strengthen leg muscles. Try to lose 10-15 lbs. Take Tylenol for pain. May discuss knee replacement in 6 months if no improvement."
         }
     },
     {
-        "problem": "Gastroesophageal Reflux Disease",
+        "problem": "Acid Reflux (GERD)",
         "icd10": "K21.9",
-        "onset": "2019-07-15",
-        "status": "Suboptimal Control",
-        "soap_summary": {
-            "subjective": "Heartburn 3-4x weekly despite Omeprazole 40mg daily. Worse with coffee, spicy foods, late meals. No dysphagia or weight loss.",
-            "objective": "Mild epigastric tenderness. Prior EGD showed mild esophagitis and small hiatal hernia. No Barrett's esophagus. H. pylori negative.",
-            "assessment": "GERD inadequately controlled on standard PPI dose. Likely lifestyle factors contributing. Hiatal hernia present.",
-            "plan": "Increase Omeprazole to 40mg BID. Add Gaviscon. Dietary modifications and elevate head of bed. Repeat EGD in 6 months if not improved."
+        "onset": "July 2019",
+        "status": "Needs Better Control",
+        "simple_summary": {
+            "what_you_said": "Heartburn 3-4 times a week even with medication. Worse after coffee, spicy food, or late dinner. No trouble swallowing.",
+            "what_tests_showed": "Mild stomach irritation on last scope. Small hiatal hernia (stomach pushes through diaphragm). No serious damage.",
+            "what_it_means": "Acid reflux isn't fully controlled yet. Lifestyle changes plus more medication should help.",
+            "what_were_doing": "Doubling Omeprazole dose (take twice daily). Add Gaviscon after meals. Stop eating 3 hours before bed. Raise head of bed 6 inches. Repeat scope if not better in 6 months."
         }
     },
     {
-        "problem": "Hypothyroidism",
+        "problem": "Underactive Thyroid",
         "icd10": "E03.9",
-        "onset": "2020-02-12",
+        "onset": "February 2020",
         "status": "Well Controlled",
-        "soap_summary": {
-            "subjective": "Energy level good since dose adjustment. No cold intolerance, weight changes, or hair loss. Taking medication consistently on empty stomach.",
-            "objective": "TSH 2.1 mIU/L (normal range 0.5-5.0). No thyroid enlargement or nodules on exam. Weight stable.",
-            "assessment": "Hypothyroidism well-controlled on Levothyroxine 100mcg daily. TSH in optimal range.",
-            "plan": "Continue current dose. Recheck TSH in 6 months. Ensure taking 30-60 minutes before food for proper absorption."
+        "simple_summary": {
+            "what_you_said": "Energy is good. No feeling cold, weight gain, or hair loss. Taking thyroid pill every morning on empty stomach.",
+            "what_tests_showed": "Thyroid hormone level is 2.1 (perfect range is 0.5-5.0). No lumps in thyroid gland. Weight is stable.",
+            "what_it_means": "Your thyroid medication dose is just right. Everything looks good.",
+            "what_were_doing": "Keep taking Levothyroxine 100mcg every morning. Recheck levels in 6 months. Remember to take 30-60 minutes before breakfast."
         }
     }
 ]

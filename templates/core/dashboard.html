@@ -34,26 +34,28 @@
             
             <!-- AI-Generated Insights Section -->
             <section class="mb-5">
-                <div class="card border-primary">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">🤖 AI-Generated Health Insights</h4>
+                <div class="card border-0 shadow">
+                    <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <h4 class="mb-0">🤖 Your AI Health Insights</h4>
+                        <small class="opacity-75">Personalized analysis of your health data</small>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <!-- Health Trends -->
                         <div class="mb-4">
-                            <h5 class="text-primary mb-3">📈 Your Health Trends</h5>
-                            <div class="row">
+                            <h5 class="mb-3">📈 What's Changing</h5>
+                            <div class="row g-3">
                                 {% for trend in health_trends %}
-                                <div class="col-md-4 mb-3">
-                                    <div class="card h-100 {% if trend.severity == 'positive' %}border-success{% elif trend.severity == 'moderate' %}border-warning{% else %}border-info{% endif %}">
-                                        <div class="card-body">
-                                            <h6 class="card-title">
-                                                {% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}
-                                                {{ trend.trend }}
-                                            </h6>
-                                            <p class="card-text small">{{ trend.description }}</p>
-                                            <div class="alert {% if trend.severity == 'positive' %}alert-success{% elif trend.severity == 'moderate' %}alert-warning{% else %}alert-info{% endif %} py-2 px-3 small mb-0">
-                                                <strong>Recommendation:</strong> {{ trend.recommendation }}
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-0 shadow-sm {% if trend.severity == 'positive' %}bg-success-subtle{% elif trend.severity == 'moderate' %}bg-warning-subtle{% else %}bg-info-subtle{% endif %}">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-start mb-2">
+                                                <span class="fs-4 me-2">{% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}</span>
+                                                <h6 class="card-title mb-0 flex-grow-1">{{ trend.trend }}</h6>
+                                            </div>
+                                            <p class="card-text small mb-2">{{ trend.description }}</p>
+                                            <div class="border-top pt-2 mt-2">
+                                                <small class="fw-semibold">What to do:</small>
+                                                <p class="small mb-0 mt-1">{{ trend.recommendation }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -62,28 +64,44 @@
                             </div>
                         </div>
                         
-                        <!-- Personalized Guidance -->
-                        <div class="mb-4">
-                            <h5 class="text-primary mb-3">💡 Personalized Health Guidance</h5>
-                            <div class="list-group">
-                                {% for guidance in health_guidance %}
-                                <div class="list-group-item">
-                                    {{ guidance|safe }}
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        
-                        <!-- Questions for Doctor -->
-                        <div>
-                            <h5 class="text-primary mb-3">❓ Important Questions for Your Next Doctor Visit</h5>
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <ol class="mb-0">
-                                        {% for question in doctor_questions %}
-                                        <li class="mb-2">{{ question }}</li>
+                        <!-- Collapsible Guidance and Questions -->
+                        <div class="accordion" id="insightsAccordion">
+                            <!-- Personalized Guidance -->
+                            <div class="accordion-item border-0 shadow-sm mb-3">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#guidance" aria-expanded="true">
+                                        💡 Your Personal Health Tips ({{ health_guidance|length }})
+                                    </button>
+                                </h2>
+                                <div id="guidance" class="accordion-collapse collapse show" data-bs-parent="#insightsAccordion">
+                                    <div class="accordion-body">
+                                        {% for guidance in health_guidance %}
+                                        <div class="p-3 mb-2 bg-light rounded">
+                                            {{ guidance|safe }}
+                                        </div>
                                         {% endfor %}
-                                    </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Questions for Doctor -->
+                            <div class="accordion-item border-0 shadow-sm">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#questions">
+                                        ❓ Questions to Ask Your Doctor ({{ doctor_questions|length }})
+                                    </button>
+                                </h2>
+                                <div id="questions" class="accordion-collapse collapse" data-bs-parent="#insightsAccordion">
+                                    <div class="accordion-body">
+                                        <div class="alert alert-info mb-3">
+                                            <small>💡 Copy these to your phone or print them out for your next visit!</small>
+                                        </div>
+                                        <ol class="mb-0">
+                                            {% for question in doctor_questions %}
+                                            <li class="mb-2 pb-2 {% if not forloop.last %}border-bottom{% endif %}">{{ question }}</li>
+                                            {% endfor %}
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,91 +109,115 @@
                 </div>
             </section>
             
-            <!-- Active Problems with SOAP Summaries -->
+            <!-- Active Medical Problems -->
             <section class="mb-5">
-                <h3 class="mb-4">🏥 Active Medical Problems</h3>
+                <h3 class="mb-4">🏥 Your Health Conditions</h3>
                 
-                {% for problem in active_problems %}
-                <div class="card mb-3">
-                    <div class="card-header {% if problem.status == 'Stable' %}bg-success-subtle{% elif problem.status == 'Improved' %}bg-info-subtle{% else %}bg-warning-subtle{% endif %}">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">{{ problem.problem }}</h5>
-                            <div>
-                                <span class="badge {% if problem.status == 'Stable' %}bg-success{% elif problem.status == 'Improved' %}bg-info{% else %}bg-warning{% endif %} me-2">
-                                    {{ problem.status }}
-                                </span>
-                                <small class="text-muted">Since: {{ problem.onset }}</small>
+                <div class="accordion" id="problemsAccordion">
+                    {% for problem in active_problems %}
+                    <div class="accordion-item border-0 mb-3 shadow-sm">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button {% if forloop.counter > 1 %}collapsed{% endif %} fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#problem{{ forloop.counter }}" aria-expanded="{% if forloop.counter == 1 %}true{% else %}false{% endif %}">
+                                <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                                    <span>{{ problem.problem }}</span>
+                                    <div>
+                                        <span class="badge {% if problem.status == 'Stable' or problem.status == 'Well Controlled' %}bg-success{% elif problem.status == 'Improving' %}bg-info{% elif problem.status == 'Getting Worse' %}bg-danger{% else %}bg-warning{% endif %} me-2">
+                                            {{ problem.status }}
+                                        </span>
+                                        <small class="text-muted">{{ problem.onset }}</small>
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="problem{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.counter == 1 %}show{% endif %}" data-bs-parent="#problemsAccordion">
+                            <div class="accordion-body">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="p-3 bg-light rounded">
+                                            <h6 class="text-primary mb-2">💬 What You Told Your Doctor</h6>
+                                            <p class="mb-0">{{ problem.simple_summary.what_you_said }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="p-3 bg-light rounded">
+                                            <h6 class="text-primary mb-2">🔬 What the Tests Show</h6>
+                                            <p class="mb-0">{{ problem.simple_summary.what_tests_showed }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="p-3 bg-info bg-opacity-10 rounded">
+                                            <h6 class="text-info mb-2">📊 What It Means</h6>
+                                            <p class="mb-0">{{ problem.simple_summary.what_it_means }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="p-3 bg-success bg-opacity-10 rounded">
+                                            <h6 class="text-success mb-2">✅ What We're Doing</h6>
+                                            <p class="mb-0">{{ problem.simple_summary.what_were_doing }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="border-end h-100">
-                                    <h6 class="text-uppercase small text-muted">Subjective</h6>
-                                    <p class="small">{{ problem.soap_summary.subjective }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="border-end h-100">
-                                    <h6 class="text-uppercase small text-muted">Objective</h6>
-                                    <p class="small">{{ problem.soap_summary.objective }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="border-end h-100">
-                                    <h6 class="text-uppercase small text-muted">Assessment</h6>
-                                    <p class="small">{{ problem.soap_summary.assessment }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="text-uppercase small text-muted">Plan</h6>
-                                <p class="small">{{ problem.soap_summary.plan }}</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </section>
             
-            <!-- Medications with Interactions and Side Effects -->
+            <!-- Medications -->
             <section class="mb-5">
-                <h3 class="mb-4">💊 Current Medications</h3>
+                <h3 class="mb-4">💊 Your Medications</h3>
                 
                 <div class="row">
                     {% for med in medications %}
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-white">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <h5 class="mb-0">{{ med.name }}</h5>
-                                        <p class="text-muted small mb-0">{{ med.dose }} - {{ med.frequency }}</p>
-                                    </div>
-                                    <span class="badge bg-primary">{{ med.purpose }}</span>
-                                </div>
-                            </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card shadow-sm">
                             <div class="card-body">
-                                <!-- Drug Interactions -->
-                                {% if med.interactions %}
-                                <div class="mb-3">
-                                    <h6 class="text-danger mb-2">⚠️ Drug Interactions</h6>
-                                    {% for interaction in med.interactions %}
-                                    <div class="alert {% if interaction.severity == 'Moderate' %}alert-warning{% else %}alert-info{% endif %} py-2 px-3 mb-2 small">
-                                        <strong>With {{ interaction.with }}:</strong> {{ interaction.description }}
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="mb-1">{{ med.name }}</h5>
+                                        <p class="text-muted mb-0 small">{{ med.dose }} • {{ med.frequency }}</p>
                                     </div>
-                                    {% endfor %}
+                                    <span class="badge bg-primary px-3 py-2">{{ med.purpose }}</span>
                                 </div>
-                                {% endif %}
                                 
-                                <!-- Side Effects -->
-                                <div>
-                                    <h6 class="text-primary mb-2">👁️ Watch For These Side Effects</h6>
-                                    <ul class="small mb-0">
-                                        {% for effect in med.side_effects %}
-                                        <li>{{ effect }}</li>
-                                        {% endfor %}
-                                    </ul>
+                                <!-- Collapsible Details -->
+                                <div class="accordion accordion-flush" id="med{{ forloop.counter }}Accordion">
+                                    {% if med.interactions %}
+                                    <div class="accordion-item border-0">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed bg-transparent text-danger fw-semibold small py-2 px-0" type="button" data-bs-toggle="collapse" data-bs-target="#interactions{{ forloop.counter }}">
+                                                ⚠️ Drug Interactions ({{ med.interactions|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="interactions{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#med{{ forloop.counter }}Accordion">
+                                            <div class="accordion-body px-0 pt-0">
+                                                {% for interaction in med.interactions %}
+                                                <div class="alert {% if interaction.severity == 'Moderate' %}alert-warning{% else %}alert-info{% endif %} py-2 px-3 mb-2 small">
+                                                    <strong>With {{ interaction.with }}:</strong> {{ interaction.description }}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <div class="accordion-item border-0">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed bg-transparent text-primary fw-semibold small py-2 px-0" type="button" data-bs-toggle="collapse" data-bs-target="#effects{{ forloop.counter }}">
+                                                👁️ Side Effects to Watch For
+                                            </button>
+                                        </h2>
+                                        <div id="effects{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#med{{ forloop.counter }}Accordion">
+                                            <div class="accordion-body px-0 pt-0">
+                                                <ul class="small mb-0 ps-3">
+                                                    {% for effect in med.side_effects %}
+                                                    <li class="mb-1">{{ effect }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
