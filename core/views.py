@@ -69,19 +69,32 @@ def logout_view(request):
     return redirect('login')
 
 
-@login_required
 def dashboard_view(request):
-    # Get user's health data
-    health_records = request.user.health_records.all()[:5]
-    medications = request.user.medications.filter(is_active=True)
-    recent_vitals = request.user.vital_signs.first()
-    ai_insights = request.user.ai_insights.filter(is_completed=False)
+    # Import sample data
+    from sample_data import AI_INSIGHTS, ACTIVE_PROBLEMS, MEDICATION_INTERACTIONS, VISIT_NOTES
+    
+    # Prepare medications with their interactions and side effects
+    medications_list = []
+    for visit in VISIT_NOTES:
+        for med in visit['medications']:
+            med_name = med['name'].split()[0]  # Get base drug name (before parentheses)
+            med_data = {
+                'name': med['name'],
+                'dose': med['dose'],
+                'frequency': med['frequency'],
+                'purpose': med['purpose'],
+                'interactions': MEDICATION_INTERACTIONS.get(med_name, {}).get('interactions', []),
+                'side_effects': MEDICATION_INTERACTIONS.get(med_name, {}).get('side_effects', [])
+            }
+            # Avoid duplicates
+            if not any(m['name'] == med_data['name'] for m in medications_list):
+                medications_list.append(med_data)
     
     context = {
-        'health_records': health_records,
-        'medications': medications,
-        'recent_vitals': recent_vitals,
-        'ai_insights': ai_insights,
+        'health_trends': AI_INSIGHTS['health_trends'],
+        'health_guidance': AI_INSIGHTS['health_guidance'],
+        'doctor_questions': AI_INSIGHTS['doctor_questions'],
+        'active_problems': ACTIVE_PROBLEMS,
+        'medications': medications_list,
     }
-    
     return render(request, 'core/dashboard.html', context)

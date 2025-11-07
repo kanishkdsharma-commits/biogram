@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard - Biogram{% endblock %}
+{% block title %}Health Snapshot - Biogram{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -8,20 +8,19 @@
         <!-- Sidebar -->
         <div class="col-md-2 sidebar pt-4">
             <nav class="nav flex-column">
-                <a href="#snapshot" class="sidebar-link active" data-testid="link-snapshot">📊 Health Snapshot</a>
-                <a href="#timeline" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
-                <a href="#wearable" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
-                <a href="#medications" class="sidebar-link" data-testid="link-medications">💊 Medications</a>
-                <a href="#labs" class="sidebar-link" data-testid="link-labs">🔬 Lab Results</a>
+                <a href="{% url 'dashboard' %}" class="sidebar-link active" data-testid="link-snapshot">📊 Health Snapshot</a>
+                <a href="{% url 'health_timeline' %}" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
+                <a href="{% url 'wearable_insights' %}" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
+                <a href="{% url 'lab_results' %}" class="sidebar-link" data-testid="link-labs">🔬 Lab Results</a>
             </nav>
         </div>
         
         <!-- Main Content -->
-        <div class="col-md-10 pt-4">
+        <div class="col-md-10 pt-4 pb-5">
             <!-- Sticky Action Bar -->
-            <div class="sticky-top bg-white pb-3 mb-4 border-bottom">
+            <div class="sticky-top bg-light pb-3 mb-4 border-bottom" style="top: 0; z-index: 100;">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="h3">Health Snapshot</h1>
+                    <h1 class="h3 mb-0">🧬 Health Snapshot</h1>
                     <div>
                         <button class="btn btn-outline-primary me-2" data-testid="button-share">
                             📤 Share with Provider
@@ -33,135 +32,155 @@
                 </div>
             </div>
             
-            <!-- Health Snapshot Section -->
-            <section id="snapshot" class="mb-5">
-                <div class="row">
-                    <!-- AI Insights Card -->
-                    <div class="col-md-6 mb-4">
-                        <div class="card health-card">
-                            <div class="card-header bg-white">
-                                <h5 class="mb-0">🤖 AI-Detected Actions</h5>
-                            </div>
-                            <div class="card-body">
-                                {% if ai_insights %}
-                                    <div class="list-group list-group-flush">
-                                        {% for insight in ai_insights %}
-                                            <div class="list-group-item px-0" data-testid="insight-item-{{ forloop.counter }}">
-                                                <div class="d-flex justify-content-between align-items-start">
-                                                    <div>
-                                                        <h6>{{ insight.title }}</h6>
-                                                        <p class="text-muted small mb-1">{{ insight.description }}</p>
-                                                    </div>
-                                                    <span class="badge badge-{{ insight.priority }}" data-testid="badge-priority-{{ forloop.counter }}">
-                                                        {{ insight.get_priority_display }}
-                                                    </span>
-                                                </div>
+            <!-- AI-Generated Insights Section -->
+            <section class="mb-5">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">🤖 AI-Generated Health Insights</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Health Trends -->
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">📈 Your Health Trends</h5>
+                            <div class="row">
+                                {% for trend in health_trends %}
+                                <div class="col-md-4 mb-3">
+                                    <div class="card h-100 {% if trend.severity == 'positive' %}border-success{% elif trend.severity == 'moderate' %}border-warning{% else %}border-info{% endif %}">
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                {% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}
+                                                {{ trend.trend }}
+                                            </h6>
+                                            <p class="card-text small">{{ trend.description }}</p>
+                                            <div class="alert {% if trend.severity == 'positive' %}alert-success{% elif trend.severity == 'moderate' %}alert-warning{% else %}alert-info{% endif %} py-2 px-3 small mb-0">
+                                                <strong>Recommendation:</strong> {{ trend.recommendation }}
                                             </div>
-                                        {% endfor %}
+                                        </div>
                                     </div>
-                                {% else %}
-                                    <p class="text-muted" data-testid="text-no-insights">No action items at this time. Great job staying on top of your health!</p>
-                                {% endif %}
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Active Medications Card -->
-                    <div class="col-md-6 mb-4">
-                        <div class="card health-card">
-                            <div class="card-header bg-white">
-                                <h5 class="mb-0">💊 Active Medications</h5>
+                        
+                        <!-- Personalized Guidance -->
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">💡 Personalized Health Guidance</h5>
+                            <div class="list-group">
+                                {% for guidance in health_guidance %}
+                                <div class="list-group-item">
+                                    {{ guidance|safe }}
+                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="card-body">
-                                {% if medications %}
-                                    <div class="list-group list-group-flush">
-                                        {% for med in medications %}
-                                            <div class="list-group-item px-0" data-testid="medication-item-{{ forloop.counter }}">
-                                                <div class="d-flex justify-content-between">
-                                                    <div>
-                                                        <h6>{{ med.name }}</h6>
-                                                        <p class="text-muted small mb-0">
-                                                            {{ med.dosage }} - {{ med.get_frequency_display }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        </div>
+                        
+                        <!-- Questions for Doctor -->
+                        <div>
+                            <h5 class="text-primary mb-3">❓ Important Questions for Your Next Doctor Visit</h5>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <ol class="mb-0">
+                                        {% for question in doctor_questions %}
+                                        <li class="mb-2">{{ question }}</li>
                                         {% endfor %}
-                                    </div>
-                                {% else %}
-                                    <p class="text-muted" data-testid="text-no-medications">No active medications</p>
-                                {% endif %}
+                                    </ol>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+            
+            <!-- Active Problems with SOAP Summaries -->
+            <section class="mb-5">
+                <h3 class="mb-4">🏥 Active Medical Problems</h3>
                 
-                <!-- Recent Vitals -->
-                {% if recent_vitals %}
-                <div class="card health-card mb-4">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0">❤️ Recent Vitals</h5>
+                {% for problem in active_problems %}
+                <div class="card mb-3">
+                    <div class="card-header {% if problem.status == 'Stable' %}bg-success-subtle{% elif problem.status == 'Improved' %}bg-info-subtle{% else %}bg-warning-subtle{% endif %}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">{{ problem.problem }}</h5>
+                            <div>
+                                <span class="badge {% if problem.status == 'Stable' %}bg-success{% elif problem.status == 'Improved' %}bg-info{% else %}bg-warning{% endif %} me-2">
+                                    {{ problem.status }}
+                                </span>
+                                <small class="text-muted">Since: {{ problem.onset }}</small>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            {% if recent_vitals.blood_pressure_systolic %}
-                            <div class="col-md-3" data-testid="vital-bp">
-                                <h6 class="text-muted">Blood Pressure</h6>
-                                <p class="h4">{{ recent_vitals.blood_pressure_systolic }}/{{ recent_vitals.blood_pressure_diastolic }}</p>
+                            <div class="col-md-3">
+                                <div class="border-end h-100">
+                                    <h6 class="text-uppercase small text-muted">Subjective</h6>
+                                    <p class="small">{{ problem.soap_summary.subjective }}</p>
+                                </div>
                             </div>
-                            {% endif %}
-                            {% if recent_vitals.heart_rate %}
-                            <div class="col-md-3" data-testid="vital-hr">
-                                <h6 class="text-muted">Heart Rate</h6>
-                                <p class="h4">{{ recent_vitals.heart_rate }} bpm</p>
+                            <div class="col-md-3">
+                                <div class="border-end h-100">
+                                    <h6 class="text-uppercase small text-muted">Objective</h6>
+                                    <p class="small">{{ problem.soap_summary.objective }}</p>
+                                </div>
                             </div>
-                            {% endif %}
-                            {% if recent_vitals.weight %}
-                            <div class="col-md-3" data-testid="vital-weight">
-                                <h6 class="text-muted">Weight</h6>
-                                <p class="h4">{{ recent_vitals.weight }} kg</p>
+                            <div class="col-md-3">
+                                <div class="border-end h-100">
+                                    <h6 class="text-uppercase small text-muted">Assessment</h6>
+                                    <p class="small">{{ problem.soap_summary.assessment }}</p>
+                                </div>
                             </div>
-                            {% endif %}
-                            {% if recent_vitals.temperature %}
-                            <div class="col-md-3" data-testid="vital-temp">
-                                <h6 class="text-muted">Temperature</h6>
-                                <p class="h4">{{ recent_vitals.temperature }}°C</p>
+                            <div class="col-md-3">
+                                <h6 class="text-uppercase small text-muted">Plan</h6>
+                                <p class="small">{{ problem.soap_summary.plan }}</p>
                             </div>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {% endif %}
+                {% endfor %}
             </section>
             
-            <!-- Health Timeline Section -->
-            <section id="timeline" class="mb-5">
-                <h2 class="h4 mb-4">📅 Recent Health Events</h2>
-                <div class="card">
-                    <div class="card-body">
-                        {% if health_records %}
-                            <div class="list-group list-group-flush">
-                                {% for record in health_records %}
-                                    <div class="list-group-item px-0" data-testid="record-item-{{ forloop.counter }}">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div>
-                                                <h6>{{ record.title }}</h6>
-                                                <p class="text-muted small mb-1">{{ record.description|truncatewords:20 }}</p>
-                                                <small class="text-muted">
-                                                    {{ record.date|date:"M d, Y" }} - {{ record.get_event_type_display }}
-                                                </small>
-                                            </div>
-                                            {% if record.is_important %}
-                                                <span class="badge bg-warning" data-testid="badge-important-{{ forloop.counter }}">Important</span>
-                                            {% endif %}
-                                        </div>
+            <!-- Medications with Interactions and Side Effects -->
+            <section class="mb-5">
+                <h3 class="mb-4">💊 Current Medications</h3>
+                
+                <div class="row">
+                    {% for med in medications %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-white">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="mb-0">{{ med.name }}</h5>
+                                        <p class="text-muted small mb-0">{{ med.dose }} - {{ med.frequency }}</p>
                                     </div>
-                                {% endfor %}
+                                    <span class="badge bg-primary">{{ med.purpose }}</span>
+                                </div>
                             </div>
-                        {% else %}
-                            <p class="text-muted" data-testid="text-no-records">No health records yet. Start tracking your health journey!</p>
-                        {% endif %}
+                            <div class="card-body">
+                                <!-- Drug Interactions -->
+                                {% if med.interactions %}
+                                <div class="mb-3">
+                                    <h6 class="text-danger mb-2">⚠️ Drug Interactions</h6>
+                                    {% for interaction in med.interactions %}
+                                    <div class="alert {% if interaction.severity == 'Moderate' %}alert-warning{% else %}alert-info{% endif %} py-2 px-3 mb-2 small">
+                                        <strong>With {{ interaction.with }}:</strong> {{ interaction.description }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                
+                                <!-- Side Effects -->
+                                <div>
+                                    <h6 class="text-primary mb-2">👁️ Watch For These Side Effects</h6>
+                                    <ul class="small mb-0">
+                                        {% for effect in med.side_effects %}
+                                        <li>{{ effect }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
             </section>
         </div>
@@ -171,12 +190,11 @@
 
 {% block extra_js %}
 <script>
-    // Sidebar navigation
+    // Highlight active sidebar link
     document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-        });
+        if (link.href === window.location.href) {
+            link.classList.add('active');
+        }
     });
 </script>
 {% endblock %}
