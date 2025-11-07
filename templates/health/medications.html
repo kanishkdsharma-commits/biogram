@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Medications - Biogram{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar pt-4">
+            <nav class="nav flex-column">
+                <a href="{% url 'dashboard' %}" class="sidebar-link">📊 Health Snapshot</a>
+                <a href="{% url 'health_timeline' %}" class="sidebar-link">📅 Health Timeline</a>
+                <a href="{% url 'wearable_insights' %}" class="sidebar-link">⌚ Wearable Insights</a>
+                <a href="{% url 'medications' %}" class="sidebar-link active">💊 Medications</a>
+                <a href="{% url 'lab_results' %}" class="sidebar-link">🔬 Lab Results</a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-10 pt-4">
+            <!-- Header -->
+            <div class="sticky-top bg-white pb-3 mb-4 border-bottom">
+                <h1 class="h3">Medications</h1>
+            </div>
+            
+            <!-- Active Medications -->
+            <div class="card mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">💊 Active Medications</h5>
+                </div>
+                <div class="card-body">
+                    {% if active_medications %}
+                        <div class="row">
+                            {% for med in active_medications %}
+                                <div class="col-md-6 mb-3" data-testid="active-med-{{ forloop.counter }}">
+                                    <div class="card health-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ med.name }}</h5>
+                                            <p class="mb-1"><strong>Dosage:</strong> {{ med.dosage }}</p>
+                                            <p class="mb-1"><strong>Frequency:</strong> {{ med.get_frequency_display }}</p>
+                                            <p class="mb-1"><strong>Started:</strong> {{ med.start_date|date:"M d, Y" }}</p>
+                                            {% if med.prescriber %}
+                                                <p class="mb-1"><strong>Prescriber:</strong> {{ med.prescriber }}</p>
+                                            {% endif %}
+                                            {% if med.purpose %}
+                                                <p class="mb-1"><strong>Purpose:</strong> {{ med.purpose }}</p>
+                                            {% endif %}
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-4" data-testid="text-no-active-meds">
+                            No active medications recorded.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Inactive Medications -->
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">📋 Past Medications</h5>
+                </div>
+                <div class="card-body">
+                    {% if inactive_medications %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Medication</th>
+                                        <th>Dosage</th>
+                                        <th>Duration</th>
+                                        <th>Prescriber</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for med in inactive_medications %}
+                                        <tr data-testid="inactive-med-{{ forloop.counter }}">
+                                            <td>{{ med.name }}</td>
+                                            <td>{{ med.dosage }}</td>
+                                            <td>
+                                                {{ med.start_date|date:"M Y" }} - 
+                                                {% if med.end_date %}
+                                                    {{ med.end_date|date:"M Y" }}
+                                                {% else %}
+                                                    Discontinued
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ med.prescriber|default:"--" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-4" data-testid="text-no-inactive-meds">
+                            No past medications recorded.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
