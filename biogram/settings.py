@@ -35,8 +35,11 @@ ALLOWED_HOSTS = ['*'] if DEBUG else os.environ.get('ALLOWED_HOSTS', '').split(',
 # CSRF trusted origins for Replit
 CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.dev',
+    'https://*.replit.dev:5000',
     'https://*.replit.app',
+    'https://*.replit.app:5000',
     'https://*.repl.co',
+    'https://*.repl.co:5000',
 ]
 
 # Application definition
