@@ -66,7 +66,6 @@ Preferred communication style: Simple, everyday language.
 2. **Personal Health Tips:** Compact grid of AI guidance cards
 3. **Questions for Your Doctor:** Numbered question cards in grid layout
 4. **Health Conditions:** Visual cards with 4-quadrant detail boxes (what you said, tests showed, what it means, what we're doing)
-5. **Medications:** Card grid showing name, dose, purpose badge, and key interactions
 
 ### Health Timeline - `/health/timeline/`
 
@@ -99,6 +98,30 @@ Preferred communication style: Simple, everyday language.
    - Date tile with purple gradient
    - Metrics grid: steps, calories, active minutes, sleep, heart rate
 
+### Medications - `/health/medications/`
+
+**Design Features:**
+- Purple gradient hero with "Your Medications" headline
+- 80px floating pill icon (💊) with animation
+- Dedicated tab accessible from all pages
+- Comprehensive medication management view
+
+**Medication Cards:**
+- Large medication name (28px bold) with 48px pill icons
+- Dose and frequency badges with gradient backgrounds
+- Purpose badge showing what the medication treats
+- Detailed information grid (started date, prescriber, frequency)
+- Important Interactions section with yellow warning backgrounds
+- Common Side Effects section with blue/purple backgrounds
+- Smooth hover effects (lift and shadow enhancement)
+- Staggered fade-in animations (0.1s, 0.2s, 0.3s increments)
+
+**Data Display:**
+- Extracts medications from all patient visit notes
+- Shows interactions and side effects from medication database
+- Displays prescriber and start date for each medication
+- Premium card design matching Apple aesthetic
+
 ### Lab Results - `/health/lab-results/`
 
 **Design Features:**
@@ -117,6 +140,22 @@ Preferred communication style: Simple, everyday language.
 - Notes section with yellow highlight
 
 ## Recent Changes (November 2025)
+
+### Medications Tab Addition (November 8, 2025)
+
+**New Dedicated Medications Page:**
+- Created standalone Medications tab accessible from all pages
+- Added Medications (💊) link to all sidebar navigations (Dashboard, Timeline, Wearable, Lab Results)
+- Moved medications from Health Snapshot to dedicated page with enhanced display
+- Redesigned with full Apple aesthetic: purple gradient hero, 80px pill icon, premium cards
+- Displays medication details, interactions, and side effects in visual cards
+- Removed medications section from dashboard for cleaner, more focused health snapshot
+
+**Technical Implementation:**
+- Updated medications view to use sample data from visit notes
+- Extracts unique medications with interactions and side effects
+- Maintains consistent navigation across all 5 tabs
+- Public demo compatible (no authentication required)
 
 ### Complete Apple iPhone Website Redesign
 
