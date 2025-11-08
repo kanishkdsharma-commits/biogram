@@ -2,105 +2,326 @@
 
 {% block title %}Medications - Biogram{% endblock %}
 
+{% block extra_css %}
+<style>
+    body {
+        background: linear-gradient(to bottom, #f5f5f7 0%, #ffffff 100%);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    
+    .meds-hero {
+        text-align: center;
+        padding: 80px 20px 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-bottom: 80px;
+        border-radius: 0 0 40px 40px;
+    }
+    
+    .hero-icon {
+        font-size: 80px;
+        display: block;
+        margin-bottom: 20px;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .meds-hero h1 {
+        font-size: 64px;
+        font-weight: 700;
+        letter-spacing: -2px;
+        margin-bottom: 20px;
+        line-height: 1.1;
+    }
+    
+    .meds-hero p {
+        font-size: 24px;
+        font-weight: 400;
+        opacity: 0.95;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .section-header {
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: -1px;
+        margin-bottom: 40px;
+        color: #1d1d1f;
+    }
+    
+    .med-card {
+        background: white;
+        border-radius: 28px;
+        padding: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        margin-bottom: 24px;
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .med-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .med-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f5f5f7;
+    }
+    
+    .med-icon {
+        font-size: 48px;
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .med-title {
+        flex: 1;
+    }
+    
+    .med-name {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin: 0 0 8px 0;
+    }
+    
+    .med-dose {
+        font-size: 18px;
+        color: #667eea;
+        font-weight: 600;
+    }
+    
+    .med-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .detail-item {
+        background: #f5f5f7;
+        border-radius: 16px;
+        padding: 20px;
+    }
+    
+    .detail-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #86868b;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    .detail-value {
+        font-size: 16px;
+        color: #1d1d1f;
+        font-weight: 500;
+    }
+    
+    .purpose-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    
+    .interactions-section,
+    .side-effects-section {
+        margin-top: 24px;
+    }
+    
+    .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .warning-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .warning-item {
+        background: #fff3cd;
+        border-left: 4px solid #f59e0b;
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #1d1d1f;
+    }
+    
+    .side-effect-item {
+        background: #e0e7ff;
+        border-left: 4px solid #667eea;
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #1d1d1f;
+    }
+    
+    .no-data {
+        text-align: center;
+        padding: 80px 40px;
+        color: #86868b;
+    }
+    
+    .no-data-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+    }
+    
+    .no-data-text {
+        font-size: 20px;
+        font-weight: 500;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .meds-hero h1 {
+            font-size: 42px;
+        }
+        
+        .section-header {
+            font-size: 32px;
+        }
+        
+        .med-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .med-details {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
         <div class="col-md-2 sidebar pt-4">
             <nav class="nav flex-column">
-                <a href="{% url 'dashboard' %}" class="sidebar-link">📊 Health Snapshot</a>
-                <a href="{% url 'health_timeline' %}" class="sidebar-link">📅 Health Timeline</a>
-                <a href="{% url 'wearable_insights' %}" class="sidebar-link">⌚ Wearable Insights</a>
-                <a href="{% url 'medications' %}" class="sidebar-link active">💊 Medications</a>
-                <a href="{% url 'lab_results' %}" class="sidebar-link">🔬 Lab Results</a>
+                <a href="{% url 'dashboard' %}" class="sidebar-link" data-testid="link-snapshot">📊 Health Snapshot</a>
+                <a href="{% url 'health_timeline' %}" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
+                <a href="{% url 'wearable_insights' %}" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
+                <a href="{% url 'medications' %}" class="sidebar-link active" data-testid="link-medications">💊 Medications</a>
+                <a href="{% url 'lab_results' %}" class="sidebar-link" data-testid="link-labs">🔬 Lab Results</a>
             </nav>
         </div>
         
         <!-- Main Content -->
-        <div class="col-md-10 pt-4">
-            <!-- Header -->
-            <div class="sticky-top bg-white pb-3 mb-4 border-bottom">
-                <h1 class="h3">Medications</h1>
+        <div class="col-md-10 p-0">
+            <!-- Hero Section -->
+            <div class="meds-hero">
+                <span class="hero-icon">💊</span>
+                <h1>Your Medications</h1>
+                <p>Complete overview of your current treatment plan.</p>
             </div>
-            
-            <!-- Active Medications -->
-            <div class="card mb-4">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0">💊 Active Medications</h5>
-                </div>
-                <div class="card-body">
-                    {% if active_medications %}
-                        <div class="row">
-                            {% for med in active_medications %}
-                                <div class="col-md-6 mb-3" data-testid="active-med-{{ forloop.counter }}">
-                                    <div class="card health-card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ med.name }}</h5>
-                                            <p class="mb-1"><strong>Dosage:</strong> {{ med.dosage }}</p>
-                                            <p class="mb-1"><strong>Frequency:</strong> {{ med.get_frequency_display }}</p>
-                                            <p class="mb-1"><strong>Started:</strong> {{ med.start_date|date:"M d, Y" }}</p>
-                                            {% if med.prescriber %}
-                                                <p class="mb-1"><strong>Prescriber:</strong> {{ med.prescriber }}</p>
-                                            {% endif %}
-                                            {% if med.purpose %}
-                                                <p class="mb-1"><strong>Purpose:</strong> {{ med.purpose }}</p>
-                                            {% endif %}
-                                            <span class="badge bg-success">Active</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+
+            <div class="px-5 pb-5">
+                {% if active_medications %}
+                <section class="fade-in">
+                    <h2 class="section-header">💊 Active Medications</h2>
+                    
+                    {% for med in active_medications %}
+                    <div class="med-card" data-testid="med-card-{{ forloop.counter }}" style="animation-delay: 0.{{ forloop.counter }}s;">
+                        <div class="med-header">
+                            <div class="med-icon">💊</div>
+                            <div class="med-title">
+                                <h3 class="med-name">{{ med.name }}</h3>
+                                <div class="med-dose">{{ med.dose }} • {{ med.frequency }}</div>
+                            </div>
                         </div>
-                    {% else %}
-                        <p class="text-muted text-center py-4" data-testid="text-no-active-meds">
-                            No active medications recorded.
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-            
-            <!-- Inactive Medications -->
-            <div class="card">
-                <div class="card-header bg-white">
-                    <h5 class="mb-0">📋 Past Medications</h5>
-                </div>
-                <div class="card-body">
-                    {% if inactive_medications %}
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Medication</th>
-                                        <th>Dosage</th>
-                                        <th>Duration</th>
-                                        <th>Prescriber</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for med in inactive_medications %}
-                                        <tr data-testid="inactive-med-{{ forloop.counter }}">
-                                            <td>{{ med.name }}</td>
-                                            <td>{{ med.dosage }}</td>
-                                            <td>
-                                                {{ med.start_date|date:"M Y" }} - 
-                                                {% if med.end_date %}
-                                                    {{ med.end_date|date:"M Y" }}
-                                                {% else %}
-                                                    Discontinued
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ med.prescriber|default:"--" }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                        
+                        <div class="purpose-badge">{{ med.purpose }}</div>
+                        
+                        <div class="med-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Started</div>
+                                <div class="detail-value">{{ med.started }}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Prescribed By</div>
+                                <div class="detail-value">{{ med.prescriber }}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Frequency</div>
+                                <div class="detail-value">{{ med.frequency }}</div>
+                            </div>
                         </div>
-                    {% else %}
-                        <p class="text-muted text-center py-4" data-testid="text-no-inactive-meds">
-                            No past medications recorded.
-                        </p>
-                    {% endif %}
+                        
+                        {% if med.interactions %}
+                        <div class="interactions-section">
+                            <div class="section-title">⚠️ Important Interactions</div>
+                            <ul class="warning-list">
+                                {% for interaction in med.interactions %}
+                                <li class="warning-item">{{ interaction }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if med.side_effects %}
+                        <div class="side-effects-section">
+                            <div class="section-title">ℹ️ Common Side Effects</div>
+                            <ul class="warning-list">
+                                {% for effect in med.side_effects %}
+                                <li class="side-effect-item">{{ effect }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </section>
+                {% else %}
+                <div class="no-data">
+                    <div class="no-data-icon">💊</div>
+                    <div class="no-data-text">No medications recorded</div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

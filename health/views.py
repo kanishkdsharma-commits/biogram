@@ -78,14 +78,34 @@ def wearable_insights(request):
     return render(request, 'health/wearable_insights.html', context)
 
 
-@login_required
 def medications_list(request):
-    active_meds = Medication.objects.filter(user=request.user, is_active=True)
-    inactive_meds = Medication.objects.filter(user=request.user, is_active=False)
+    # Public demo - using sample medication data
+    from sample_data import MEDICATION_INTERACTIONS, VISIT_NOTES
     
+    # Extract all medications from visit notes
+    medications = []
+    for visit in VISIT_NOTES:
+        for med in visit['medications']:
+            med_name = med['name'].split()[0]  # Get base drug name
+            med_data = {
+                'name': med['name'],
+                'dose': med['dose'],
+                'frequency': med['frequency'],
+                'purpose': med['purpose'],
+                'interactions': MEDICATION_INTERACTIONS.get(med_name, {}).get('interactions', []),
+                'side_effects': MEDICATION_INTERACTIONS.get(med_name, {}).get('side_effects', []),
+                'started': visit['visit_date'],  # Use visit date as start date
+                'prescriber': visit['provider']
+            }
+            # Avoid duplicates
+            if not any(m['name'] == med_data['name'] for m in medications):
+                medications.append(med_data)
+    
+    # For demo: all are active medications
+    # In a real app, you'd filter based on end_date or is_active flag
     context = {
-        'active_medications': active_meds,
-        'inactive_medications': inactive_meds,
+        'active_medications': medications,
+        'inactive_medications': [],  # Empty for demo
     }
     
     return render(request, 'health/medications.html', context)

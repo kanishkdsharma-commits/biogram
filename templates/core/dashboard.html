@@ -242,64 +242,6 @@
         margin: 0;
     }
 
-    /* Medication Cards */
-    .med-card {
-        background: white;
-        border-radius: 20px;
-        padding: 28px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
-        height: 100%;
-    }
-
-    .med-card:hover {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        transform: translateY(-3px);
-    }
-
-    .med-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        margin-bottom: 20px;
-        gap: 16px;
-    }
-
-    .med-name {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1a1a2e;
-        margin: 0 0 6px 0;
-    }
-
-    .med-dose {
-        font-size: 14px;
-        color: #6b7280;
-    }
-
-    .med-purpose-badge {
-        padding: 8px 14px;
-        border-radius: 10px;
-        font-size: 12px;
-        font-weight: 600;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        white-space: nowrap;
-    }
-
-    .med-interactions {
-        margin-top: 16px;
-        padding: 16px;
-        background: #fef3c7;
-        border-left: 4px solid #f59e0b;
-        border-radius: 10px;
-        font-size: 13px;
-    }
-
-    .med-interactions strong {
-        color: #d97706;
-    }
-
     /* Animations */
     @keyframes fadeInUp {
         from {
@@ -342,6 +284,7 @@
                 <a href="{% url 'dashboard' %}" class="sidebar-link active" data-testid="link-snapshot">📊 Health Snapshot</a>
                 <a href="{% url 'health_timeline' %}" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
                 <a href="{% url 'wearable_insights' %}" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
+                <a href="{% url 'medications' %}" class="sidebar-link" data-testid="link-medications">💊 Medications</a>
                 <a href="{% url 'lab_results' %}" class="sidebar-link" data-testid="link-labs">🔬 Lab Results</a>
             </nav>
         </div>
@@ -450,36 +393,6 @@
                         </div>
                     </div>
                     {% endfor %}
-                </section>
-
-                <!-- Medications -->
-                <section class="mb-5 fade-in" style="animation-delay: 0.4s;">
-                    <h2 class="section-header">💊 Your Medications</h2>
-                    
-                    <div class="row g-4">
-                        {% for med in medications %}
-                        <div class="col-md-6">
-                            <div class="med-card" data-testid="med-{{ forloop.counter }}">
-                                <div class="med-header">
-                                    <div>
-                                        <h4 class="med-name">{{ med.name }}</h4>
-                                        <p class="med-dose">{{ med.dose }} • {{ med.frequency }}</p>
-                                    </div>
-                                    <span class="med-purpose-badge">{{ med.purpose }}</span>
-                                </div>
-                                
-                                {% if med.interactions %}
-                                {% for interaction in med.interactions %}
-                                <div class="med-interactions">
-                                    <strong>⚠️ Interaction with {{ interaction.with }}:</strong><br>
-                                    {{ interaction.description }}
-                                </div>
-                                {% endfor %}
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
                 </section>
             </div>
         </div>
