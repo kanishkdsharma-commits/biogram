@@ -12,45 +12,15 @@ from .models import (
 )
 
 
-@login_required
 def health_timeline(request):
-    # Get filter parameters
-    event_type = request.GET.get('event_type', '')
-    search_query = request.GET.get('search', '')
-    date_from = request.GET.get('date_from', '')
-    date_to = request.GET.get('date_to', '')
+    # Import sample timeline data
+    from sample_data import TIMELINE_EVENTS
     
-    # Base queryset
-    records = HealthRecord.objects.filter(user=request.user)
-    
-    # Apply filters
-    if event_type:
-        records = records.filter(event_type=event_type)
-    
-    if search_query:
-        records = records.filter(
-            Q(title__icontains=search_query) |
-            Q(description__icontains=search_query) |
-            Q(provider__icontains=search_query)
-        )
-    
-    if date_from:
-        records = records.filter(date__gte=date_from)
-    
-    if date_to:
-        records = records.filter(date__lte=date_to)
-    
-    # Get notes for timeline
-    notes = QuickNote.objects.filter(user=request.user)
+    # Sort timeline events by date (most recent first)
+    sorted_timeline = sorted(TIMELINE_EVENTS, key=lambda x: x['date'], reverse=True)
     
     context = {
-        'records': records[:50],  # Limit to 50 most recent
-        'notes': notes[:10],
-        'event_types': HealthRecord.EVENT_TYPES,
-        'selected_type': event_type,
-        'search_query': search_query,
-        'date_from': date_from,
-        'date_to': date_to,
+        'timeline_events': sorted_timeline,
     }
     
     return render(request, 'health/timeline.html', context)
