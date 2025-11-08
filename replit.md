@@ -2,7 +2,7 @@
 
 ## Overview
 
-Biogram is a health-tech AI platform designed to transform fragmented medical data into clear, personalized insights. The application provides an AI-powered interface that reads electronic health records (EHRs), integrates wearable data, and creates a comprehensive health story through an interactive timeline and insights dashboard. Built with a modern tech stack, it features a sleek "Notion meets Apple Health" design aesthetic with a focus on making medical data accessible and understandable for everyday users.
+Biogram is a public health insights dashboard that transforms complex medical data into clear, accessible information. The application features an Apple iPhone website-inspired UI design - clean, premium, and user-friendly across all sections. Built with Django and PostgreSQL, it presents sample patient data with an emphasis on visual clarity and modern aesthetics.
 
 ## User Preferences
 
@@ -10,152 +10,180 @@ Preferred communication style: Simple, everyday language.
 
 ## System Architecture
 
-### Frontend Architecture
-
-**Technology Stack:**
-- **Framework:** React 18 with TypeScript
-- **Build Tool:** Vite for fast development and optimized production builds
-- **Routing:** Wouter for lightweight client-side routing
-- **State Management:** TanStack Query (React Query) for server state management
-- **UI Framework:** Radix UI primitives with shadcn/ui components
-- **Styling:** Tailwind CSS with CSS variables for theming
-- **Animations:** Framer Motion for smooth transitions and micro-interactions
-
-**Design System:**
-- Uses a blue/teal color palette (primary: `hsl(199, 89%, 48%)`, secondary: `hsl(173, 80%, 40%)`)
-- Typography: Inter font family for modern, clean readability
-- Component library follows the "New York" style variant from shadcn/ui
-- Fully responsive design with mobile-first approach
-
-**Core UI Components:**
-- **Dashboard:** Main landing page with three primary views (Health Snapshot, Health Timeline, Wearable Insights)
-  - **Sticky Action Bar:** Persistent header with section title, "Share with Provider", and "Prepare for Appointment" buttons
-- **Health Snapshot:** AI-generated overview with diagnoses, medications, vital trends, and AI-detected action checklist
-  - **Action Checklist:** Interactive checklist with priority levels (Urgent/Routine/Follow-up), trigger metadata, custom action creation, checkbox persistence, and auto-archiving
-- **Health Timeline:** Interactive chronological view of medical events with expandable details
-  - **Comprehensive Filters:** Date range picker, event type toggles (visit/lab/emergency/medication/note), and search functionality with localStorage persistence
-  - **Print/Export:** Modal for generating doctor-friendly or patient-friendly timeline summaries with print-optimized CSS
-  - **Quick Notes Integration:** User notes displayed in timeline with StickyNote icon and yellow highlighting
-- **Wearable Insights:** Real-time health metrics with AI-derived pattern detection
-- **Notification Center:** Floating bell icon with badge count, dismissible health alerts (BP elevated, HR increased, sleep patterns, medication refills, positive trends)
-- **Quick Note Button:** Floating action button for rapid symptom/question entry with timestamp and localStorage persistence
-- **Prepare for Appointment:** Generates printable checklist from unchecked actions, vital trends, medication reviews, and user notes
-- **Share with Provider:** Creates clipboard-ready text summary with selectable sections (diagnoses, medications, vitals, timeline, wearables, notes)
-- **Jargon Translator:** Tooltip-based system that converts medical terminology into layman's terms on hover
-- **Security Drawer:** Slide-out panel for HIPAA compliance information and privacy settings
-- **Keyboard Shortcuts:** Navigation shortcuts (1, 2, 3 for sections)
-
 ### Backend Architecture
 
 **Technology Stack:**
-- **Runtime:** Node.js with Express.js
-- **Language:** TypeScript with ES Modules
-- **Database ORM:** Drizzle ORM configured for PostgreSQL
-- **Database Provider:** Neon serverless PostgreSQL
-- **Session Management:** connect-pg-simple for PostgreSQL-backed sessions
+- **Framework:** Django 5.2
+- **Database:** PostgreSQL (via Neon serverless)
+- **UI Framework:** Bootstrap 5 with custom Apple-inspired CSS
+- **Session Management:** Django's built-in session framework
+- **Development Server:** Node.js wrapper (server.js) for npm compatibility
 
-**API Design:**
-- RESTful API pattern with JSON responses
-- Currently implements static file-based data serving for demo purposes
-- Health check endpoint (`/api/health`) for service monitoring
-- Insights endpoint (`/api/insights`) serving mock health data from JSON files
+**Application Structure:**
+- Public dashboard (no authentication required for demo)
+- Sample data driven from `sample_data.py`
+- Four main views: Health Snapshot, Timeline, Wearable Insights, Lab Results
+- RESTful URL patterns with Django template rendering
 
-**Server Architecture:**
-- Development mode uses Vite middleware for HMR (Hot Module Replacement)
-- Production mode serves pre-built static assets
-- Request logging middleware with duration tracking
-- JSON body parsing with raw body preservation for webhook integrations
+**Data Management:**
+- Static sample data for demonstration purposes
+- Health Snapshot: AI insights, health trends, conditions, medications
+- Timeline: 17 medical events spanning 2018-2025
+- Wearable: 7 days of activity data with aggregates
+- Lab Results: 4 sample test results with visual presentation
 
-**Data Storage:**
-- In-memory storage implementation (`MemStorage`) for user management
-- Drizzle schema defines user table with UUID primary keys
-- Database migrations managed through Drizzle Kit
-- Schema validation using Drizzle-Zod for type-safe operations
-- **localStorage Persistence:** Used for client-side data storage
-  - Action item checked state and custom actions
-  - Timeline filter preferences (search query, event types, date range)
-  - Quick notes with timestamps
-  - Notification dismissed state
-  - All state persists across page refreshes and section navigation
+### Frontend Design
 
-### External Dependencies
+**Apple iPhone Website Aesthetic (Applied November 2025):**
+- Unified purple gradient palette (#667eea → #764ba2) across all hero sections
+- 64px bold headlines with generous letter-spacing
+- SF Pro font family (-apple-system) for native feel
+- Large icons (60-80px) for visual impact
+- Smooth fadeInUp animations (0.6s ease-out)
+- Premium card designs with subtle shadows and depth
+- Generous white space and breathing room
+- Compact, scannable information layouts
 
-**Third-Party UI Libraries:**
-- **Radix UI:** Comprehensive set of accessible, unstyled UI primitives (accordion, dialog, dropdown, popover, tooltip, etc.)
-- **Framer Motion:** Animation library for smooth transitions and gesture-based interactions
-- **Embla Carousel:** Touch-friendly carousel component
-- **cmdk:** Command palette component for keyboard-driven navigation
+**Visual Design System:**
+- **Heroes:** 80px vertical padding, purple gradient background, rounded bottom corners (40px)
+- **Cards:** 20-28px border-radius, box-shadow for depth, smooth hover effects
+- **Typography:** 64px headlines, 42px section headers, 24-28px card titles
+- **Animations:** Hover effects (translateY, scale), staggered fade-ins
+- **Icons:** Large emoji icons (60-80px) for visual communication
+- **Badges:** Gradient backgrounds for status indicators (green, yellow, red)
 
-**Database & ORM:**
-- **Neon Serverless PostgreSQL:** Cloud-native PostgreSQL database
-- **Drizzle ORM:** Lightweight TypeScript ORM with type-safe query building
-- **Drizzle Kit:** Migration and schema management tool
+## Page Designs
 
-**Utilities & Tools:**
-- **React Hook Form:** Form state management with validation
-- **Zod:** TypeScript-first schema validation
-- **date-fns:** Date manipulation and formatting
-- **class-variance-authority (cva):** Type-safe variant styling
-- **clsx & tailwind-merge:** Conditional className utilities
+### Health Snapshot (Dashboard) - `/`
 
-**Development Tools:**
-- **Replit Plugins:** Cartographer for AI assistance, dev banner, runtime error overlay
-- **TSX:** TypeScript execution for development server
-- **esbuild:** Fast JavaScript bundler for production builds
+**Design Features:**
+- Purple gradient hero with "Your Health Snapshot" headline
+- Action buttons: "Prepare for Appointment" and "Share with Provider"
+- Compact information display (removed Bootstrap accordions)
 
-## Recent Enhancements (October 2025)
+**Content Sections:**
+1. **What's Changing:** 3 large trend cards with icons, descriptions, and recommendations
+2. **Personal Health Tips:** Compact grid of AI guidance cards
+3. **Questions for Your Doctor:** Numbered question cards in grid layout
+4. **Health Conditions:** Visual cards with 4-quadrant detail boxes (what you said, tests showed, what it means, what we're doing)
+5. **Medications:** Card grid showing name, dose, purpose badge, and key interactions
 
-### Interactive Action Checklist System
-- AI-detected action items based on health data patterns (vitals, wearables, medications, demographics)
-- Three priority levels: Urgent (red), Routine (blue), Follow-up (gray)
-- Trigger metadata explains why each action was recommended
-- Custom action creation with priority selection
-- Checkbox persistence and auto-archiving of completed items
-- Expandable UI showing unchecked count
+### Health Timeline - `/health/timeline/`
 
-### Timeline Filtering & Export
-- Comprehensive filter bar with search, event type toggles, and date range picker
-- Filter state persists across navigation via localStorage
-- Print/Export modal with doctor-friendly and patient-friendly formats
-- AI-generated timeline summaries with statistics
-- Print-optimized CSS for clean printouts
+**Design Features:**
+- Purple gradient hero with "Your Health Journey" headline
+- Vertical timeline connector line with gradient
+- 17 chronologically sorted events (most recent first)
 
-### Quick Notes & Timeline Integration
-- Floating action button for rapid note entry
-- Notes automatically integrated into timeline with special StickyNote icon
-- Real-time updates using custom events and localStorage
-- Chronological sorting of all events including notes
-- Timestamp and date tracking for each note
+**Event Cards:**
+- 80px icons for each event type (🏥 ❤️ 🔬 💉 📋 🚨)
+- Date display with timeline connector
+- Event title (24px), date badge with gradient
+- Expandable "View Details" buttons
+- Smooth hover effects (lift + icon rotation)
+- Color-coded event type badges
 
-### Notification System
-- Floating notification bell with unread count badge
-- Four notification types: alerts (red), insights (blue), reminders (yellow), success (green)
-- Priority badges (urgent/high/normal) with color coding
-- Relative timestamps ("2h ago", "Yesterday")
-- Individual dismiss and "Clear All" functionality
-- Full localStorage persistence of dismissed state
-- Six initial notifications based on health data patterns
+### Wearable Insights - `/health/wearable/`
 
-### Appointment Preparation
-- One-click generation of comprehensive appointment checklist
-- Auto-loads unchecked actions, vital trends, medication reviews, and quick notes
-- Organized by priority with color-coded sections
-- Summary statistics (urgent count, routine count, med reviews, notes)
-- Print functionality with patient info header and helpful instructions
-- Accessible from sticky action bar
+**Design Features:**
+- Purple gradient hero with "Wearable Insights" headline
+- Date range display (last 7 days)
+- AI insights banner with yellow/gold gradient
 
-### Provider Sharing
-- Customizable health summary generation
-- Seven selectable sections (diagnoses, medications, actions, vitals, timeline, wearables, notes)
-- Live preview of formatted text summary
-- One-click copy to clipboard with visual feedback
-- Formatted for email/secure messaging sharing
-- HIPAA disclaimer included
+**Content Sections:**
+1. **Your Averages:** 4 large stat cards with 80px icons and 56px numbers
+   - Steps, Calories, Sleep, Heart Rate
+   - Smooth hover effects (lift + scale + icon rotation)
+2. **Heart Rate Range:** Pink/magenta gradient card with min/max values
+3. **Daily Activity:** Timeline cards (not tables) showing daily metrics
+   - Date tile with purple gradient
+   - Metrics grid: steps, calories, active minutes, sleep, heart rate
 
-**Future Integrations (Planned):**
-- HIPAA-compliant data encryption services
-- EHR system integrations (MyChart, FollowMyHealth compatibility)
-- Wearable device APIs (Apple Health, Google Fit, Fitbit)
-- Clinical practice management systems for provider partnerships
-- Collapsible sections with expand/collapse state persistence
-- Enhanced visual design polish with status cards and improved color language
+### Lab Results - `/health/lab-results/`
+
+**Design Features:**
+- Purple gradient hero with 80px microscope icon 🔬
+- Large value displays for test results
+- Gradient status badges
+
+**Result Cards:**
+- Date tile with purple gradient (month/day/year)
+- Test name (24px bold), reference range, provider
+- Large value display (48px) with unit
+- Status badges with gradients:
+  - Normal: Green gradient (#10b981 → #059669)
+  - Abnormal: Yellow gradient (#f59e0b → #d97706)
+  - Critical: Red gradient with pulse animation
+- Notes section with yellow highlight
+
+## Recent Changes (November 2025)
+
+### Complete Apple iPhone Website Redesign
+
+**All Tabs Updated:**
+- Unified purple gradient palette (#667eea → #764ba2) replacing varied Bootstrap colors
+- 64px hero headlines replacing standard h1/h2 tags
+- Large 60-80px icons for visual impact
+- Removed Bootstrap accordions in favor of clean, compact card layouts
+- Premium card designs with consistent border-radius (20-28px) and shadows
+- Smooth animations: fadeInUp on load, hover effects (translateY, scale)
+
+**Information Density Improvements:**
+- Health trends as large stat cards instead of list items
+- Timeline events in visual cards instead of accordion panels
+- Wearable data in daily timeline cards instead of tables
+- Lab results in visual cards instead of table rows
+- Removed bulky collapse/expand UI in favor of always-visible content
+
+**Public Demo Updates:**
+- Removed authentication requirements from wearable and lab views
+- All pages now use sample data for public demonstration
+- Sample wearable data: 7 days of activity metrics
+- Sample lab results: 4 common tests (A1C, LDL, TSH, Vitamin D)
+
+### Design Consistency
+
+**Unified Gradient Palette:**
+- All hero sections: `linear-gradient(135deg, #667eea 0%, #764ba2 100%)`
+- Accent gradients: Teal for AI insights, pink for heart rate, yellow for warnings
+- Status badges: Green (normal), yellow (abnormal), red (critical)
+
+**Typography Scale:**
+- Hero headlines: 64px bold, -2px letter-spacing
+- Hero subtext: 24px light, 0.95 opacity
+- Section headers: 42px bold, -1px letter-spacing
+- Card titles: 20-28px bold
+- Body text: 14-16px regular
+
+**Spacing System:**
+- Hero padding: 80px vertical, 60px horizontal
+- Section margins: 50-60px bottom
+- Card padding: 28-40px
+- Grid gaps: 16-20px
+
+**Animation Timings:**
+- Fade-in: 0.6s ease-out
+- Hover transitions: 0.3s ease
+- Staggered delays: 0.1s increments
+
+## Technical Notes
+
+### Django Configuration
+- Settings: `biogram/settings.py`
+- Sample data: `sample_data.py` contains all demo health records
+- URL routing: `core/urls.py` and `health/urls.py`
+- Views: Public views in `core/views.py` and `health/views.py`
+- Templates: `templates/core/` and `templates/health/`
+
+### Development Workflow
+- Workflow: "Start application" runs `npm run dev` → `node server.js`
+- Server: Django development server on port 5000
+- Auto-reload: StatReloader watches for file changes
+- Database: PostgreSQL available via DATABASE_URL environment variable
+
+### Future Enhancements
+- Responsive mobile testing and optimization
+- Additional sample data for more diverse patient profiles
+- Interactive data visualizations (charts, graphs)
+- Real-time data integration with EHR systems
+- HIPAA-compliant production deployment
