@@ -239,6 +239,317 @@ AI_INSIGHTS = {
 }
 
 
+# Health Timeline Events - chronological medical history
+TIMELINE_EVENTS = [
+    {
+        "date": "2025-10-20",
+        "event_type": "Office Visit",
+        "icon": "🏥",
+        "color": "primary",
+        "title": "Endocrinology Follow-Up",
+        "provider": "Dr. Michael Rodriguez",
+        "location": "Endocrine Clinic",
+        "description": "Diabetes and thyroid checkup. Great news - your blood sugar control improved! A1C dropped from 8.1% to 7.2%.",
+        "details": [
+            "Started new diabetes medication (Jardiance) for better blood sugar control and heart protection",
+            "Thyroid levels are perfect - current medication dose is working well",
+            "Lost 6 pounds since last visit - keep up the good work!",
+            "Scheduled eye exam to check for diabetes-related changes"
+        ]
+    },
+    {
+        "date": "2025-10-15",
+        "event_type": "Office Visit",
+        "icon": "❤️",
+        "color": "danger",
+        "title": "Cardiology Follow-Up",
+        "provider": "Dr. Sarah Chen",
+        "location": "Heart Center",
+        "description": "Heart rhythm and blood pressure check. Everything is well-controlled on your current medications.",
+        "details": [
+            "Heart rate is steady at 76 beats per minute",
+            "Blood thinner level is perfect (INR 2.3)",
+            "Blood pressure slightly high at 132/82 - increasing medication dose",
+            "No heart racing or palpitations reported"
+        ]
+    },
+    {
+        "date": "2025-09-28",
+        "event_type": "Lab Results",
+        "icon": "🔬",
+        "color": "info",
+        "title": "Quarterly Blood Work",
+        "provider": "Quest Diagnostics",
+        "location": "Lab",
+        "description": "Routine monitoring labs for diabetes, kidney function, and cholesterol.",
+        "details": [
+            "A1C: 7.2% (down from 8.1% - great improvement!)",
+            "Kidney function: Normal (eGFR >60)",
+            "Cholesterol: LDL 95 mg/dL (goal met with statin)",
+            "Liver enzymes: Normal",
+            "Thyroid (TSH): 2.1 - perfect range"
+        ]
+    },
+    {
+        "date": "2025-09-15",
+        "event_type": "Procedure",
+        "icon": "💉",
+        "color": "warning",
+        "title": "Knee Injection - Session 1 of 3",
+        "provider": "Dr. James Martinez",
+        "location": "Orthopedic Surgery Center",
+        "description": "First gel injection into right knee for arthritis pain relief.",
+        "details": [
+            "Hyaluronic acid injection to cushion knee joint",
+            "Procedure well-tolerated with minimal discomfort",
+            "May feel some temporary soreness for 24-48 hours",
+            "Next injection scheduled in 1 week",
+            "Should see improvement after completing all 3 sessions"
+        ]
+    },
+    {
+        "date": "2025-08-30",
+        "event_type": "Office Visit",
+        "icon": "🦴",
+        "color": "secondary",
+        "title": "Orthopedic Consultation",
+        "provider": "Dr. James Martinez",
+        "location": "Orthopedic Clinic",
+        "description": "First visit for right knee pain. X-rays taken and treatment plan discussed.",
+        "details": [
+            "X-rays show moderate arthritis in right knee",
+            "Knee is stable with good range of motion (0-120 degrees)",
+            "Pain rated 6 out of 10, worse on stairs",
+            "Starting with gel injections (3 sessions)",
+            "Physical therapy referral for strengthening exercises",
+            "Discussed weight loss goal of 10-15 pounds to reduce knee stress"
+        ]
+    },
+    {
+        "date": "2025-07-22",
+        "event_type": "Medication Change",
+        "icon": "💊",
+        "color": "success",
+        "title": "Blood Pressure Medication Increased",
+        "provider": "Dr. Sarah Chen",
+        "location": "Phone Consultation",
+        "description": "Lisinopril dose increased from 10mg to 20mg due to higher home blood pressure readings.",
+        "details": [
+            "Home BP readings averaging 135/85 (above goal of 130/80)",
+            "Doubled Lisinopril dose to better control blood pressure",
+            "Monitor BP at home for 2 weeks and report back",
+            "Watch for dry cough or dizziness as possible side effects",
+            "May add water pill (diuretic) if BP still high in 2 weeks"
+        ]
+    },
+    {
+        "date": "2025-06-10",
+        "event_type": "Lab Results",
+        "icon": "🔬",
+        "color": "info",
+        "title": "INR Blood Test",
+        "provider": "Anticoagulation Clinic",
+        "location": "Lab",
+        "description": "Monthly blood thinner monitoring - level is in perfect range.",
+        "details": [
+            "INR: 2.3 (target range 2.0-3.0)",
+            "Warfarin dose remains at 5mg daily",
+            "No dose adjustment needed",
+            "Continue current diet and avoid major changes to vitamin K intake",
+            "Next INR check in 4 weeks"
+        ]
+    },
+    {
+        "date": "2025-05-18",
+        "event_type": "Emergency Visit",
+        "icon": "🚨",
+        "color": "danger",
+        "title": "ER Visit - Acid Reflux Flare",
+        "provider": "Dr. Amanda Lee",
+        "location": "County Hospital ER",
+        "description": "Went to ER with severe chest burning. Heart was checked and ruled out - it was acid reflux.",
+        "details": [
+            "Severe heartburn mistaken for possible heart attack",
+            "EKG and cardiac enzymes normal - heart is fine",
+            "Diagnosed with severe acid reflux (GERD) flare-up",
+            "Given antacid medication in ER with good relief",
+            "Prescribed Omeprazole 20mg twice daily",
+            "Advised to avoid spicy foods, caffeine, late meals",
+            "Follow up with primary care doctor in 1 week"
+        ]
+    },
+    {
+        "date": "2025-04-12",
+        "event_type": "Office Visit",
+        "icon": "🏥",
+        "color": "primary",
+        "title": "Annual Physical Exam",
+        "provider": "Dr. Robert Thompson",
+        "location": "Primary Care Clinic",
+        "description": "Yearly checkup - reviewed all your conditions and updated preventive care.",
+        "details": [
+            "Blood pressure: 128/78 (good control)",
+            "Weight: 178 lbs (down 3 lbs from last year)",
+            "All chronic conditions stable and well-managed",
+            "Flu shot given",
+            "Colonoscopy due next year (last one 8 years ago)",
+            "Continue all current medications",
+            "Keep up the great work with diet and exercise!"
+        ]
+    },
+    {
+        "date": "2025-03-15",
+        "event_type": "New Diagnosis",
+        "icon": "📋",
+        "color": "warning",
+        "title": "Irregular Heartbeat Diagnosed",
+        "provider": "Dr. Sarah Chen",
+        "location": "Heart Center",
+        "description": "Episodes of heart racing led to diagnosis of atrial fibrillation (irregular heartbeat).",
+        "details": [
+            "24-hour heart monitor showed periods of irregular rhythm",
+            "Diagnosed with paroxysmal atrial fibrillation (comes and goes)",
+            "Started Metoprolol to control heart rate",
+            "Started Warfarin blood thinner to prevent stroke risk",
+            "Will need regular INR monitoring",
+            "Discussed lifestyle changes: limit caffeine and alcohol",
+            "Risk is manageable with proper treatment"
+        ]
+    },
+    {
+        "date": "2025-02-20",
+        "event_type": "Office Visit",
+        "icon": "🏥",
+        "color": "primary",
+        "title": "Primary Care - Heart Palpitations",
+        "provider": "Dr. Robert Thompson",
+        "location": "Primary Care Clinic",
+        "description": "Reported episodes of heart racing and fluttering. Referred to cardiologist for evaluation.",
+        "details": [
+            "Episodes of rapid heartbeat lasting 10-30 minutes",
+            "Sometimes feel lightheaded during episodes",
+            "EKG in office showed normal rhythm at that moment",
+            "Referred to cardiology for further testing",
+            "Ordered 24-hour heart monitor",
+            "Advised to avoid caffeine and energy drinks"
+        ]
+    },
+    {
+        "date": "2024-11-08",
+        "event_type": "Lab Results",
+        "icon": "🔬",
+        "color": "info",
+        "title": "Diabetes Monitoring Labs",
+        "provider": "LabCorp",
+        "location": "Lab",
+        "description": "Quarterly diabetes checkup showed A1C of 8.1% - above goal, leading to diet changes.",
+        "details": [
+            "A1C: 8.1% (goal is below 7.0%)",
+            "Fasting blood sugar: 142 mg/dL (higher than target)",
+            "Kidney function: Normal",
+            "Cholesterol: Borderline high",
+            "Doctor recommended stricter diet and increased exercise",
+            "Discussed possibly adding second diabetes medication"
+        ]
+    },
+    {
+        "date": "2024-08-05",
+        "event_type": "Medication Change",
+        "icon": "💊",
+        "color": "success",
+        "title": "Thyroid Medication Dose Adjusted",
+        "provider": "Dr. Michael Rodriguez",
+        "location": "Phone Consultation",
+        "description": "Increased Levothyroxine from 75mcg to 100mcg due to low thyroid levels.",
+        "details": [
+            "TSH level was 6.8 (higher than normal range)",
+            "Symptoms: Fatigue, feeling cold, slight weight gain",
+            "Increased thyroid medication dose",
+            "Recheck TSH in 6 weeks after dose change",
+            "Should notice improved energy in 3-4 weeks"
+        ]
+    },
+    {
+        "date": "2024-06-15",
+        "event_type": "Office Visit",
+        "icon": "🏥",
+        "color": "primary",
+        "title": "GI Specialist - Ongoing Heartburn",
+        "provider": "Dr. Patricia Williams",
+        "location": "Gastroenterology Associates",
+        "description": "First visit to GI doctor for chronic heartburn. Upper endoscopy scheduled.",
+        "details": [
+            "Heartburn 3-4 times per week despite over-the-counter antacids",
+            "Worse with coffee, spicy foods, and eating late at night",
+            "No trouble swallowing or weight loss",
+            "Diagnosed with GERD (chronic acid reflux)",
+            "Started prescription Omeprazole 20mg daily",
+            "Scheduled for upper endoscopy in 2 weeks",
+            "Lifestyle changes discussed: raise bed, avoid trigger foods"
+        ]
+    },
+    {
+        "date": "2023-11-15",
+        "event_type": "New Diagnosis",
+        "icon": "📋",
+        "color": "warning",
+        "title": "Type 2 Diabetes Diagnosed",
+        "provider": "Dr. Robert Thompson",
+        "location": "Primary Care Clinic",
+        "description": "Routine blood work showed high blood sugar. Diagnosed with Type 2 Diabetes.",
+        "details": [
+            "Fasting blood sugar: 186 mg/dL (normal is under 100)",
+            "A1C: 8.9% (diabetes is 6.5% or higher)",
+            "No symptoms noticed - found on routine screening",
+            "Started Metformin 500mg twice daily",
+            "Referred to diabetes educator",
+            "Given blood sugar monitor and supplies",
+            "Discussed diet changes and importance of exercise",
+            "This is manageable with medication and lifestyle changes"
+        ]
+    },
+    {
+        "date": "2023-06-20",
+        "event_type": "New Diagnosis",
+        "icon": "📋",
+        "color": "warning",
+        "title": "Underactive Thyroid Diagnosed",
+        "provider": "Dr. Michael Rodriguez",
+        "location": "Endocrine Clinic",
+        "description": "Fatigue and weight gain led to diagnosis of hypothyroidism (underactive thyroid).",
+        "details": [
+            "Symptoms: Constant fatigue, weight gain, feeling cold",
+            "TSH: 12.4 (very high - normal is 0.5-5.0)",
+            "Diagnosed with primary hypothyroidism",
+            "Started Levothyroxine 75mcg every morning",
+            "Take on empty stomach, 30-60 minutes before eating",
+            "Should feel better in 4-6 weeks",
+            "Recheck thyroid levels in 6 weeks",
+            "This is a lifelong condition but very treatable"
+        ]
+    },
+    {
+        "date": "2018-06-10",
+        "event_type": "New Diagnosis",
+        "icon": "📋",
+        "color": "warning",
+        "title": "High Blood Pressure Diagnosed",
+        "provider": "Dr. Robert Thompson",
+        "location": "Primary Care Clinic",
+        "description": "Blood pressure consistently high at multiple visits. Started on medication.",
+        "details": [
+            "Blood pressure: 148/94 (confirmed high on 3 separate visits)",
+            "Diagnosed with essential hypertension",
+            "Started Lisinopril 10mg daily",
+            "Recommended home blood pressure monitoring",
+            "Discussed reducing salt intake",
+            "Encouraged regular exercise and weight loss",
+            "Follow up in 4 weeks to check if medication is working"
+        ]
+    }
+]
+
+
 # Active medical problems with SOAP summaries
 ACTIVE_PROBLEMS = [
     {

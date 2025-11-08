@@ -71,7 +71,7 @@ def logout_view(request):
 
 def dashboard_view(request):
     # Import sample data
-    from sample_data import AI_INSIGHTS, ACTIVE_PROBLEMS, MEDICATION_INTERACTIONS, VISIT_NOTES
+    from sample_data import AI_INSIGHTS, ACTIVE_PROBLEMS, MEDICATION_INTERACTIONS, VISIT_NOTES, TIMELINE_EVENTS
     
     # Prepare medications with their interactions and side effects
     medications_list = []
@@ -90,11 +90,15 @@ def dashboard_view(request):
             if not any(m['name'] == med_data['name'] for m in medications_list):
                 medications_list.append(med_data)
     
+    # Sort timeline events by date (most recent first)
+    sorted_timeline = sorted(TIMELINE_EVENTS, key=lambda x: x['date'], reverse=True)
+    
     context = {
         'health_trends': AI_INSIGHTS['health_trends'],
         'health_guidance': AI_INSIGHTS['health_guidance'],
         'doctor_questions': AI_INSIGHTS['doctor_questions'],
         'active_problems': ACTIVE_PROBLEMS,
         'medications': medications_list,
+        'timeline_events': sorted_timeline,
     }
     return render(request, 'core/dashboard.html', context)
