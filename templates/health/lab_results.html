@@ -2,83 +2,379 @@
 
 {% block title %}Lab Results - Biogram{% endblock %}
 
+{% block extra_css %}
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(to bottom, #f8f9ff 0%, #ffffff 100%);
+    }
+
+    /* Hero Section */
+    .labs-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 80px 60px;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 60px;
+        text-align: center;
+    }
+
+    .labs-hero .hero-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .labs-hero h1 {
+        font-size: 64px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -2px;
+    }
+
+    .labs-hero p {
+        font-size: 24px;
+        opacity: 0.95;
+        font-weight: 300;
+    }
+
+    /* Section Header */
+    .section-header {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        letter-spacing: -1px;
+        color: #1a1a2e;
+    }
+
+    /* Lab Result Cards */
+    .lab-card {
+        background: white;
+        border-radius: 24px;
+        padding: 32px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 28px;
+        align-items: center;
+    }
+
+    .lab-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+    }
+
+    /* Date Section */
+    .lab-date {
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 16px;
+        color: white;
+        min-width: 110px;
+    }
+
+    .lab-date .month {
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .lab-date .day {
+        font-size: 32px;
+        font-weight: 800;
+        margin: 4px 0;
+    }
+
+    .lab-date .year {
+        font-size: 12px;
+        opacity: 0.85;
+    }
+
+    /* Test Info Section */
+    .test-info {
+        flex: 1;
+    }
+
+    .test-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 12px;
+    }
+
+    .test-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .detail-item {
+        background: #f9fafb;
+        padding: 12px 16px;
+        border-radius: 10px;
+    }
+
+    .detail-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #9ca3af;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .detail-value {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a2e;
+    }
+
+    .reference-range {
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 4px;
+    }
+
+    /* Value Display */
+    .value-display {
+        text-align: center;
+        min-width: 140px;
+    }
+
+    .value-number {
+        font-size: 48px;
+        font-weight: 800;
+        color: #1a1a2e;
+        letter-spacing: -1px;
+        margin-bottom: 8px;
+    }
+
+    .value-unit {
+        font-size: 14px;
+        color: #6b7280;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-normal {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .status-abnormal {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .status-critical {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .status-pending {
+        background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        color: white;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        50% {
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+        }
+    }
+
+    /* Notes Section */
+    .lab-notes {
+        grid-column: 1 / -1;
+        margin-top: 16px;
+        padding: 16px 20px;
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        border-radius: 10px;
+        font-size: 14px;
+        color: #78350f;
+        font-style: italic;
+    }
+
+    /* No Data State */
+    .no-data {
+        text-align: center;
+        padding: 80px 40px;
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .no-data-icon {
+        font-size: 120px;
+        margin-bottom: 24px;
+        opacity: 0.3;
+    }
+
+    .no-data h3 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 12px;
+    }
+
+    .no-data p {
+        font-size: 18px;
+        color: #6b7280;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .labs-hero h1 {
+            font-size: 42px;
+        }
+        
+        .section-header {
+            font-size: 32px;
+        }
+
+        .lab-card {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .value-number {
+            font-size: 36px;
+        }
+
+        .test-details {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
         <div class="col-md-2 sidebar pt-4">
             <nav class="nav flex-column">
-                <a href="{% url 'dashboard' %}" class="sidebar-link">📊 Health Snapshot</a>
-                <a href="{% url 'health_timeline' %}" class="sidebar-link">📅 Health Timeline</a>
-                <a href="{% url 'wearable_insights' %}" class="sidebar-link">⌚ Wearable Insights</a>
-                <a href="{% url 'medications' %}" class="sidebar-link">💊 Medications</a>
-                <a href="{% url 'lab_results' %}" class="sidebar-link active">🔬 Lab Results</a>
+                <a href="{% url 'dashboard' %}" class="sidebar-link" data-testid="link-snapshot">📊 Health Snapshot</a>
+                <a href="{% url 'health_timeline' %}" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
+                <a href="{% url 'wearable_insights' %}" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
+                <a href="{% url 'lab_results' %}" class="sidebar-link active" data-testid="link-labs">🔬 Lab Results</a>
             </nav>
         </div>
         
         <!-- Main Content -->
-        <div class="col-md-10 pt-4">
-            <!-- Header -->
-            <div class="sticky-top bg-white pb-3 mb-4 border-bottom">
-                <h1 class="h3">Lab Results</h1>
+        <div class="col-md-10 p-0">
+            <!-- Hero Section -->
+            <div class="labs-hero">
+                <span class="hero-icon">🔬</span>
+                <h1>Lab Results</h1>
+                <p>Your test results, clearly explained.</p>
             </div>
-            
-            <!-- Lab Results Table -->
-            <div class="card">
-                <div class="card-body">
-                    {% if lab_results %}
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Test Date</th>
-                                        <th>Test Name</th>
-                                        <th>Value</th>
-                                        <th>Reference Range</th>
-                                        <th>Status</th>
-                                        <th>Provider</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for result in lab_results %}
-                                        <tr data-testid="lab-result-{{ forloop.counter }}">
-                                            <td>{{ result.test_date|date:"M d, Y" }}</td>
-                                            <td><strong>{{ result.test_name }}</strong></td>
-                                            <td>
-                                                {{ result.value }}
-                                                {% if result.unit %}{{ result.unit }}{% endif %}
-                                            </td>
-                                            <td>{{ result.reference_range|default:"--" }}</td>
-                                            <td>
-                                                {% if result.status == 'normal' %}
-                                                    <span class="badge bg-success">Normal</span>
-                                                {% elif result.status == 'abnormal' %}
-                                                    <span class="badge bg-warning">Abnormal</span>
-                                                {% elif result.status == 'critical' %}
-                                                    <span class="badge bg-danger">Critical</span>
-                                                {% else %}
-                                                    <span class="badge bg-secondary">Pending</span>
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ result.provider|default:"--" }}</td>
-                                        </tr>
-                                        {% if result.notes %}
-                                            <tr>
-                                                <td colspan="6" class="small text-muted ps-4">
-                                                    <em>Notes: {{ result.notes }}</em>
-                                                </td>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+
+            <div class="px-5 pb-5">
+                {% if lab_results %}
+                <section class="fade-in">
+                    <h2 class="section-header">🔬 Your Test Results</h2>
+                    
+                    {% for result in lab_results %}
+                    <div class="lab-card" data-testid="lab-result-{{ forloop.counter }}">
+                        <div class="lab-date">
+                            <div class="month">{{ result.test_date|date:"b" }}</div>
+                            <div class="day">{{ result.test_date|date:"d" }}</div>
+                            <div class="year">{{ result.test_date|date:"Y" }}</div>
                         </div>
-                    {% else %}
-                        <p class="text-muted text-center py-5" data-testid="text-no-lab-results">
-                            No lab results recorded yet. Lab results will appear here once added to your health profile.
-                        </p>
-                    {% endif %}
+                        
+                        <div class="test-info">
+                            <h3 class="test-name">{{ result.test_name }}</h3>
+                            
+                            <div class="test-details">
+                                {% if result.reference_range %}
+                                <div class="detail-item">
+                                    <div class="detail-label">Reference Range</div>
+                                    <div class="detail-value">{{ result.reference_range }}</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if result.provider %}
+                                <div class="detail-item">
+                                    <div class="detail-label">Provider</div>
+                                    <div class="detail-value">{{ result.provider }}</div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            
+                            {% if result.notes %}
+                            <div class="lab-notes">
+                                💡 {{ result.notes }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="value-display">
+                            <div class="value-number">{{ result.value }}</div>
+                            {% if result.unit %}
+                            <div class="value-unit">{{ result.unit }}</div>
+                            {% endif %}
+                            
+                            {% if result.status == 'normal' %}
+                                <div class="status-badge status-normal">✓ Normal</div>
+                            {% elif result.status == 'abnormal' %}
+                                <div class="status-badge status-abnormal">⚠ Abnormal</div>
+                            {% elif result.status == 'critical' %}
+                                <div class="status-badge status-critical">⚡ Critical</div>
+                            {% else %}
+                                <div class="status-badge status-pending">⏳ Pending</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+                {% else %}
+                <div class="no-data fade-in" data-testid="text-no-lab-results">
+                    <div class="no-data-icon">🔬</div>
+                    <h3>No Lab Results Yet</h3>
+                    <p>Your test results will appear here once they're available.</p>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

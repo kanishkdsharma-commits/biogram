@@ -26,50 +26,50 @@ def health_timeline(request):
     return render(request, 'health/timeline.html', context)
 
 
-@login_required
 def wearable_insights(request):
-    # Get date range (last 30 days by default)
+    # Public demo - using sample data
     end_date = timezone.now().date()
-    start_date = end_date - timedelta(days=30)
+    start_date = end_date - timedelta(days=7)
     
-    # Get wearable data
-    wearable_data = WearableData.objects.filter(
-        user=request.user,
-        date__gte=start_date,
-        date__lte=end_date
-    ).order_by('-date')
-    
-    # Calculate aggregates
-    aggregates = wearable_data.aggregate(
-        avg_steps=Avg('steps'),
-        avg_calories=Avg('calories_burned'),
-        avg_sleep=Avg('sleep_hours'),
-        avg_heart_rate=Avg('heart_rate_avg'),
-        max_heart_rate=Max('heart_rate_max'),
-        min_heart_rate=Min('heart_rate_min'),
-    )
-    
-    # Get latest vital signs
-    latest_vitals = VitalSign.objects.filter(user=request.user).first()
-    
-    # Generate insights based on data
-    insights = []
-    if aggregates['avg_steps'] and aggregates['avg_steps'] < 5000:
-        insights.append({
-            'type': 'warning',
-            'message': 'Your average daily steps are below recommended levels. Try to aim for 10,000 steps per day.'
+    # Sample wearable data for demo
+    wearable_data = []
+    for i in range(7):
+        date = end_date - timedelta(days=i)
+        wearable_data.append({
+            'date': date,
+            'device_name': 'Apple Watch',
+            'steps': 8500 + (i * 500),
+            'calories_burned': 2200 + (i * 100),
+            'active_minutes': 45 + (i * 5),
+            'sleep_hours': 7.2 + (i * 0.2),
+            'heart_rate_avg': 68 + (i * 2),
         })
     
-    if aggregates['avg_sleep'] and aggregates['avg_sleep'] < 7:
-        insights.append({
-            'type': 'warning',
-            'message': 'You\'re averaging less than 7 hours of sleep. Consider improving your sleep routine.'
-        })
+    # Calculate aggregates from sample data
+    aggregates = {
+        'avg_steps': 10000,
+        'avg_calories': 2400,
+        'avg_sleep': 7.5,
+        'avg_heart_rate': 72,
+        'max_heart_rate': 145,
+        'min_heart_rate': 58,
+    }
+    
+    # Sample AI insights
+    insights = [
+        {
+            'type': 'success',
+            'message': 'Great job! Your activity levels are consistently above the recommended 10,000 steps per day.'
+        },
+        {
+            'type': 'info',
+            'message': 'Your sleep patterns are healthy, averaging 7.5 hours per night.'
+        }
+    ]
     
     context = {
-        'wearable_data': wearable_data[:30],
+        'wearable_data': wearable_data,
         'aggregates': aggregates,
-        'latest_vitals': latest_vitals,
         'insights': insights,
         'start_date': start_date,
         'end_date': end_date,
@@ -91,16 +91,55 @@ def medications_list(request):
     return render(request, 'health/medications.html', context)
 
 
-@login_required
 def lab_results(request):
-    results = LabResult.objects.filter(user=request.user)
+    # Public demo - using sample lab results
+    from datetime import date
     
-    # Group by test name for trending
-    test_names = results.values_list('test_name', flat=True).distinct()
+    sample_results = [
+        {
+            'test_date': date(2025, 10, 15),
+            'test_name': 'Hemoglobin A1C',
+            'value': '5.4',
+            'unit': '%',
+            'reference_range': '4.0 - 5.6%',
+            'status': 'normal',
+            'provider': 'Dr. Sarah Chen',
+            'notes': 'Excellent diabetes control. Continue current lifestyle.'
+        },
+        {
+            'test_date': date(2025, 10, 15),
+            'test_name': 'LDL Cholesterol',
+            'value': '95',
+            'unit': 'mg/dL',
+            'reference_range': '< 100 mg/dL',
+            'status': 'normal',
+            'provider': 'Dr. Sarah Chen',
+            'notes': 'Well-controlled with current medication.'
+        },
+        {
+            'test_date': date(2025, 9, 20),
+            'test_name': 'TSH',
+            'value': '2.8',
+            'unit': 'mIU/L',
+            'reference_range': '0.4 - 4.0 mIU/L',
+            'status': 'normal',
+            'provider': 'Dr. Michael Torres',
+            'notes': 'Thyroid function is optimal.'
+        },
+        {
+            'test_date': date(2025, 8, 5),
+            'test_name': 'Vitamin D',
+            'value': '28',
+            'unit': 'ng/mL',
+            'reference_range': '30 - 100 ng/mL',
+            'status': 'abnormal',
+            'provider': 'Dr. Sarah Chen',
+            'notes': 'Slightly low. Recommend 2000 IU daily supplement.'
+        },
+    ]
     
     context = {
-        'lab_results': results[:50],
-        'test_names': test_names,
+        'lab_results': sample_results,
     }
     
     return render(request, 'health/lab_results.html', context)
