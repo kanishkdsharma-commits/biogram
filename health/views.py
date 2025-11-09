@@ -1,15 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.http import JsonResponse, HttpResponse
-from django.db.models import Q, Avg, Max, Min
+from django.shortcuts import render
 from django.utils import timezone
-from django.views.decorators.http import require_http_methods
-from datetime import datetime, timedelta
-from .models import (
-    HealthRecord, Medication, LabResult, VitalSign, 
-    WearableData, AIInsight, QuickNote
-)
+from datetime import timedelta
 
 
 def health_timeline(request):
@@ -163,37 +154,3 @@ def lab_results(request):
     }
     
     return render(request, 'health/lab_results.html', context)
-
-
-@login_required
-@require_http_methods(["POST"])
-def add_health_record(request):
-    # Handle form submission for adding new health record
-    event_type = request.POST.get('event_type')
-    title = request.POST.get('title')
-    description = request.POST.get('description')
-    date_str = request.POST.get('date')
-    provider = request.POST.get('provider', '')
-    location = request.POST.get('location', '')
-    is_important = request.POST.get('is_important') == 'on'
-    
-    try:
-        date = datetime.strptime(date_str, '%Y-%m-%d') if date_str else timezone.now()
-        
-        record = HealthRecord.objects.create(
-            user=request.user,
-            event_type=event_type,
-            title=title,
-            description=description,
-            date=date,
-            provider=provider,
-            location=location,
-            is_important=is_important
-        )
-        
-        messages.success(request, 'Health record added successfully.')
-            
-    except Exception as e:
-        messages.error(request, f'Error adding record: {str(e)}')
-    
-    return redirect('health_timeline')
