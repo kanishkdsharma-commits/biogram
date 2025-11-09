@@ -141,6 +141,31 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes (November 2025)
 
+### Code Cleanup and Optimization (November 9, 2025)
+
+**Removed Obsolete Authentication System:**
+- Deleted all authentication views (register_view, login_view, logout_view) - 60 lines
+- Removed authentication URL routes (login, register, logout)
+- Deleted unused templates: login.html and register.html
+- Cleaned up base.html navigation to remove auth UI
+- This is a public demo app with no login requirement
+
+**Eliminated Dead Code:**
+- Removed add_health_record function and its URL route - 32 lines
+- Deleted 12+ unused imports from health/views.py (HealthRecord, Medication, LabResult, VitalSign, WearableData, AIInsight, QuickNote, and utilities)
+- Removed all unused imports from core/views.py
+
+**Fixed Duplicate Logic:**
+- Removed medication processing from dashboard_view since medications moved to dedicated tab
+- Dashboard no longer wastes CPU processing data it doesn't display
+
+**Results:**
+- Removed ~150 lines of dead code
+- core/views.py: 87% smaller (101 → 14 lines)
+- health/views.py: 22% smaller (200 → 156 lines)
+- Cleaner, more maintainable codebase
+- All 5 pages verified working (200 OK)
+
 ### Medications Tab Addition (November 8, 2025)
 
 **New Dedicated Medications Page:**
