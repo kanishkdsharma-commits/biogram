@@ -34,22 +34,22 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Design
 
-**Apple iPhone Website Aesthetic (Applied November 2025):**
+**Apple iPhone Website Aesthetic (Streamlined November 2025):**
 - Unified purple gradient palette (#667eea → #764ba2) across all hero sections
 - 64px bold headlines with generous letter-spacing
 - SF Pro font family (-apple-system) for native feel
-- Large icons (60-80px) for visual impact
+- Streamlined icons (50-60px) for clean visual impact
 - Smooth fadeInUp animations (0.6s ease-out)
-- Premium card designs with subtle shadows and depth
-- Generous white space and breathing room
-- Compact, scannable information layouts
+- Compact card designs with subtle shadows
+- Tighter spacing for more scannable layouts
+- Reduced padding for less bulky presentation
 
 **Visual Design System:**
 - **Heroes:** 80px vertical padding, purple gradient background, rounded bottom corners (40px)
-- **Cards:** 20-28px border-radius, box-shadow for depth, smooth hover effects
-- **Typography:** 64px headlines, 42px section headers, 24-28px card titles
-- **Animations:** Hover effects (translateY, scale), staggered fade-ins
-- **Icons:** Large emoji icons (60-80px) for visual communication
+- **Cards:** 16-20px border-radius, lighter shadows (0 2px 12px), 24px padding for compact feel
+- **Typography:** 64px headlines, 42px section headers, 20px card titles (streamlined)
+- **Animations:** Subtle hover effects (translateY -2px to -4px, scale 1.01-1.05)
+- **Icons:** Compact emoji icons (50-60px) for efficient visual communication
 - **Badges:** Gradient backgrounds for status indicators (green, yellow, red)
 
 ## Page Designs
@@ -63,9 +63,8 @@ Preferred communication style: Simple, everyday language.
 
 **Content Sections:**
 1. **What's Changing:** 3 large trend cards with icons, descriptions, and recommendations
-2. **Personal Health Tips:** Compact grid of AI guidance cards
-3. **Questions for Your Doctor:** Numbered question cards in grid layout
-4. **Health Conditions:** Visual cards with 4-quadrant detail boxes (what you said, tests showed, what it means, what we're doing)
+2. **Health Insights:** Unified checklist combining personal health tips and doctor questions with checkboxes for visual scanning
+3. **Health Conditions:** Compact status cards showing condition name, status insight, and action (streamlined from 4-quadrant detail boxes)
 
 ### Health Timeline - `/health/timeline/`
 
@@ -75,12 +74,13 @@ Preferred communication style: Simple, everyday language.
 - 17 chronologically sorted events (most recent first)
 
 **Event Cards:**
-- 80px icons for each event type (🏥 ❤️ 🔬 💉 📋 🚨)
+- 50px icons for each event type (🏥 ❤️ 🔬 💉 📋 🚨) - streamlined from 80px
 - Date display with timeline connector
-- Event title (24px), date badge with gradient
-- Expandable "View Details" buttons
+- Event title (20px), date badge with gradient
+- All details shown inline (no expandable sections)
 - Smooth hover effects (lift + icon rotation)
 - Color-coded event type badges
+- Compact 24px padding, 30px event spacing
 
 ### Wearable Insights - `/health/wearable/`
 
@@ -90,13 +90,15 @@ Preferred communication style: Simple, everyday language.
 - AI insights banner with yellow/gold gradient
 
 **Content Sections:**
-1. **Your Averages:** 4 large stat cards with 80px icons and 56px numbers
+1. **Your Averages:** 4 compact stat cards with 60px icons and 48px numbers (streamlined from 80px/56px)
    - Steps, Calories, Sleep, Heart Rate
    - Smooth hover effects (lift + scale + icon rotation)
+   - 28px padding for less bulk
 2. **Heart Rate Range:** Pink/magenta gradient card with min/max values
-3. **Daily Activity:** Timeline cards (not tables) showing daily metrics
-   - Date tile with purple gradient
+3. **Daily Activity:** Streamlined timeline cards showing daily metrics
+   - Compact date tile with purple gradient
    - Metrics grid: steps, calories, active minutes, sleep, heart rate
+   - 20px padding and tighter 16px spacing
 
 ### Medications - `/health/medications/`
 
@@ -107,14 +109,14 @@ Preferred communication style: Simple, everyday language.
 - Comprehensive medication management view
 
 **Medication Cards:**
-- Large medication name (28px bold) with 48px pill icons
+- Streamlined medication name (20px bold) with 40px pill icons (reduced from 48px)
 - Dose and frequency badges with gradient backgrounds
 - Purpose badge showing what the medication treats
-- Detailed information grid (started date, prescriber, frequency)
+- Compact information grid (started date, prescriber, frequency)
 - Important Interactions section with yellow warning backgrounds
 - Common Side Effects section with blue/purple backgrounds
 - Smooth hover effects (lift and shadow enhancement)
-- Staggered fade-in animations (0.1s, 0.2s, 0.3s increments)
+- 24px padding, 16px spacing for less bulk
 
 **Data Display:**
 - Extracts medications from all patient visit notes
@@ -140,6 +142,45 @@ Preferred communication style: Simple, everyday language.
 - Notes section with yellow highlight
 
 ## Recent Changes (November 2025)
+
+### Streamlined UI Design (November 9, 2025)
+
+**All Pages Streamlined for Less Bulky, More Scannable Design:**
+
+**Dashboard Improvements:**
+- Merged "Personal Health Tips" and "Questions for Your Doctor" into unified "Health Insights" checklist with checkboxes
+- Simplified Health Conditions from 4-quadrant detail boxes to compact status cards showing just condition name, status insight, and action
+
+**Timeline Streamlining:**
+- Reduced icon size from 80px to 50px for cleaner visual impact
+- Reduced card padding from 36px to 24px for less bulk
+- Reduced event spacing from 60px to 30px for tighter layout
+- Shrunk event titles from 28px to 20px
+- Removed expandable "View Details" sections, showing all information inline
+
+**Wearable Insights Optimization:**
+- Reduced stat card icons from 80px to 60px
+- Reduced card padding from 40px to 28px
+- Tightened grid gaps from 20px to 16px
+- More compact daily activity cards with 20px padding
+
+**Medications Compacting:**
+- Reduced card padding from 40px to 24px
+- Reduced pill icons from 48px to 40px
+- Tighter spacing between cards (24px to 16px)
+- Streamlined medication name from 28px to 20px
+
+**Lab Results Tightening:**
+- Reduced card padding from 32px to 24px
+- Smaller date tiles and spacing
+- More compact grid layouts with tighter gaps
+- Test name reduced from 24px to 20px
+
+**Results:**
+- Significantly less bulky presentation across all 5 tabs
+- More scannable layouts with tighter spacing
+- Maintains Apple aesthetic with subtle hover effects
+- All pages verified working (200 OK)
 
 ### Code Cleanup and Optimization (November 9, 2025)
 
