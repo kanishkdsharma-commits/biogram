@@ -122,83 +122,130 @@
         font-weight: 500;
     }
 
-    /* Compact Info Cards */
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        margin-bottom: 40px;
-    }
-
-    .info-card {
+    /* Health Insights Checklist */
+    .insights-checklist {
         background: white;
         border-radius: 20px;
-        padding: 24px;
+        padding: 28px;
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        transition: all 0.3s ease;
     }
 
-    .info-card:hover {
+    .insight-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid #f3f4f6;
+        transition: all 0.2s ease;
+    }
+
+    .insight-item:last-child {
+        border-bottom: none;
+    }
+
+    .insight-item:hover {
+        background: #f9fafb;
+        margin: 0 -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .insight-checkbox {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #667eea;
+        border-radius: 6px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .insight-checkbox:hover {
+        background: #f0f4ff;
+        transform: scale(1.1);
+    }
+
+    .insight-content {
+        flex: 1;
+        font-size: 15px;
+        color: #374151;
+        line-height: 1.6;
+    }
+
+    .insight-label {
+        display: inline-block;
+        padding: 2px 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+    }
+
+    /* Compact Condition Cards */
+    .conditions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+    }
+
+    .condition-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .condition-card:hover {
         box-shadow: 0 6px 24px rgba(0,0,0,0.1);
         transform: translateY(-2px);
     }
 
-    .info-card-title {
-        font-size: 16px;
-        font-weight: 700;
-        color: #1a1a2e;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+    .condition-card.stable {
+        border-left-color: #10b981;
     }
 
-    .info-card-content {
-        font-size: 14px;
-        color: #6b7280;
-        line-height: 1.6;
+    .condition-card.monitoring {
+        border-left-color: #f59e0b;
     }
 
-    /* Condition Cards */
-    .condition-card {
-        background: white;
-        border-radius: 24px;
-        padding: 32px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
-        cursor: pointer;
+    .condition-card.improving {
+        border-left-color: #3b82f6;
     }
 
-    .condition-card:hover {
-        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-        transform: translateY(-2px);
+    .condition-card.concern {
+        border-left-color: #ef4444;
     }
 
     .condition-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
+        align-items: flex-start;
+        margin-bottom: 12px;
     }
 
     .condition-title {
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 700;
         color: #1a1a2e;
         margin: 0;
     }
 
     .condition-badge {
-        padding: 8px 16px;
-        border-radius: 12px;
-        font-size: 13px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 11px;
         font-weight: 600;
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: white;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .condition-badge.warning {
@@ -213,33 +260,21 @@
         background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     }
 
-    .condition-details {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-top: 20px;
-    }
-
-    .detail-box {
-        padding: 20px;
-        border-radius: 16px;
-        background: #f9fafb;
-    }
-
-    .detail-box h6 {
-        font-size: 13px;
-        font-weight: 700;
-        color: #667eea;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .detail-box p {
+    .condition-insight {
         font-size: 14px;
-        color: #374151;
+        color: #6b7280;
         line-height: 1.6;
-        margin: 0;
+        margin-bottom: 12px;
+    }
+
+    .condition-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: #9ca3af;
+        padding-top: 12px;
+        border-top: 1px solid #f3f4f6;
     }
 
     /* Animations */
@@ -325,31 +360,25 @@
                     </div>
                 </section>
 
-                <!-- AI Insights - Compact Grid -->
+                <!-- Health Insights Checklist (Merged Tips + Questions) -->
                 <section class="mb-5 fade-in" style="animation-delay: 0.1s;">
-                    <h2 class="section-header">💡 Your Personal Health Tips</h2>
-                    <div class="info-grid">
+                    <h2 class="section-header">💡 Health Insights</h2>
+                    <div class="insights-checklist">
                         {% for guidance in health_guidance %}
-                        <div class="info-card">
-                            <div class="info-card-content">
+                        <div class="insight-item" data-testid="insight-tip-{{ forloop.counter }}">
+                            <div class="insight-checkbox"></div>
+                            <div class="insight-content">
+                                <div class="insight-label">Tip</div>
                                 {{ guidance|safe }}
                             </div>
                         </div>
                         {% endfor %}
-                    </div>
-                </section>
-
-                <!-- Questions for Doctor - Compact -->
-                <section class="mb-5 fade-in" style="animation-delay: 0.2s;">
-                    <h2 class="section-header">❓ Questions for Your Doctor</h2>
-                    <div class="info-grid">
+                        
                         {% for question in doctor_questions %}
-                        <div class="info-card">
-                            <div class="info-card-title">
-                                <span style="color: #667eea; font-size: 18px;">{{ forloop.counter }}.</span>
-                                <span>Question</span>
-                            </div>
-                            <div class="info-card-content">
+                        <div class="insight-item" data-testid="insight-question-{{ forloop.counter }}">
+                            <div class="insight-checkbox"></div>
+                            <div class="insight-content">
+                                <div class="insight-label">Ask Doctor</div>
                                 {{ question }}
                             </div>
                         </div>
@@ -361,38 +390,23 @@
                 <section class="mb-5 fade-in" style="animation-delay: 0.3s;">
                     <h2 class="section-header">🏥 Your Health Conditions</h2>
                     
-                    {% for problem in active_problems %}
-                    <div class="condition-card" data-testid="condition-{{ forloop.counter }}">
-                        <div class="condition-header">
-                            <h3 class="condition-title">{{ problem.problem }}</h3>
-                            <div class="d-flex align-items-center gap-3">
+                    <div class="conditions-grid">
+                        {% for problem in active_problems %}
+                        <div class="condition-card {% if problem.status == 'Getting Worse' %}concern{% elif problem.status == 'Improving' %}improving{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}stable{% else %}monitoring{% endif %}" data-testid="condition-{{ forloop.counter }}">
+                            <div class="condition-header">
+                                <h3 class="condition-title">{{ problem.problem }}</h3>
                                 <span class="condition-badge {% if problem.status == 'Getting Worse' %}danger{% elif problem.status == 'Improving' %}info{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}{% else %}warning{% endif %}">
                                     {{ problem.status }}
                                 </span>
-                                <small class="text-muted">{{ problem.onset }}</small>
+                            </div>
+                            <p class="condition-insight">{{ problem.simple_summary.what_it_means }}</p>
+                            <div class="condition-meta">
+                                <span>Since {{ problem.onset }}</span>
+                                <span>{{ problem.simple_summary.what_were_doing|truncatewords:5 }}</span>
                             </div>
                         </div>
-                        
-                        <div class="condition-details">
-                            <div class="detail-box">
-                                <h6>💬 What You Told Your Doctor</h6>
-                                <p>{{ problem.simple_summary.what_you_said }}</p>
-                            </div>
-                            <div class="detail-box">
-                                <h6>🔬 What the Tests Show</h6>
-                                <p>{{ problem.simple_summary.what_tests_showed }}</p>
-                            </div>
-                            <div class="detail-box">
-                                <h6>📊 What It Means</h6>
-                                <p>{{ problem.simple_summary.what_it_means }}</p>
-                            </div>
-                            <div class="detail-box">
-                                <h6>✅ What We're Doing</h6>
-                                <p>{{ problem.simple_summary.what_were_doing }}</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </section>
             </div>
         </div>
