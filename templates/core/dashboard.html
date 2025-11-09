@@ -186,59 +186,81 @@
         margin-bottom: 6px;
     }
 
-    /* Compact Condition Cards */
-    .conditions-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 16px;
-    }
-
-    .condition-card {
+    /* Condition List with Dropdowns */
+    .conditions-list {
         background: white;
-        border-radius: 16px;
-        padding: 20px;
+        border-radius: 20px;
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+
+    .condition-item {
+        border-bottom: 1px solid #f3f4f6;
         transition: all 0.3s ease;
-        border-left: 4px solid transparent;
     }
 
-    .condition-card:hover {
-        box-shadow: 0 6px 24px rgba(0,0,0,0.1);
-        transform: translateY(-2px);
-    }
-
-    .condition-card.stable {
-        border-left-color: #10b981;
-    }
-
-    .condition-card.monitoring {
-        border-left-color: #f59e0b;
-    }
-
-    .condition-card.improving {
-        border-left-color: #3b82f6;
-    }
-
-    .condition-card.concern {
-        border-left-color: #ef4444;
+    .condition-item:last-child {
+        border-bottom: none;
     }
 
     .condition-header {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 12px;
+        padding: 20px 24px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .condition-header:hover {
+        background: #f9fafb;
+        border-left-color: #667eea;
+    }
+
+    .condition-item.stable .condition-header {
+        border-left-color: #10b981;
+    }
+
+    .condition-item.monitoring .condition-header {
+        border-left-color: #f59e0b;
+    }
+
+    .condition-item.improving .condition-header {
+        border-left-color: #3b82f6;
+    }
+
+    .condition-item.concern .condition-header {
+        border-left-color: #ef4444;
+    }
+
+    .condition-main {
+        flex: 1;
+        min-width: 0;
     }
 
     .condition-title {
         font-size: 18px;
         font-weight: 700;
         color: #1a1a2e;
-        margin: 0;
+        margin: 0 0 6px 0;
+    }
+
+    .condition-summary {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.5;
+    }
+
+    .condition-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-left: 20px;
     }
 
     .condition-badge {
-        padding: 4px 10px;
+        padding: 6px 12px;
         border-radius: 8px;
         font-size: 11px;
         font-weight: 600;
@@ -246,6 +268,7 @@
         color: white;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        white-space: nowrap;
     }
 
     .condition-badge.warning {
@@ -260,21 +283,57 @@
         background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     }
 
-    .condition-insight {
-        font-size: 14px;
-        color: #6b7280;
-        line-height: 1.6;
-        margin-bottom: 12px;
+    .expand-icon {
+        font-size: 20px;
+        color: #667eea;
+        transition: transform 0.3s ease;
     }
 
-    .condition-meta {
+    .condition-item.expanded .expand-icon {
+        transform: rotate(180deg);
+    }
+
+    .condition-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        padding: 0 24px;
+    }
+
+    .condition-item.expanded .condition-details {
+        max-height: 800px;
+        padding: 0 24px 24px 24px;
+    }
+
+    .condition-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .detail-box {
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    .detail-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #667eea;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        font-size: 13px;
-        color: #9ca3af;
-        padding-top: 12px;
-        border-top: 1px solid #f3f4f6;
+        gap: 6px;
+    }
+
+    .detail-content {
+        font-size: 14px;
+        color: #374151;
+        line-height: 1.6;
     }
 
     /* Animations */
@@ -390,19 +449,52 @@
                 <section class="mb-5 fade-in" style="animation-delay: 0.3s;">
                     <h2 class="section-header">🏥 Your Health Conditions</h2>
                     
-                    <div class="conditions-grid">
+                    <div class="conditions-list">
                         {% for problem in active_problems %}
-                        <div class="condition-card {% if problem.status == 'Getting Worse' %}concern{% elif problem.status == 'Improving' %}improving{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}stable{% else %}monitoring{% endif %}" data-testid="condition-{{ forloop.counter }}">
-                            <div class="condition-header">
-                                <h3 class="condition-title">{{ problem.problem }}</h3>
-                                <span class="condition-badge {% if problem.status == 'Getting Worse' %}danger{% elif problem.status == 'Improving' %}info{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}{% else %}warning{% endif %}">
-                                    {{ problem.status }}
-                                </span>
+                        <div class="condition-item {% if problem.status == 'Getting Worse' %}concern{% elif problem.status == 'Improving' %}improving{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}stable{% else %}monitoring{% endif %}" data-testid="condition-{{ forloop.counter }}">
+                            <div class="condition-header" onclick="toggleCondition(this)">
+                                <div class="condition-main">
+                                    <h3 class="condition-title">{{ problem.problem }}</h3>
+                                    <p class="condition-summary">{{ problem.simple_summary.what_it_means }}</p>
+                                </div>
+                                <div class="condition-right">
+                                    <span class="condition-badge {% if problem.status == 'Getting Worse' %}danger{% elif problem.status == 'Improving' %}info{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}{% else %}warning{% endif %}">
+                                        {{ problem.status }}
+                                    </span>
+                                    <span class="expand-icon">▼</span>
+                                </div>
                             </div>
-                            <p class="condition-insight">{{ problem.simple_summary.what_it_means }}</p>
-                            <div class="condition-meta">
-                                <span>Since {{ problem.onset }}</span>
-                                <span>{{ problem.simple_summary.what_were_doing|truncatewords:5 }}</span>
+                            
+                            <div class="condition-details">
+                                <div class="condition-details-grid">
+                                    <div class="detail-box">
+                                        <div class="detail-label">
+                                            💬 What You Said
+                                        </div>
+                                        <div class="detail-content">{{ problem.simple_summary.what_you_said }}</div>
+                                    </div>
+                                    
+                                    <div class="detail-box">
+                                        <div class="detail-label">
+                                            🔬 What Tests Showed
+                                        </div>
+                                        <div class="detail-content">{{ problem.simple_summary.what_tests_showed }}</div>
+                                    </div>
+                                    
+                                    <div class="detail-box">
+                                        <div class="detail-label">
+                                            💡 What It Means
+                                        </div>
+                                        <div class="detail-content">{{ problem.simple_summary.what_it_means }}</div>
+                                    </div>
+                                    
+                                    <div class="detail-box">
+                                        <div class="detail-label">
+                                            ⚕️ What We're Doing
+                                        </div>
+                                        <div class="detail-content">{{ problem.simple_summary.what_were_doing }}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
@@ -422,5 +514,25 @@
             link.classList.add('active');
         }
     });
+
+    // Toggle condition dropdown
+    function toggleCondition(header) {
+        const item = header.closest('.condition-item');
+        const wasExpanded = item.classList.contains('expanded');
+        
+        // Close all other conditions
+        document.querySelectorAll('.condition-item.expanded').forEach(otherItem => {
+            if (otherItem !== item) {
+                otherItem.classList.remove('expanded');
+            }
+        });
+        
+        // Toggle current condition
+        if (wasExpanded) {
+            item.classList.remove('expanded');
+        } else {
+            item.classList.add('expanded');
+        }
+    }
 </script>
 {% endblock %}

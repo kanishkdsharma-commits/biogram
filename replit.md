@@ -64,7 +64,14 @@ Preferred communication style: Simple, everyday language.
 **Content Sections:**
 1. **What's Changing:** 3 large trend cards with icons, descriptions, and recommendations
 2. **Health Insights:** Unified checklist combining personal health tips and doctor questions with checkboxes for visual scanning
-3. **Health Conditions:** Compact status cards showing condition name, status insight, and action (streamlined from 4-quadrant detail boxes)
+3. **Health Conditions:** Interactive dropdown list where each condition can be clicked to expand and reveal 4 detail sections:
+   - 💬 What You Said (patient's symptoms and concerns)
+   - 🔬 What Tests Showed (clinical findings)
+   - 💡 What It Means (plain language explanation)
+   - ⚕️ What We're Doing (treatment plan)
+   - Accordion behavior: only one condition expanded at a time
+   - Color-coded left borders by status (green/yellow/red/blue)
+   - Smooth expand/collapse animations with rotating dropdown icon
 
 ### Health Timeline - `/health/timeline/`
 
@@ -142,6 +149,26 @@ Preferred communication style: Simple, everyday language.
 - Notes section with yellow highlight
 
 ## Recent Changes (November 2025)
+
+### Interactive Health Conditions Dropdown (November 9, 2025)
+
+**New Accordion-Style Condition List:**
+- Transformed health conditions from static compact cards to interactive dropdown list
+- Click any condition to expand and reveal detailed information in 4 sections:
+  - 💬 What You Said: Patient's reported symptoms and concerns
+  - 🔬 What Tests Showed: Clinical test results and findings
+  - 💡 What It Means: Plain language explanation of the condition
+  - ⚕️ What We're Doing: Current treatment plan and next steps
+- Accordion behavior: only one condition can be expanded at a time for focused viewing
+- Smooth expand/collapse animations with rotating dropdown arrow icon (▼)
+- Color-coded left borders indicate status (green=stable, yellow=monitoring, red=concern, blue=improving)
+- Maintains Apple aesthetic with clean list design and subtle hover effects
+
+**Technical Implementation:**
+- JavaScript `toggleCondition()` function handles expand/collapse
+- CSS transitions for smooth max-height animations
+- Detail grid layout adapts responsively for different screen sizes
+- All 6 health conditions (AFib, High BP, Diabetes, Knee Arthritis, GERD, Thyroid) display with full clinical details
 
 ### Streamlined UI Design (November 9, 2025)
 
