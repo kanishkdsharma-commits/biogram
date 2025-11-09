@@ -1,1 +1,1 @@
-{"name": "biogram-django","version": "1.0.0","scripts": {"dev": "node server.js"}}
+{"name": "biogram-django","version": "1.0.0","scripts": {"dev": "node server.js","build": "python manage.py collectstatic --noinput","start": "gunicorn biogram.wsgi:application --bind 0.0.0.0:5000"}}
