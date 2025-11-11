@@ -125,7 +125,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link" href="{% url 'home' %}" data-testid="link-home">🏠 Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'link_records' %}" data-testid="link-records-portal">🔗 Link Records Portal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'upload_documents' %}" data-testid="link-upload-documents">📤 Upload Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile_settings' %}" data-testid="link-profile-settings">⚙️ Profile Settings</a>
                     </li>
                 </ul>
             </div>

@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Link Records Portal - Biogram{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 80px 0;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 40px;
+    }
+    
+    .hero-title {
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+    }
+    
+    .hero-subtitle {
+        font-size: 20px;
+        opacity: 0.95;
+        font-weight: 400;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .portal-card {
+        background: white;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+        margin-bottom: 20px;
+    }
+    
+    .portal-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
+    }
+    
+    .portal-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    
+    .portal-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin-bottom: 8px;
+    }
+    
+    .portal-description {
+        font-size: 15px;
+        color: #86868b;
+        line-height: 1.5;
+    }
+    
+    .connect-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 16px;
+    }
+    
+    .connect-button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .back-button {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+        padding: 12px 32px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+        background: #667eea;
+        color: white;
+        transform: translateX(-4px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="hero-title">Link Your Records</h1>
+        <p class="hero-subtitle">Securely connect to your healthcare provider's portal to automatically sync your medical records</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'home' %}" class="back-button" data-testid="button-back-home">← Back to Dashboard</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <form method="post" class="portal-card" data-testid="form-epic-mychart">
+                {% csrf_token %}
+                <input type="hidden" name="portal_type" value="Epic MyChart">
+                <div class="portal-icon">🏥</div>
+                <h3 class="portal-name">Epic MyChart</h3>
+                <p class="portal-description">Connect to your Epic MyChart account to sync records from over 250 million patients nationwide.</p>
+                <button type="submit" class="connect-button" data-testid="button-connect-epic">Connect Epic MyChart</button>
+            </form>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+            <form method="post" class="portal-card" data-testid="form-cerner">
+                {% csrf_token %}
+                <input type="hidden" name="portal_type" value="Cerner Health">
+                <div class="portal-icon">⚕️</div>
+                <h3 class="portal-name">Cerner Health</h3>
+                <p class="portal-description">Link your Cerner Health account to automatically import medical records and test results.</p>
+                <button type="submit" class="connect-button" data-testid="button-connect-cerner">Connect Cerner Health</button>
+            </form>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+            <form method="post" class="portal-card" data-testid="form-apple-health">
+                {% csrf_token %}
+                <input type="hidden" name="portal_type" value="Apple Health">
+                <div class="portal-icon">🍎</div>
+                <h3 class="portal-name">Apple Health</h3>
+                <p class="portal-description">Sync your Apple Health data including activity, vitals, and health records stored on your iPhone.</p>
+                <button type="submit" class="connect-button" data-testid="button-connect-apple">Connect Apple Health</button>
+            </form>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+            <form method="post" class="portal-card" data-testid="form-google-fit">
+                {% csrf_token %}
+                <input type="hidden" name="portal_type" value="Google Fit">
+                <div class="portal-icon">📊</div>
+                <h3 class="portal-name">Google Fit</h3>
+                <p class="portal-description">Import fitness and wellness data from Google Fit to get a complete health picture.</p>
+                <button type="submit" class="connect-button" data-testid="button-connect-google">Connect Google Fit</button>
+            </form>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+            <form method="post" class="portal-card" data-testid="form-healthgrades">
+                {% csrf_token %}
+                <input type="hidden" name="portal_type" value="Healthgrades">
+                <div class="portal-icon">🩺</div>
+                <h3 class="portal-name">Healthgrades</h3>
+                <p class="portal-description">Connect to Healthgrades to access your medical history and find the best doctors near you.</p>
+                <button type="submit" class="connect-button" data-testid="button-connect-healthgrades">Connect Healthgrades</button>
+            </form>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+            <form method="post" class="portal-card" data-testid="form-other">
+                {% csrf_token %}
+                <input type="hidden" name="portal_type" value="Other Provider">
+                <div class="portal-icon">🔗</div>
+                <h3 class="portal-name">Other Provider</h3>
+                <p class="portal-description">Don't see your healthcare provider? Contact us to request integration with your portal.</p>
+                <button type="submit" class="connect-button" data-testid="button-connect-other">Request Integration</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

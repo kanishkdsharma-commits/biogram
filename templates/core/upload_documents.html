@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Documents - Biogram{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 80px 0;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 40px;
+    }
+    
+    .hero-title {
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+    }
+    
+    .hero-subtitle {
+        font-size: 20px;
+        opacity: 0.95;
+        font-weight: 400;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .upload-card {
+        background: white;
+        border-radius: 20px;
+        padding: 48px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        margin-bottom: 32px;
+    }
+    
+    .upload-area {
+        border: 3px dashed #667eea;
+        border-radius: 16px;
+        padding: 60px 40px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background: #f9fafb;
+    }
+    
+    .upload-area:hover {
+        background: #f3f4f6;
+        border-color: #764ba2;
+    }
+    
+    .upload-icon {
+        font-size: 72px;
+        margin-bottom: 20px;
+    }
+    
+    .upload-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin-bottom: 8px;
+    }
+    
+    .upload-subtitle {
+        font-size: 15px;
+        color: #86868b;
+        margin-bottom: 24px;
+    }
+    
+    .file-input {
+        display: none;
+    }
+    
+    .select-file-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .select-file-button:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .form-label {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin-bottom: 8px;
+    }
+    
+    .form-select {
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        outline: none;
+    }
+    
+    .upload-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 16px 48px;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .upload-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    }
+    
+    .back-button {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+        padding: 12px 32px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+        background: #667eea;
+        color: white;
+        transform: translateX(-4px);
+    }
+    
+    .supported-formats {
+        margin-top: 32px;
+        padding: 24px;
+        background: #f9fafb;
+        border-radius: 12px;
+    }
+    
+    .format-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin-bottom: 12px;
+    }
+    
+    .format-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .format-badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="hero-title">Upload Documents</h1>
+        <p class="hero-subtitle">Upload your medical records, lab results, prescriptions, and other health documents</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'home' %}" class="back-button" data-testid="button-back-home">← Back to Dashboard</a>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="upload-card">
+                <form method="post" enctype="multipart/form-data" data-testid="form-upload-document">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Document Type</label>
+                        <select name="document_type" class="form-select" data-testid="select-document-type" required>
+                            <option value="">Select document type...</option>
+                            <option value="lab_result">Lab Result</option>
+                            <option value="prescription">Prescription</option>
+                            <option value="medical_record">Medical Record</option>
+                            <option value="imaging">Imaging (X-ray, MRI, CT)</option>
+                            <option value="vaccination_record">Vaccination Record</option>
+                            <option value="insurance_card">Insurance Card</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="upload-area" onclick="document.getElementById('file-input').click()">
+                        <div class="upload-icon">📤</div>
+                        <h3 class="upload-title">Drag and drop your file here</h3>
+                        <p class="upload-subtitle">or click to browse from your computer</p>
+                        <button type="button" class="select-file-button" data-testid="button-select-file">Select File</button>
+                        <input type="file" id="file-input" name="document" class="file-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" data-testid="input-file" required>
+                    </div>
+                    
+                    <div class="supported-formats">
+                        <h4 class="format-title">Supported Formats:</h4>
+                        <div class="format-list">
+                            <span class="format-badge">PDF</span>
+                            <span class="format-badge">JPG</span>
+                            <span class="format-badge">PNG</span>
+                            <span class="format-badge">DOC</span>
+                            <span class="format-badge">DOCX</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="upload-button mt-4" data-testid="button-upload">Upload Document</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Update upload area text when file is selected
+    document.getElementById('file-input').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name;
+        if (fileName) {
+            document.querySelector('.upload-title').textContent = 'File selected: ' + fileName;
+            document.querySelector('.upload-subtitle').textContent = 'Click "Upload Document" to proceed';
+        }
+    });
+</script>
+{% endblock %}

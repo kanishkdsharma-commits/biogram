@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}Profile Settings - Biogram{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 80px 0;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 40px;
+    }
+    
+    .hero-title {
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+    }
+    
+    .hero-subtitle {
+        font-size: 20px;
+        opacity: 0.95;
+        font-weight: 400;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .settings-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        margin-bottom: 24px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #f3f4f6;
+    }
+    
+    .form-label {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin-bottom: 8px;
+    }
+    
+    .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 14px 18px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        outline: none;
+    }
+    
+    .form-check {
+        margin-bottom: 16px;
+    }
+    
+    .form-check-input {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #e5e7eb;
+        cursor: pointer;
+    }
+    
+    .form-check-input:checked {
+        background-color: #667eea;
+        border-color: #667eea;
+    }
+    
+    .form-check-label {
+        font-size: 15px;
+        color: #1d1d1f;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+    
+    .save-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 16px 48px;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .save-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    }
+    
+    .back-button {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+        padding: 12px 32px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+        background: #667eea;
+        color: white;
+        transform: translateX(-4px);
+    }
+    
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        margin: 0 auto 24px;
+    }
+    
+    .help-text {
+        font-size: 13px;
+        color: #86868b;
+        margin-top: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="hero-title">Profile Settings</h1>
+        <p class="hero-subtitle">Manage your account information and preferences</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'home' %}" class="back-button" data-testid="button-back-home">← Back to Dashboard</a>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <form method="post" data-testid="form-profile-settings">
+                {% csrf_token %}
+                
+                <!-- Profile Information -->
+                <div class="settings-card">
+                    <div class="profile-avatar">👤</div>
+                    <h2 class="section-title">Profile Information</h2>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ user_name }}" data-testid="input-name" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control" value="{{ user_email }}" data-testid="input-email" required>
+                        <div class="help-text">We'll send health insights and updates to this email</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" name="dob" class="form-control" value="{{ date_of_birth }}" data-testid="input-dob" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" name="phone" class="form-control" placeholder="+1 (555) 123-4567" data-testid="input-phone">
+                        <div class="help-text">For appointment reminders and urgent notifications</div>
+                    </div>
+                </div>
+                
+                <!-- Notification Preferences -->
+                <div class="settings-card">
+                    <h2 class="section-title">Notification Preferences</h2>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="email-notifications" name="email_notifications" checked data-testid="checkbox-email-notifications">
+                        <label class="form-check-label" for="email-notifications">
+                            Email Notifications
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="appointment-reminders" name="appointment_reminders" checked data-testid="checkbox-appointment-reminders">
+                        <label class="form-check-label" for="appointment-reminders">
+                            Appointment Reminders
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="medication-alerts" name="medication_alerts" checked data-testid="checkbox-medication-alerts">
+                        <label class="form-check-label" for="medication-alerts">
+                            Medication Alerts
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="health-insights" name="health_insights" checked data-testid="checkbox-health-insights">
+                        <label class="form-check-label" for="health-insights">
+                            Weekly Health Insights
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="lab-results" name="lab_results" checked data-testid="checkbox-lab-results">
+                        <label class="form-check-label" for="lab-results">
+                            Lab Results Available
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Privacy Settings -->
+                <div class="settings-card">
+                    <h2 class="section-title">Privacy Settings</h2>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="data-sharing" name="data_sharing" data-testid="checkbox-data-sharing">
+                        <label class="form-check-label" for="data-sharing">
+                            Share anonymized data for medical research
+                        </label>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="marketing" name="marketing" data-testid="checkbox-marketing">
+                        <label class="form-check-label" for="marketing">
+                            Receive marketing communications
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="save-button" data-testid="button-save-settings">Save Settings</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

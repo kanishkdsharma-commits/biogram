@@ -19,13 +19,16 @@ Preferred communication style: Simple, everyday language.
 - **UI Framework:** Bootstrap 5 with custom Apple-inspired CSS.
 - **Design Aesthetic:** Apple iPhone website aesthetic with a unified purple gradient palette, bold headlines (64px), SF Pro font family, streamlined icons (50-60px), smooth fadeInUp animations, compact card designs, and tighter spacing.
 - **Visual Design System:** Includes 80px vertical padding for heroes with rounded bottom corners, 16-20px border-radius for cards with lighter shadows, a defined typography scale, subtle hover animations, compact emoji icons, and gradient badges for status indicators.
-- **Navigation:** Card-based home dashboard replaces traditional sidebar navigation, featuring 5 large navigation cards linking to Health Snapshot, Timeline, Wearable Insights, Medications, and Lab Results. Each detail page includes a "Back to Dashboard" button.
+- **Navigation:** Card-based home dashboard with 5 large navigation cards linking to Health Snapshot, Timeline, Wearable Insights, Medications, and Lab Results. Navbar hamburger menu includes additional options: Link Records Portal, Upload Documents, and Profile Settings. Each detail page includes a "Back to Dashboard" button.
 - **Key Page Features:**
     - **Health Snapshot:** AI insights, health trends, conditions, medications, with an interactive dropdown list for health conditions.
     - **Health Timeline:** Interactive vertical timeline with 17 chronologically sorted medical events, expandable/collapsible accordion-style cards (only one event expanded at a time), filter controls for date range (All Time, Last 30 Days, Last 6 Months, Last Year) and event type (6 checkbox filters: Hospital Visit, Emergency Room, Lab Test, Medication Change, Routine Checkup, New Diagnosis), smooth fade animations for filtering, and race-condition-free JavaScript using timeout tracking Map to ensure accurate filter behavior during rapid toggling.
     - **Wearable Insights:** Displays 7 days of activity data with averages, heart rate range, and daily activity metrics.
     - **Medications:** Comprehensive view of medications, interactions, and side effects.
     - **Lab Results:** Visual presentation of 4 sample test results with large value displays and gradient status badges.
+    - **Link Records Portal:** Connection interface for linking external health records from Epic MyChart, Cerner Health, Apple Health, Google Fit, Healthgrades, and other providers.
+    - **Upload Documents:** File upload interface supporting PDF, JPG, PNG, DOC, and DOCX formats for medical records, lab results, prescriptions, imaging, vaccination records, and insurance cards.
+    - **Profile Settings:** User profile management with personal information, notification preferences (5 toggles), and privacy settings (2 toggles).
 
 ### Technical Implementation
 - **Django Configuration:** Settings in `biogram/settings.py`, sample data in `sample_data.py`, URL routing in `core/urls.py` and `health/urls.py`, views in `core/views.py` and `health/views.py`, and templates in `templates/core/` and `templates/health/`.
