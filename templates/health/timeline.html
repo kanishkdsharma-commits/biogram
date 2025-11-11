@@ -556,6 +556,9 @@
 </div>
 
 <script>
+    // Track pending hide timeouts to prevent race conditions
+    const pendingHideTimeouts = new Map();
+    
     // Toggle event expansion (accordion behavior)
     function toggleEvent(eventId) {
         const clickedCard = document.getElementById(eventId);
@@ -577,6 +580,10 @@
         const dateRange = document.getElementById('date-range-select').value;
         const selectedTypes = Array.from(document.querySelectorAll('.checkbox-item input[type="checkbox"]:checked'))
             .map(cb => cb.value);
+        
+        // Clear all pending hide timeouts to prevent race conditions
+        pendingHideTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+        pendingHideTimeouts.clear();
         
         // Calculate date cutoff
         let cutoffDate = null;
@@ -601,9 +608,11 @@
                 event.classList.remove('fade-out', 'hidden');
             } else {
                 event.classList.add('fade-out');
-                setTimeout(() => {
+                const timeoutId = setTimeout(() => {
                     event.classList.add('hidden');
+                    pendingHideTimeouts.delete(event);
                 }, 300);
+                pendingHideTimeouts.set(event, timeoutId);
             }
         });
     }
