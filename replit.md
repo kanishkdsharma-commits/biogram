@@ -4,6 +4,8 @@
 
 Biogram is a public health insights dashboard that transforms complex medical data into clear, accessible information. The application features an Apple iPhone website-inspired UI design - clean, premium, and user-friendly across all sections. Built with Django and PostgreSQL, it presents sample patient data with an emphasis on visual clarity and modern aesthetics.
 
+**Navigation:** Card-based home dashboard with 5 clickable sections (no sidebar navigation). Each detail page includes a back button to return home.
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -22,8 +24,9 @@ Preferred communication style: Simple, everyday language.
 **Application Structure:**
 - Public dashboard (no authentication required for demo)
 - Sample data driven from `sample_data.py`
-- Four main views: Health Snapshot, Timeline, Wearable Insights, Lab Results
+- Card-based home page with navigation to 5 sections: Health Snapshot, Timeline, Wearable Insights, Medications, Lab Results
 - RESTful URL patterns with Django template rendering
+- No sidebar navigation - replaced with home dashboard cards and back buttons
 
 **Data Management:**
 - Static sample data for demonstration purposes
@@ -54,12 +57,32 @@ Preferred communication style: Simple, everyday language.
 
 ## Page Designs
 
-### Health Snapshot (Dashboard) - `/`
+### Home Dashboard - `/`
 
 **Design Features:**
+- Purple gradient hero with "Your Health Dashboard" headline
+- Subtitle: "Choose a section to explore your health insights"
+- 5 large navigation cards in responsive grid layout
+
+**Navigation Cards:**
+- Grid layout: auto-fit columns, minimum 300px width, 30px gap
+- Each card displays:
+  * Large icon (64px): 📊 📅 ⌚ 💊 🔬
+  * Section title (24px bold)
+  * Description text (15px)
+  * Arrow indicator (→) appears on hover
+- Apple aesthetic: white background, purple gradient border on hover
+- Smooth animations: fadeInUp (0.6s) with staggered delays
+- Cards link to: Health Snapshot, Timeline, Wearable Insights, Medications, Lab Results
+
+### Health Snapshot - `/snapshot/`
+
+**Design Features:**
+- Back to Dashboard button (← Back to Dashboard) at top
 - Purple gradient hero with "Your Health Snapshot" headline
 - Action buttons: "Prepare for Appointment" and "Share with Provider"
 - Compact information display (removed Bootstrap accordions)
+- No sidebar navigation
 
 **Content Sections:**
 1. **What's Changing:** 3 large trend cards with icons, descriptions, and recommendations
@@ -76,7 +99,9 @@ Preferred communication style: Simple, everyday language.
 ### Health Timeline - `/health/timeline/`
 
 **Design Features:**
+- Back to Dashboard button at top
 - Purple gradient hero with "Your Health Journey" headline
+- No sidebar navigation
 - Vertical timeline connector line with gradient
 - 17 chronologically sorted events (most recent first)
 
@@ -92,7 +117,9 @@ Preferred communication style: Simple, everyday language.
 ### Wearable Insights - `/health/wearable/`
 
 **Design Features:**
+- Back to Dashboard button at top
 - Purple gradient hero with "Wearable Insights" headline
+- No sidebar navigation
 - Date range display (last 7 days)
 - AI insights banner with yellow/gold gradient
 
@@ -110,7 +137,9 @@ Preferred communication style: Simple, everyday language.
 ### Medications - `/health/medications/`
 
 **Design Features:**
+- Back to Dashboard button at top
 - Purple gradient hero with "Your Medications" headline
+- No sidebar navigation
 - 80px floating pill icon (💊) with animation
 - Dedicated tab accessible from all pages
 - Comprehensive medication management view
@@ -134,7 +163,9 @@ Preferred communication style: Simple, everyday language.
 ### Lab Results - `/health/lab-results/`
 
 **Design Features:**
+- Back to Dashboard button at top
 - Purple gradient hero with 80px microscope icon 🔬
+- No sidebar navigation
 - Large value displays for test results
 - Gradient status badges
 
@@ -149,6 +180,34 @@ Preferred communication style: Simple, everyday language.
 - Notes section with yellow highlight
 
 ## Recent Changes (November 2025)
+
+### Card-Based Navigation Redesign (November 11, 2025)
+
+**Navigation Transformation:**
+- Replaced sidebar navigation with card-based home dashboard
+- Created new home page (/) featuring 5 large navigation cards in Apple aesthetic grid
+- Each card links to a detail section with intuitive icons and descriptions
+- Removed sidebar from all 5 detail pages (Dashboard, Timeline, Wearable, Medications, Lab Results)
+- Added "Back to Dashboard" button at top of each detail page for easy return to home
+
+**URL Structure Changes:**
+- Home dashboard: / (new)
+- Health Snapshot: /snapshot/ (moved from /)
+- Timeline: /health/timeline/ (URL name changed from health_timeline to timeline)
+- Other sections remain at /health/wearable/, /health/medications/, /health/lab-results/
+
+**Technical Implementation:**
+- New home_view in core/views.py renders templates/core/home.html
+- Updated core/urls.py and health/urls.py with new route patterns
+- Base template navbar updated to reference 'home' instead of 'dashboard'
+- Full-width layouts on detail pages (removed col-md-2/col-md-10 grid)
+- Consistent back button styling across all pages with purple hover effects
+
+**User Experience:**
+- Cleaner, more focused navigation
+- Reduced visual clutter (no persistent sidebar)
+- Intuitive card-based interface matching Apple design philosophy
+- Clear navigation breadcrumb via back button
 
 ### Interactive Health Conditions Dropdown (November 9, 2025)
 
