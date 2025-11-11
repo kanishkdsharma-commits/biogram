@@ -262,6 +262,28 @@
         animation: fadeInUp 0.6s ease-out;
     }
 
+    /* Back Button */
+    .back-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background: white;
+        color: #667eea;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin: 40px 60px;
+    }
+
+    .back-button:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
         .labs-hero h1 {
@@ -289,23 +311,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-2 sidebar pt-4">
-            <nav class="nav flex-column">
-                <a href="{% url 'dashboard' %}" class="sidebar-link" data-testid="link-snapshot">📊 Health Snapshot</a>
-                <a href="{% url 'health_timeline' %}" class="sidebar-link" data-testid="link-timeline">📅 Health Timeline</a>
-                <a href="{% url 'wearable_insights' %}" class="sidebar-link" data-testid="link-wearable">⌚ Wearable Insights</a>
-                <a href="{% url 'medications' %}" class="sidebar-link" data-testid="link-medications">💊 Medications</a>
-                <a href="{% url 'lab_results' %}" class="sidebar-link active" data-testid="link-labs">🔬 Lab Results</a>
-            </nav>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="col-md-10 p-0">
-            <!-- Hero Section -->
-            <div class="labs-hero">
+<div class="container-fluid p-0">
+    <!-- Back Button -->
+    <a href="{% url 'home' %}" class="back-button" data-testid="button-back-home">← Back to Dashboard</a>
+    
+    <!-- Hero Section -->
+    <div class="labs-hero">
                 <span class="hero-icon">🔬</span>
                 <h1>Lab Results</h1>
                 <p>Your test results, clearly explained.</p>
@@ -377,7 +388,5 @@
                 </div>
                 {% endif %}
             </div>
-        </div>
-    </div>
 </div>
 {% endblock %}
