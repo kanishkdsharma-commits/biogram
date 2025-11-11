@@ -166,6 +166,88 @@
         animation: fadeInUp 0.4s ease-out;
     }
 
+    /* Insight List */
+    .insight-list {
+        background: white;
+        border-radius: 20px;
+        padding: 8px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .insight-list-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+
+    .insight-list-item:hover {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+    }
+
+    .insight-list-icon {
+        font-size: 32px;
+        flex-shrink: 0;
+        margin-top: 4px;
+    }
+
+    .insight-list-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .insight-list-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin: 0 0 8px 0;
+    }
+
+    .insight-list-text {
+        font-size: 15px;
+        color: #374151;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .insight-list-recommendation {
+        margin-top: 12px;
+        padding: 12px 16px;
+        background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+        border-radius: 10px;
+        font-size: 14px;
+        color: #4f46e5;
+        font-weight: 500;
+    }
+
+    .dismiss-button {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        background: transparent;
+        border: none;
+        color: #9ca3af;
+        font-size: 24px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .dismiss-button:hover {
+        background: #fee2e2;
+        color: #ef4444;
+        transform: scale(1.1);
+    }
+
     /* Condition List with Dropdowns */
     .conditions-list {
         background: white;
@@ -429,19 +511,20 @@
                         </button>
                     </div>
                     
-                    <!-- Tab Content: Insights (Health Trends in Card Format) -->
+                    <!-- Tab Content: Insights (List Format) -->
                     <div id="insights-content" class="insight-tab-content active">
-                        <div class="row g-4">
+                        <div class="insight-list">
                             {% for trend in health_trends %}
-                            <div class="col-md-4">
-                                <div class="trend-card">
-                                    <span class="trend-icon">{% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}</span>
-                                    <h3 class="trend-title">{{ trend.trend }}</h3>
-                                    <p class="trend-description">{{ trend.description }}</p>
-                                    <div class="trend-recommendation">
+                            <div class="insight-list-item" data-testid="insight-item-{{ forloop.counter }}">
+                                <span class="insight-list-icon">{% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}</span>
+                                <div class="insight-list-content">
+                                    <h4 class="insight-list-title">{{ trend.trend }}</h4>
+                                    <p class="insight-list-text">{{ trend.description }}</p>
+                                    <div class="insight-list-recommendation">
                                         <strong>What to do:</strong> {{ trend.recommendation }}
                                     </div>
                                 </div>
+                                <button class="dismiss-button" onclick="dismissInsight(this)" data-testid="button-dismiss-{{ forloop.counter }}">✕</button>
                             </div>
                             {% endfor %}
                         </div>
@@ -449,14 +532,14 @@
                     
                     <!-- Tab Content: Tips -->
                     <div id="tips-content" class="insight-tab-content">
-                        <div class="row g-4">
+                        <div class="insight-list">
                             {% for guidance in health_guidance %}
-                            <div class="col-md-6">
-                                <div class="trend-card" data-testid="tip-card-{{ forloop.counter }}">
-                                    <span class="trend-icon">💡</span>
-                                    <h3 class="trend-title">Health Tip #{{ forloop.counter }}</h3>
-                                    <p class="trend-description">{{ guidance|safe }}</p>
+                            <div class="insight-list-item" data-testid="tip-item-{{ forloop.counter }}">
+                                <span class="insight-list-icon">💡</span>
+                                <div class="insight-list-content">
+                                    <p class="insight-list-text">{{ guidance|safe }}</p>
                                 </div>
+                                <button class="dismiss-button" onclick="dismissInsight(this)" data-testid="button-dismiss-tip-{{ forloop.counter }}">✕</button>
                             </div>
                             {% endfor %}
                         </div>
@@ -464,14 +547,14 @@
                     
                     <!-- Tab Content: Ask Doctor -->
                     <div id="ask-doctor-content" class="insight-tab-content">
-                        <div class="row g-4">
+                        <div class="insight-list">
                             {% for question in doctor_questions %}
-                            <div class="col-md-6">
-                                <div class="trend-card" data-testid="question-card-{{ forloop.counter }}">
-                                    <span class="trend-icon">❓</span>
-                                    <h3 class="trend-title">Question for Your Doctor</h3>
-                                    <p class="trend-description">{{ question }}</p>
+                            <div class="insight-list-item" data-testid="question-item-{{ forloop.counter }}">
+                                <span class="insight-list-icon">❓</span>
+                                <div class="insight-list-content">
+                                    <p class="insight-list-text">{{ question }}</p>
                                 </div>
+                                <button class="dismiss-button" onclick="dismissInsight(this)" data-testid="button-dismiss-question-{{ forloop.counter }}">✕</button>
                             </div>
                             {% endfor %}
                         </div>
@@ -584,6 +667,20 @@
         } else {
             item.classList.add('expanded');
         }
+    }
+    
+    // Dismiss insight item
+    function dismissInsight(button) {
+        const insightItem = button.closest('.insight-list-item');
+        
+        // Fade out animation
+        insightItem.style.opacity = '0';
+        insightItem.style.transform = 'translateX(20px)';
+        
+        // Remove after animation completes
+        setTimeout(() => {
+            insightItem.remove();
+        }, 300);
     }
     
     // Mark condition as resolved
