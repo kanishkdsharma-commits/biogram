@@ -22,7 +22,7 @@ Preferred communication style: Simple, everyday language.
 - **Navigation:** Card-based home dashboard replaces traditional sidebar navigation, featuring 5 large navigation cards linking to Health Snapshot, Timeline, Wearable Insights, Medications, and Lab Results. Each detail page includes a "Back to Dashboard" button.
 - **Key Page Features:**
     - **Health Snapshot:** AI insights, health trends, conditions, medications, with an interactive dropdown list for health conditions.
-    - **Health Timeline:** Vertical timeline with 17 chronologically sorted medical events.
+    - **Health Timeline:** Interactive vertical timeline with 17 chronologically sorted medical events, expandable/collapsible accordion-style cards (only one event expanded at a time), filter controls for date range (All Time, Last 30 Days, Last 6 Months, Last Year) and event type (6 checkbox filters: Hospital Visit, Emergency Room, Lab Test, Medication Change, Routine Checkup, New Diagnosis), smooth fade animations for filtering, and race-condition-free JavaScript using timeout tracking Map to ensure accurate filter behavior during rapid toggling.
     - **Wearable Insights:** Displays 7 days of activity data with averages, heart rate range, and daily activity metrics.
     - **Medications:** Comprehensive view of medications, interactions, and side effects.
     - **Lab Results:** Visual presentation of 4 sample test results with large value displays and gradient status badges.
