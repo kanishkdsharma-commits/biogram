@@ -1,7 +1,13 @@
 from django.shortcuts import render
 
 
+def home_view(request):
+    """Home page with navigation cards"""
+    return render(request, 'core/home.html')
+
+
 def dashboard_view(request):
+    """Health Snapshot page"""
     # Import sample data
     from sample_data import AI_INSIGHTS, ACTIVE_PROBLEMS
     
