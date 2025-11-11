@@ -122,68 +122,48 @@
         font-weight: 500;
     }
 
-    /* Health Insights Checklist */
-    .insights-checklist {
+    /* Insight Tabs */
+    .insight-tabs {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 32px;
         background: white;
-        border-radius: 20px;
-        padding: 28px;
+        padding: 8px;
+        border-radius: 16px;
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
-    .insight-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 16px 0;
-        border-bottom: 1px solid #f3f4f6;
-        transition: all 0.2s ease;
-    }
-
-    .insight-item:last-child {
-        border-bottom: none;
-    }
-
-    .insight-item:hover {
-        background: #f9fafb;
-        margin: 0 -16px;
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
-    .insight-checkbox {
-        width: 20px;
-        height: 20px;
-        border: 2px solid #667eea;
-        border-radius: 6px;
-        flex-shrink: 0;
-        margin-top: 2px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .insight-checkbox:hover {
-        background: #f0f4ff;
-        transform: scale(1.1);
-    }
-
-    .insight-content {
+    .insight-tab {
         flex: 1;
-        font-size: 15px;
-        color: #374151;
-        line-height: 1.6;
+        padding: 16px 24px;
+        background: transparent;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
 
-    .insight-label {
-        display: inline-block;
-        padding: 2px 10px;
+    .insight-tab:hover {
+        background: #f9fafb;
+        color: #667eea;
+    }
+
+    .insight-tab.active {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 6px;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .insight-tab-content {
+        display: none;
+    }
+
+    .insight-tab-content.active {
+        display: block;
+        animation: fadeInUp 0.4s ease-out;
     }
 
     /* Condition List with Dropdowns */
@@ -281,6 +261,26 @@
 
     .condition-badge.info {
         background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+
+    .resolved-button {
+        padding: 8px 16px;
+        background: white;
+        border: 2px solid #10b981;
+        color: #10b981;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .resolved-button:hover {
+        background: #10b981;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
 
     .expand-icon {
@@ -411,48 +411,70 @@
             </div>
 
             <div class="px-5 pb-5">
-                <!-- Health Trends Section -->
-                <section class="mb-5 fade-in">
-                    <h2 class="section-header">📈 What's Changing</h2>
-                    <div class="row g-4">
-                        {% for trend in health_trends %}
-                        <div class="col-md-4">
-                            <div class="trend-card">
-                                <span class="trend-icon">{% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}</span>
-                                <h3 class="trend-title">{{ trend.trend }}</h3>
-                                <p class="trend-description">{{ trend.description }}</p>
-                                <div class="trend-recommendation">
-                                    <strong>What to do:</strong> {{ trend.recommendation }}
+
+                <!-- Health Insights with Tabs -->
+                <section class="mb-5 fade-in" style="animation-delay: 0.1s;">
+                    <h2 class="section-header">💡 AI-Powered Health Insights</h2>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="insight-tabs">
+                        <button class="insight-tab active" onclick="switchInsightTab('insights')" data-testid="tab-insights">
+                            🔮 Insights
+                        </button>
+                        <button class="insight-tab" onclick="switchInsightTab('tips')" data-testid="tab-tips">
+                            💡 Tips
+                        </button>
+                        <button class="insight-tab" onclick="switchInsightTab('ask-doctor')" data-testid="tab-ask-doctor">
+                            👨‍⚕️ Ask Doctor
+                        </button>
+                    </div>
+                    
+                    <!-- Tab Content: Insights (Health Trends in Card Format) -->
+                    <div id="insights-content" class="insight-tab-content active">
+                        <div class="row g-4">
+                            {% for trend in health_trends %}
+                            <div class="col-md-4">
+                                <div class="trend-card">
+                                    <span class="trend-icon">{% if trend.severity == 'positive' %}✅{% elif trend.severity == 'moderate' %}⚠️{% else %}ℹ️{% endif %}</span>
+                                    <h3 class="trend-title">{{ trend.trend }}</h3>
+                                    <p class="trend-description">{{ trend.description }}</p>
+                                    <div class="trend-recommendation">
+                                        <strong>What to do:</strong> {{ trend.recommendation }}
+                                    </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
-                </section>
-
-                <!-- Health Insights Checklist (Merged Tips + Questions) -->
-                <section class="mb-5 fade-in" style="animation-delay: 0.1s;">
-                    <h2 class="section-header">💡 Health Insights</h2>
-                    <div class="insights-checklist">
-                        {% for guidance in health_guidance %}
-                        <div class="insight-item" data-testid="insight-tip-{{ forloop.counter }}">
-                            <div class="insight-checkbox"></div>
-                            <div class="insight-content">
-                                <div class="insight-label">Tip</div>
-                                {{ guidance|safe }}
+                    
+                    <!-- Tab Content: Tips -->
+                    <div id="tips-content" class="insight-tab-content">
+                        <div class="row g-4">
+                            {% for guidance in health_guidance %}
+                            <div class="col-md-6">
+                                <div class="trend-card" data-testid="tip-card-{{ forloop.counter }}">
+                                    <span class="trend-icon">💡</span>
+                                    <h3 class="trend-title">Health Tip #{{ forloop.counter }}</h3>
+                                    <p class="trend-description">{{ guidance|safe }}</p>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                        
-                        {% for question in doctor_questions %}
-                        <div class="insight-item" data-testid="insight-question-{{ forloop.counter }}">
-                            <div class="insight-checkbox"></div>
-                            <div class="insight-content">
-                                <div class="insight-label">Ask Doctor</div>
-                                {{ question }}
+                    </div>
+                    
+                    <!-- Tab Content: Ask Doctor -->
+                    <div id="ask-doctor-content" class="insight-tab-content">
+                        <div class="row g-4">
+                            {% for question in doctor_questions %}
+                            <div class="col-md-6">
+                                <div class="trend-card" data-testid="question-card-{{ forloop.counter }}">
+                                    <span class="trend-icon">❓</span>
+                                    <h3 class="trend-title">Question for Your Doctor</h3>
+                                    <p class="trend-description">{{ question }}</p>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </section>
 
@@ -469,6 +491,9 @@
                                     <p class="condition-summary">{{ problem.simple_summary.what_it_means }}</p>
                                 </div>
                                 <div class="condition-right">
+                                    <button class="resolved-button" onclick="event.stopPropagation(); markAsResolved(this, '{{ problem.problem }}')" data-testid="button-resolved-{{ forloop.counter }}">
+                                        ✓ Resolved
+                                    </button>
                                     <span class="condition-badge {% if problem.status == 'Getting Worse' %}danger{% elif problem.status == 'Improving' %}info{% elif problem.status == 'Stable' or problem.status == 'Well Controlled' %}{% else %}warning{% endif %}">
                                         {{ problem.status }}
                                     </span>
@@ -510,6 +535,14 @@
                         </div>
                         {% endfor %}
                     </div>
+                    
+                    <!-- Resolved Conditions History -->
+                    <div id="resolved-history" class="mt-5" style="display: none;">
+                        <h3 class="mb-4" style="font-size: 28px; font-weight: 700; color: #1a1a2e;">📜 Resolved Conditions</h3>
+                        <div id="resolved-list" class="conditions-list">
+                            <!-- Resolved items will be added here dynamically -->
+                        </div>
+                    </div>
                 </section>
             </div>
 </div>
@@ -517,6 +550,22 @@
 
 {% block extra_js %}
 <script>
+    // Switch insight tabs
+    function switchInsightTab(tabName) {
+        // Remove active class from all tabs and content
+        document.querySelectorAll('.insight-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.insight-tab-content').forEach(content => content.classList.remove('active'));
+        
+        // Add active class to selected tab and content
+        const activeTab = tabName === 'insights' ? 'tab-insights' : 
+                         tabName === 'tips' ? 'tab-tips' : 'tab-ask-doctor';
+        const activeContent = tabName === 'insights' ? 'insights-content' : 
+                             tabName === 'tips' ? 'tips-content' : 'ask-doctor-content';
+        
+        document.querySelector(`[data-testid="${activeTab}"]`).classList.add('active');
+        document.getElementById(activeContent).classList.add('active');
+    }
+    
     // Toggle condition dropdown
     function toggleCondition(header) {
         const item = header.closest('.condition-item');
@@ -535,6 +584,47 @@
         } else {
             item.classList.add('expanded');
         }
+    }
+    
+    // Mark condition as resolved
+    function markAsResolved(button, conditionName) {
+        const conditionItem = button.closest('.condition-item');
+        const resolvedHistory = document.getElementById('resolved-history');
+        const resolvedList = document.getElementById('resolved-list');
+        
+        // Create resolved item
+        const resolvedItem = conditionItem.cloneNode(true);
+        resolvedItem.classList.remove('expanded');
+        resolvedItem.classList.add('stable');
+        
+        // Update the badge to show "Resolved"
+        const badge = resolvedItem.querySelector('.condition-badge');
+        badge.textContent = 'Resolved';
+        badge.className = 'condition-badge';
+        
+        // Remove the resolved button from the cloned item
+        const resolvedButton = resolvedItem.querySelector('.resolved-button');
+        if (resolvedButton) {
+            resolvedButton.remove();
+        }
+        
+        // Add timestamp
+        const timestamp = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const summary = resolvedItem.querySelector('.condition-summary');
+        summary.innerHTML = `Marked as resolved on ${timestamp}. ${summary.innerHTML}`;
+        
+        // Add to resolved list
+        resolvedList.appendChild(resolvedItem);
+        
+        // Show resolved history section
+        resolvedHistory.style.display = 'block';
+        
+        // Remove from active list with fade animation
+        conditionItem.style.opacity = '0';
+        conditionItem.style.transform = 'translateX(-20px)';
+        setTimeout(() => {
+            conditionItem.remove();
+        }, 300);
     }
 </script>
 {% endblock %}
