@@ -126,6 +126,7 @@
     .nav-card:nth-child(3) { animation-delay: 0.2s; }
     .nav-card:nth-child(4) { animation-delay: 0.3s; }
     .nav-card:nth-child(5) { animation-delay: 0.4s; }
+    .nav-card:nth-child(6) { animation-delay: 0.5s; }
 </style>
 {% endblock %}
 
@@ -176,6 +177,14 @@
                 <div class="nav-card-icon">🔬</div>
                 <h2 class="nav-card-title">Lab Results</h2>
                 <p class="nav-card-description">Review your test results, reference ranges, and clinical notes</p>
+                <div class="nav-card-arrow">→</div>
+            </a>
+
+            <!-- Share with Doctor Card -->
+            <a href="{% url 'share_with_doctor' %}" class="nav-card" data-testid="card-share-doctor">
+                <div class="nav-card-icon">🔗</div>
+                <h2 class="nav-card-title">Share with Doctor</h2>
+                <p class="nav-card-description">Get a shareable code and link for your doctor to access your health summary</p>
                 <div class="nav-card-arrow">→</div>
             </a>
         </div>

@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+
+{% block title %}Patient Health Summary - Biogram{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: #f8f9fa;
+    }
+
+    .clinical-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 32px 40px;
+        margin-bottom: 32px;
+    }
+
+    .clinical-header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .patient-info {
+        font-size: 15px;
+        opacity: 0.95;
+    }
+
+    .patient-info span {
+        margin-right: 24px;
+    }
+
+    .print-button {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        float: right;
+    }
+
+    .print-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .content-wrapper {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px 60px;
+    }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .section-card {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .section-card.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 2px solid #f3f4f6;
+        padding-bottom: 12px;
+    }
+
+    .condition-item {
+        padding: 16px;
+        background: #f9fafb;
+        border-left: 4px solid #667eea;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+
+    .condition-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 6px;
+    }
+
+    .condition-status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+
+    .condition-status.stable {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .condition-status.improving {
+        background: #dbeafe;
+        color: #1e40af;
+    }
+
+    .condition-status.attention {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .condition-details {
+        font-size: 14px;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-top: 8px;
+    }
+
+    .med-item {
+        padding: 14px;
+        background: #f9fafb;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .med-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a2e;
+    }
+
+    .med-dose {
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 4px;
+    }
+
+    .insight-item {
+        padding: 16px;
+        border-left: 4px solid #fbbf24;
+        background: #fffbeb;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+
+    .insight-item.positive {
+        border-left-color: #10b981;
+        background: #f0fdf4;
+    }
+
+    .insight-item.moderate {
+        border-left-color: #f59e0b;
+        background: #fffbeb;
+    }
+
+    .insight-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 6px;
+    }
+
+    .insight-text {
+        font-size: 14px;
+        color: #4b5563;
+        line-height: 1.6;
+    }
+
+    .wearable-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 16px;
+    }
+
+    .wearable-stat {
+        text-align: center;
+        padding: 16px;
+        background: #f9fafb;
+        border-radius: 12px;
+    }
+
+    .wearable-label {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .wearable-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: #667eea;
+    }
+
+    .lab-result {
+        padding: 14px;
+        background: #f9fafb;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .lab-date {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .lab-data {
+        font-size: 14px;
+        color: #1a1a2e;
+        line-height: 1.6;
+    }
+
+    @media print {
+        .print-button {
+            display: none;
+        }
+        .section-card {
+            break-inside: avoid;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="clinical-header">
+    <button onclick="window.print()" class="print-button" data-testid="button-print">🖨️ Print Summary</button>
+    <h1>Patient Health Summary</h1>
+    <div class="patient-info">
+        <span><strong>Patient:</strong> {{ patient_name }}</span>
+        <span><strong>DOB:</strong> {{ patient_dob }} (Age {{ patient_age }})</span>
+        <span><strong>Generated:</strong> {% now "F j, Y g:i A" %}</span>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="summary-grid">
+        <!-- Active Health Conditions -->
+        <div class="section-card full-width">
+            <h2 class="section-title">🏥 Active Medical Conditions</h2>
+            {% for problem in active_problems %}
+            <div class="condition-item" data-testid="condition-{{ forloop.counter }}">
+                <div class="condition-name">
+                    {{ problem.problem }}
+                    <span class="condition-status {% if problem.status == 'Stable' or problem.status == 'Well Controlled' %}stable{% elif problem.status == 'Improving' %}improving{% else %}attention{% endif %}">
+                        {{ problem.status }}
+                    </span>
+                </div>
+                <div class="condition-details">
+                    <strong>ICD-10:</strong> {{ problem.icd10 }} | <strong>Onset:</strong> {{ problem.onset }}<br>
+                    <strong>Summary:</strong> {{ problem.simple_summary.what_it_means }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Current Medications -->
+        <div class="section-card">
+            <h2 class="section-title">💊 Current Medications</h2>
+            {% for med in medications %}
+            <div class="med-item" data-testid="medication-{{ forloop.counter }}">
+                <div class="med-name">{{ med.name }} {{ med.dose }}</div>
+                <div class="med-dose">
+                    {{ med.frequency }} • {{ med.purpose }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Wearable Device Data -->
+        <div class="section-card">
+            <h2 class="section-title">⌚ Wearable Data (7-Day Average)</h2>
+            <div class="wearable-grid">
+                <div class="wearable-stat">
+                    <div class="wearable-label">Steps</div>
+                    <div class="wearable-value">{{ wearable_data.avg_steps }}</div>
+                </div>
+                <div class="wearable-stat">
+                    <div class="wearable-label">Heart Rate</div>
+                    <div class="wearable-value">{{ wearable_data.avg_heart_rate }}</div>
+                </div>
+                <div class="wearable-stat">
+                    <div class="wearable-label">Resting HR</div>
+                    <div class="wearable-value">{{ wearable_data.resting_heart_rate }}</div>
+                </div>
+                <div class="wearable-stat">
+                    <div class="wearable-label">Active Time</div>
+                    <div class="wearable-value">{{ wearable_data.active_minutes }}</div>
+                </div>
+                <div class="wearable-stat">
+                    <div class="wearable-label">Sleep Avg</div>
+                    <div class="wearable-value">{{ wearable_data.sleep_avg }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI-Generated Health Insights -->
+        <div class="section-card full-width">
+            <h2 class="section-title">🔮 AI-Generated Health Insights</h2>
+            {% for trend in health_trends %}
+            <div class="insight-item {% if trend.severity == 'positive' %}positive{% else %}moderate{% endif %}" data-testid="insight-{{ forloop.counter }}">
+                <div class="insight-title">{{ trend.trend }}</div>
+                <div class="insight-text">
+                    {{ trend.description }}<br>
+                    <strong>Recommendation:</strong> {{ trend.recommendation }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Patient's Questions for Doctor -->
+        <div class="section-card">
+            <h2 class="section-title">❓ Patient Questions</h2>
+            {% for question in doctor_questions %}
+            <div class="insight-item" data-testid="question-{{ forloop.counter }}">
+                <div class="insight-text">{{ question }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Health Guidance -->
+        <div class="section-card">
+            <h2 class="section-title">💡 Clinical Guidance</h2>
+            {% for guidance in health_guidance %}
+            <div class="insight-item" data-testid="guidance-{{ forloop.counter }}">
+                <div class="insight-text">{{ guidance|safe }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if recent_labs %}
+        <!-- Recent Lab Results -->
+        <div class="section-card full-width">
+            <h2 class="section-title">🔬 Recent Lab Results</h2>
+            {% for lab in recent_labs %}
+            <div class="lab-result" data-testid="lab-{{ forloop.counter }}">
+                <div class="lab-date">{{ lab.date }} - {{ lab.provider }}</div>
+                <div class="lab-data">{{ lab.tests }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="section-card">
+        <p style="text-align: center; color: #6b7280; font-size: 14px; margin: 0;">
+            <strong>Confidential Patient Information</strong> - This summary is provided for clinical use during virtual visits.<br>
+            All data is sourced from patient health records and wearable devices as of {% now "F j, Y" %}.
+        </p>
+    </div>
+</div>
+{% endblock %}
