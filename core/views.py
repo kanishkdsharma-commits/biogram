@@ -142,3 +142,113 @@ def doctor_summary_view(request):
         'wearable_data': wearable_summary,
     }
     return render(request, 'core/doctor_summary.html', context)
+
+
+def connect_devices_view(request):
+    """Wearable devices connection page"""
+    if request.method == 'POST':
+        device_name = request.POST.get('device_name')
+        action = request.POST.get('action')
+        
+        if action == 'connect':
+            messages.success(request, f'{device_name} connected successfully! Data sync in progress...')
+        elif action == 'disconnect':
+            messages.info(request, f'{device_name} disconnected.')
+        elif action == 'sync':
+            messages.success(request, f'{device_name} data synced successfully!')
+        
+        return redirect('connect_devices')
+    
+    # Sample connection statuses (in production, these would be from database)
+    devices = [
+        {
+            'name': 'Apple Health',
+            'icon': '🍎',
+            'description': 'iPhone & Apple Watch health data',
+            'connected': True,
+            'last_sync': '2 hours ago',
+            'data_types': 'Steps, Heart Rate, Sleep, Workouts'
+        },
+        {
+            'name': 'Fitbit',
+            'icon': '⌚',
+            'description': 'Fitbit trackers and smartwatches',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Activity, Sleep, Heart Rate, Weight'
+        },
+        {
+            'name': 'Garmin',
+            'icon': '🏃',
+            'description': 'Garmin sports watches and fitness trackers',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Activity, GPS, Heart Rate, Training'
+        },
+        {
+            'name': 'Google Fit',
+            'icon': '🔵',
+            'description': 'Android & Wear OS fitness data',
+            'connected': True,
+            'last_sync': '5 hours ago',
+            'data_types': 'Steps, Distance, Calories, Activity'
+        },
+        {
+            'name': 'Samsung Health',
+            'icon': '💚',
+            'description': 'Samsung watches and health apps',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Activity, Sleep, Nutrition, Stress'
+        },
+        {
+            'name': 'Whoop',
+            'icon': '💪',
+            'description': 'Whoop fitness and recovery band',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Strain, Recovery, Sleep, Heart Rate'
+        },
+        {
+            'name': 'Oura Ring',
+            'icon': '💍',
+            'description': 'Oura sleep and readiness tracker',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Sleep, Readiness, Activity, HRV'
+        },
+        {
+            'name': 'Polar',
+            'icon': '⚡',
+            'description': 'Polar sports watches and trackers',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Training, Sleep, Activity, Heart Rate'
+        },
+        {
+            'name': 'Withings',
+            'icon': '⚖️',
+            'description': 'Withings scales, watches, and trackers',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Weight, Sleep, Activity, BP'
+        },
+        {
+            'name': 'Amazfit',
+            'icon': '⌚',
+            'description': 'Amazfit smartwatches and bands',
+            'connected': False,
+            'last_sync': None,
+            'data_types': 'Activity, Sleep, Heart Rate, SpO2'
+        },
+    ]
+    
+    # Calculate connected devices count
+    connected_count = sum(1 for device in devices if device['connected'])
+    
+    context = {
+        'devices': devices,
+        'connected_count': connected_count,
+        'total_devices': len(devices),
+    }
+    return render(request, 'core/connect_devices.html', context)
