@@ -197,7 +197,11 @@ LOGOUT_REDIRECT_URL = '/auth/login/'
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = DEBUG
-CORS_ALLOWED_ORIGINS = [] if DEBUG else os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = []
+else:
+    cors_origins = os.environ.get('CORS_ALLOWED_ORIGINS', '')
+    CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins.split(',') if origin.strip()]
 
 # REST Framework settings
 REST_FRAMEWORK = {
