@@ -1,5 +1,4 @@
 services:
-  # Web Service (Django App)
   - type: web
     name: biogram
     runtime: python
@@ -10,7 +9,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: DEBUG
-        value: False
+        value: "False"
       - key: SECRET_KEY
         generateValue: true
       - key: DATABASE_URL
@@ -23,7 +22,6 @@ services:
         value: "https://*.onrender.com"
 
 databases:
-  # PostgreSQL Database
   - name: biogram-db
     plan: free
     databaseName: biogram
