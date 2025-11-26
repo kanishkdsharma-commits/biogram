@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load environment variables
 load_dotenv()
@@ -30,9 +31,17 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure--ue!=l^aj+3)x&lgms5v4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*'] if DEBUG else os.environ.get('ALLOWED_HOSTS', '').split(',')
+# Configure ALLOWED_HOSTS for different environments
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    allowed_hosts = os.environ.get('ALLOWED_HOSTS', '')
+    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts.split(',') if host.strip()]
+    # Add Render domains if not already included
+    if '.onrender.com' not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append('.onrender.com')
 
-# CSRF trusted origins for Replit
+# CSRF trusted origins for Replit and Render
 CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.dev',
     'https://*.replit.dev:5000',
@@ -40,6 +49,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.replit.app:5000',
     'https://*.repl.co',
     'https://*.repl.co:5000',
+    'https://*.onrender.com',
 ]
 
 # Application definition
@@ -101,16 +111,34 @@ WSGI_APPLICATION = 'biogram.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('PGDATABASE', 'biogram'),
-        'USER': os.environ.get('PGUSER', 'postgres'),
-        'PASSWORD': os.environ.get('PGPASSWORD', ''),
-        'HOST': os.environ.get('PGHOST', 'localhost'),
-        'PORT': os.environ.get('PGPORT', '5432'),
+# Use SQLite for quick local development when DEBUG is enabled.
+# In production (DEBUG=False) the app will use PostgreSQL configured
+# via environment variables.
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # Check for Render's DATABASE_URL first, then fall back to individual variables
+    database_url = os.environ.get('DATABASE_URL')
+    if database_url:
+        DATABASES = {
+            'default': dj_database_url.parse(database_url, conn_max_age=600)
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.environ.get('PGDATABASE', 'biogram'),
+                'USER': os.environ.get('PGUSER', 'postgres'),
+                'PASSWORD': os.environ.get('PGPASSWORD', ''),
+                'HOST': os.environ.get('PGHOST', 'localhost'),
+                'PORT': os.environ.get('PGPORT', '5432'),
+            }
+        }
 
 
 # Password validation
